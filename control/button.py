@@ -20,6 +20,8 @@ class Button:
                  rectInSize: tuple[int, int] | list[int, int] = (0, 0),
                  area: int = None,
                  text: str = "Button",
+                 frameSize: int = 0,
+                 actionColor: tuple[int, int, int] | list[int, int, int] = (127, 127, 127),
                  bg: tuple[int, int, int] | list[int, int, int] = (255, 255, 255),
                  fg: tuple[int, int, int] | list[int, int, int] = (0, 0, 0),
                  font: pygame.font.Font = None,
@@ -27,12 +29,15 @@ class Button:
         self.__state = Button.RECT
         self.__area = area
         self.__rect = rect
-        self.x = rect[0]
-        self.y = rect[1]
+        self.x = self.__rect[0]
+        self.y = self.__rect[1]
         self.__size = size
         self.__rectInSize = rectInSize
         self.__name = name
         self.__text = text
+        self.__actionColor = actionColor
+        self.__action = False
+        self.frameSize = frameSize
         self.__bg = bg
         self.__fg = fg
         self.__font = font if font else pygame.font.Font()
@@ -485,6 +490,14 @@ class Button:
         return self.__size
 
     @property
+    def action(self):
+        return self.__action
+
+    @action.setter
+    def action(self, action):
+        self.__action = action
+
+    @property
     def state(self):
         return self.__state
 
@@ -644,15 +657,17 @@ class SurfaceButton(Button):
                  rectInSize: tuple[int, int] | list[int, int] = (0, 0),
                  area: int = None,
                  text: str = "SurfaceButton",
+                 frameSize: int = 0,
+                 actionColor: tuple[int, int, int] | list[int, int, int] = (127, 127, 127),
                  bg: tuple[int, int, int] | list[int, int, int] = (255, 255, 255),
                  fg: tuple[int, int, int] | list[int, int, int] = (0, 0, 0),
                  surface: list[Union[pygame.surface.Surface, HaveNameSurface]] = None,
                  font: pygame.font.Font = None,
                  name="Button"):
-        super().__init__(rect, size, rectInSize, area, text, bg, fg, font, name)
+        super().__init__(rect, size, rectInSize, area, text, frameSize, actionColor, bg, fg, font, name)
         self.__surface = [0]
         for s in surface:
-            self.__surface.append(s.convert_alpha())
+            self.__surface.append(s)
 
     def __add__(self, other):
         if isinstance(other, SurfaceButton):
@@ -677,7 +692,7 @@ class SurfaceButton(Button):
     def add_surface(self, surface: list[Union[pygame.surface.Surface, HaveNameSurface]]) -> None:
         t = 0
         for s in surface:
-            self.__surface.append(s.convert_alpha())
+            self.__surface.append(s)
             t += 1
         self.__surface[0] += t
 
@@ -687,7 +702,7 @@ class SurfaceButton(Button):
             self.__surface = [0]
             t = 0
             for s in surface:
-                self.__surface.append(s.convert_alpha())
+                self.__surface.append(s)
                 t += 1
             self.__surface[0] = t
         return self.__surface
