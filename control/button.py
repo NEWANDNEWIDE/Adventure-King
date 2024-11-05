@@ -578,13 +578,13 @@ class Button:
 
     def get_font_way(self, bold: bool = None, italic: bool = None, underline: bool = None,
                      strikethrough: bool = None) -> tuple[bool, bool, bool, bool]:
-        if bold != None:
+        if bold is not None:
             self.__font.set_bold(bold)
-        if italic != None:
+        if italic is not None:
             self.__font.set_italic(italic)
-        if underline != None:
+        if underline is not None:
             self.__font.set_underline(underline)
-        if strikethrough != None:
+        if strikethrough is not None:
             self.__font.set_strikethrough(strikethrough)
         return self.__font.bold, self.__font.italic, self.__font.underline, self.__font.strikethrough
 
