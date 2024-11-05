@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c388fb3f-2172-4411-a75d-ada954abd72c" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/Idk.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/222.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/control/button.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/control/inputField.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/control/slideBar.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/control/textBox.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/edit/edit.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/edit/func.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/game_master/fileManager.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/game_master/game.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/game_master/gameObject.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/game_master/gameSurface.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/game_master/item.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/game_master/level.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map/block.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map/map.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/item/data/example" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/settings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/test.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../../cnn/fp/Lib/site-packages/pygame/surface.pyi" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2nmEAHhwA8pFWgVLRTJNQMUb6Ha" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Python.__init__.executor": "Run",
+    "Python.button.executor": "Run",
+    "Python.fileManager.executor": "Run",
+    "Python.game.executor": "Run",
+    "Python.gameSurface.executor": "Run",
+    "Python.item.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.test.executor": "Run",
+    "Python.textBox.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "D:/llm/Idk",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\llm\Idk" />
+      <recent name="D:\llm\Idk\control" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\llm\Idk\control" />
+      <recent name="D:\llm\Idk\game" />
+      <recent name="D:\llm\Idk" />
+      <recent name="D:\llm\Idk\map" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-5b207ade9991-746f403e7f0c-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.17890.14" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="c388fb3f-2172-4411-a75d-ada954abd72c" name="更改" comment="" />
+      <created>1729569706076</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1729569706076</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+</project>

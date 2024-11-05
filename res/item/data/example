@@ -1,0 +1,37 @@
+<example
+    example代表对数据块的注释, 会自动忽略
+    这里是对所有data数据块的解释:
+        通用属性:
+            name: 数据块的名字
+            class: 此数据块的类别, 例如class=button, class=surfaceButton
+            func_name: 对应的响应函数名称(在func_d里)
+            rect: 控件位置(默认为左上角的坐标), 如rect=0 1, 其中0为x轴坐标, 1为y轴坐标, 之间用空格分割
+            size: 控件大小, 格式同上
+            rectInSize: 文本在按钮中的位置, 格式同上
+            area: 决定rect的坐标是哪个角, 例如: area=topleft(默认为左上角)
+            font: 字体名字, 如: font=ari(假定ari是某个字体的名称)
+            fontSize: 字体大小, font=40
+            bg: 背景颜色, bg=0 0 0
+            fg: 文字颜色, 格式同上
+
+        surfaceTextBox, surfaceButton特有属性:
+            surface: 单个surface的名字, 如surface=close
+            surfaceList: 多个surface的名字的集合, 如surfaceList=start close, 每个surface的名字用空格分割
+/>
+<e.
+    example的简写
+    //单行注释
+    /*
+    多行注释
+    */
+/>
+<name=example
+    class=button
+    func_name=add
+    rect=0 0
+    size=0 0
+    rectInSize=0 0
+    fontSize=40
+    bg=0 0 0
+    fg=0 0 0
+/>
