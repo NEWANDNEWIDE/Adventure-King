@@ -27,6 +27,8 @@ class Button:
         self.__state = Button.RECT
         self.__area = area
         self.__rect = rect
+        self.x = rect[0]
+        self.y = rect[1]
         self.__size = size
         self.__rectInSize = rectInSize
         self.__name = name
@@ -433,76 +435,51 @@ class Button:
 
     def __lt__(self, other):
         if isinstance(other, Button):
-            self.get_rect((self.__rect[0] % other.__rect[0], self.__rect[1] % other.__rect[1]))
-            self.get_size((self.__size[0] % other.__size[0], self.__size[1] % other.__size[1]))
-            self.get_rect_in_size((self.__rectInSize[0] % other.__rectInSize[0],
-                                   self.__rectInSize[1] % other.__rectInSize[1]))
-        else:
-            if self.__state == Button.RECT:
-                if isinstance(other, (list, tuple)):
-                    t1 = self.__rect[0]
-                    t2 = self.__rect[1]
-                    if isinstance(other[0], int):
-                        t1 = self.__rect[0] % other[0]
-                    if isinstance(other[1], int):
-                        t2 = self.__rect[1] % other[1]
-                    self.get_rect((t1, t2))
-                elif isinstance(other, (int, float)):
-                    self.get_rect((self.__rect[0] % other, self.__rect[1] % other))
-            elif self.__state == Button.SIZE:
-                if isinstance(other, (list, tuple)):
-                    t1 = self.__size[0]
-                    t2 = self.__size[1]
-                    if isinstance(other[0], int):
-                        t1 = self.__size[0] % other[0]
-                    if isinstance(other[1], int):
-                        t2 = self.__size[1] % other[1]
-                    self.get_size((t1, t2))
-                elif isinstance(other, (int, float)):
-                    self.get_size((self.__size[0] % other, self.__size[1] % other))
-            elif self.__state == Button.RIS:
-                if isinstance(other, (list, tuple)):
-                    t1 = self.__rectInSize[0]
-                    t2 = self.__rectInSize[1]
-                    if isinstance(other[0], int):
-                        t1 = self.__rectInSize[0] % other[0]
-                    if isinstance(other[1], int):
-                        t2 = self.__rectInSize[1] % other[1]
-                    self.get_rect_in_size((t1, t2))
-                elif isinstance(other, (int, float)):
-                    self.get_rect_in_size((self.__rectInSize[0] % other, self.__rectInSize[1] % other))
-            elif self.__state == Button.ALL:
-                if isinstance(other, (list, tuple)):
-                    t = [0, 0]
-                    if isinstance(other[0], int):
-                        t[0] = other[0]
-                    if isinstance(other[1], int):
-                        t[1] = other[1]
-                    self.get_rect((self.__rect[0] % t[0], self.__rect[1] % t[1]))
-                    self.get_size((self.__size[0] % t[0], self.__size[1] % t[1]))
-                    self.get_rect_in_size((self.__rectInSize[0] % t[0],
-                                           self.__rectInSize[1] % t[1]))
-                elif isinstance(other, (int, float)):
-                    self.get_rect((self.__rect[0] % other.__rect[0], self.__rect[1] % other.__rect[1]))
-                    self.get_size((self.__size[0] % other.__size[0], self.__size[1] % other.__size[1]))
-                    self.get_rect_in_size((self.__rectInSize[0] % other.__rectInSize[0],
-                                           self.__rectInSize[1] % other.__rectInSize[1]))
-        return True
+            return self.__rect[0] < other.__rect[0] and self.__rect[1] < other.__rect[1]
+        elif isinstance(other, int):
+            return self.__rect[0] < other and self.__rect[1] < other
+        elif isinstance(other, (list, tuple)):
+            return self.__rect[0] < other[0] and self.__rect[1] < other[1]
 
     def __gt__(self, other):
-        pass
+        if isinstance(other, Button):
+            return self.__rect[0] > other.__rect[0] and self.__rect[1] < other.__rect[1]
+        elif isinstance(other, int):
+            return self.__rect[0] > other and self.__rect[1] > other
+        elif isinstance(other, (list, tuple)):
+            return self.__rect[0] > other[0] and self.__rect[1] > other[1]
 
     def __le__(self, other):
-        pass
+        if isinstance(other, Button):
+            return self.__rect[0] <= other.__rect[0] and self.__rect[1] <= other.__rect[1]
+        elif isinstance(other, int):
+            return self.__rect[0] <= other and self.__rect[1] <= other
+        elif isinstance(other, (list, tuple)):
+            return self.__rect[0] <= other[0] and self.__rect[1] <= other[1]
 
     def __ge__(self, other):
-        pass
+        if isinstance(other, Button):
+            return self.__rect[0] >= other.__rect[0] and self.__rect[1] >= other.__rect[1]
+        elif isinstance(other, int):
+            return self.__rect[0] >= other and self.__rect[1] >= other
+        elif isinstance(other, (list, tuple)):
+            return self.__rect[0] >= other[0] and self.__rect[1] >= other[1]
 
     def __eq__(self, other):
-        pass
+        if isinstance(other, Button):
+            return self.__rect[0] == other.__rect[0] and self.__rect[1] == other.__rect[1]
+        elif isinstance(other, int):
+            return self.__rect[0] == other and self.__rect[1] == other
+        elif isinstance(other, (list, tuple)):
+            return self.__rect[0] == other[0] and self.__rect[1] == other[1]
 
     def __ne__(self, other):
-        pass
+        if isinstance(other, Button):
+            return self.__rect[0] != other.__rect[0] and self.__rect[1] != other.__rect[1]
+        elif isinstance(other, int):
+            return self.__rect[0] != other and self.__rect[1] != other
+        elif isinstance(other, (list, tuple)):
+            return self.__rect[0] != other[0] and self.__rect[1] != other[1]
 
     def __len__(self):
         return self.__size
@@ -512,10 +489,8 @@ class Button:
         return self.__state
 
     @state.setter
-    def state(self, state: int = 0x00, func=None, *args):
+    def state(self, state: int = 0x00):
         self.__state = state
-        if func:
-            func(*args)
 
     def size(self, func=None, *args):
         self.__state = Button.SIZE
@@ -687,22 +662,6 @@ class SurfaceButton(Button):
                 self.__surface[0] += t[0]
                 return self
         super().__add__(other)
-
-    def __sub__(self, other):
-        if isinstance(other, SurfaceButton):
-            if self.__state == SurfaceButton.SURFACELEN:
-                s = other.get_surface()
-                length = s[0]
-                if length > 0:
-                    for i in range(1, self.__surface[0]):
-                        for j in range(1, length):
-                            if self.__surface[i] == s[j]:
-                                del self.__surface[i]
-                                del s[j]
-                                i -= 1
-                                j -= 1
-                return self
-        super().__sub__(other)
 
     def __len__(self) -> int:
         if self.__state == SurfaceButton.SURFACELEN:

@@ -4,33 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c388fb3f-2172-4411-a75d-ada954abd72c" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Idk.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/222.zip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/control/button.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/control/inputField.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/control/slideBar.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/control/textBox.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/edit/edit.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/edit/func.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game_master/fileManager.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game_master/game.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game_master/gameObject.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game_master/gameSurface.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game_master/item.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game_master/level.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map/block.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map/map.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/item/data/example" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/settings.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/test.py" afterDir="false" />
+    <list default="true" id="c388fb3f-2172-4411-a75d-ada954abd72c" name="更改" comment="test">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/control/button.py" beforeDir="false" afterPath="$PROJECT_DIR$/control/button.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +24,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "NEWANDNEWIDE"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/NEWANDNEWIDE/Adventure-King.git",
+    "accountId": "80769015-f079-4b5b-bbf7-10684bda52e1"
+  }
+}]]></component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/../../cnn/fp/Lib/site-packages/pygame/surface.pyi" root0="SKIP_INSPECTION" />
   </component>
@@ -74,7 +63,7 @@
     "Python.test.executor": "Run",
     "Python.textBox.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "D:/llm/Idk",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
@@ -107,9 +96,31 @@
       <option name="presentableId" value="Default" />
       <updated>1729569706076</updated>
     </task>
+    <task id="LOCAL-00001" summary="test">
+      <option name="closed" value="true" />
+      <created>1730767677938</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1730767677938</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="test" />
+    <option name="LAST_COMMIT_MESSAGE" value="test" />
   </component>
 </project>
