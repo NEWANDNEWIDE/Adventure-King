@@ -8,7 +8,6 @@ from game_master import level
 
 class Game:
     def __init__(self):
-        self.__event = pygame.event.get()
         self.__game_speed = 100
         pygame.init()
         self.__running = True
@@ -31,14 +30,6 @@ class Game:
         pass
 
     @property
-    def event(self):
-        return self.__event
-
-    @event.setter
-    def event(self, event):
-        self.__event = event
-
-    @property
     def game_speed(self):
         return self.__game_speed
 
@@ -48,8 +39,8 @@ class Game:
 
     def run(self):
         while self.__running:
-            for self.__event in pygame.event.get():
-                if self.__event.type == pygame.QUIT:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
                     self.__running = False
                     pygame.quit()
                     sys.exit()
