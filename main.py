@@ -2,7 +2,7 @@ from game_master import game
 
 
 def stop(o: game.Game):
-    o.set_running_state(False)
+    o.running = False
 
 
 if __name__ == "__main__":

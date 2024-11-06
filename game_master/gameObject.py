@@ -1,3 +1,6 @@
+import pygame.time
+import game_master.fileManager
+
 ATTRIBUTE = ("Health", "Shield", "Attack",
              "Defense", "Move_speed", "Attack_speed",
              "Critical_strike_chance", "Critical_strike_damage", "Reach_distance")
@@ -51,41 +54,87 @@ class GameObject:
         self.__attribute[3] = defense
 
     @property
-    def Move_speed(self):
+    def move_speed(self):
         return self.__attribute[4]
 
-    @Move_speed.setter
-    def Move_speed(self, Move_speed):
-        self.__attribute[4] = Move_speed
+    @move_speed.setter
+    def move_speed(self, move_speed):
+        self.__attribute[4] = move_speed
 
     @property
-    def Attack_speed(self):
+    def attack_speed(self):
         return self.__attribute[5]
 
-    @Attack_speed.setter
-    def Attack_speed(self, Attack_speed):
-        self.__attribute[5] = Attack_speed
+    @attack_speed.setter
+    def attack_speed(self, attack_speed):
+        self.__attribute[5] = attack_speed
 
     @property
-    def Critical_strike_chance(self):
+    def critical_strike_chance(self):
         return self.__attribute[6]
 
-    @Critical_strike_chance.setter
-    def Critical_strike_chance(self, Critical_strike_chance):
-        self.__attribute[6] = Critical_strike_chance
+    @critical_strike_chance.setter
+    def critical_strike_chance(self, critical_strike_chance):
+        self.__attribute[6] = critical_strike_chance
 
     @property
-    def Critical_strike_damage(self):
+    def critical_strike_damage(self):
         return self.__attribute[7]
 
-    @Critical_strike_damage.setter
-    def Critical_strike_damage(self, Critical_strike_damage):
-        self.__attribute[7] = Critical_strike_damage
+    @critical_strike_damage.setter
+    def critical_strike_damage(self, critical_strike_damage):
+        self.__attribute[7] = critical_strike_damage
 
     @property
-    def Reach_distance(self):
+    def reach_distance(self):
         return self.__attribute[8]
 
-    @Reach_distance.setter
-    def Reach_distance(self, Reach_distance):
-        self.__attribute[8] = Reach_distance
+    @reach_distance.setter
+    def reach_distance(self, reach_distance):
+        self.__attribute[8] = reach_distance
+
+
+class WoodenSword(GameObject):
+    def __init__(self, name="wooden-sword"):
+        super().__init__()
+        self.attack = 20
+        self.reach_distance = 1
+        self.__surface = game_master.fileManager.game_surface[name]
+        self.__sleep = 1000//(self.attack_speed * (self.__surface[0] - 2))
+        self.__mid = (self.__surface[0] - 1) // 2 + 1
+
+    def left_attack(self, surface: pygame.surface.Surface):
+        for i in range(2, self.__mid):
+            surface.blit(self.__surface[i], (400, 300))
+            pygame.time.delay(self.__sleep)
+        surface.blit(self.__surface[1], (400, 300))
+
+    def right_attack(self, surface: pygame.surface.Surface):
+        for i in range(self.__mid + 1, self.__surface[0]):
+            surface.blit(self.__surface[i], (400, 300))
+            pygame.time.delay(self.__sleep)
+        surface.blit(self.__surface[1], (400, 300))
+
+
+class StoneSword(WoodenSword):
+    def __init__(self):
+        super().__init__("stone-sword")
+        self.attack += 20
+
+
+class GoldenSword(WoodenSword):
+    def __init__(self):
+        super().__init__("golden-sword")
+        self.attack += 30
+
+
+class IronSword(WoodenSword):
+    def __init__(self):
+        super().__init__("iron-sword")
+        self.attack += 40
+
+
+class DiamondSword(WoodenSword):
+    def __init__(self):
+        super().__init__("stone-sword")
+        self.attack += 60
