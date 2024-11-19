@@ -1,31 +1,80 @@
-import pygame
-import control.button
+from __future__ import annotations
+import pygame.surface
+import main
 
 
-class TextBox(control.button.Button):
-    def __init__(self,
-                 rect: tuple[int, int] = (0, 0),
-                 size: tuple[int, int] = (50, 50),
-                 rectInSize: tuple[int, int] = (0, 0),
-                 area: int = None,
-                 text: str = "Button",
-                 bg: tuple[int, int, int] = (255, 255, 255),
-                 fg: tuple[int, int, int] = (0, 0, 0),
-                 font: pygame.font.Font = None,
-                 name="Button"):
-        super().__init__(rect, size, rectInSize, area, text, bg, fg, font, name)
+class TextBox:
+    def __init__(self, rect, size, text_rect, text, bg, fg, surface):
+        self.x = rect[0]
+        self.y = rect[1]
+        self.__rect = rect
+        self.__size = size
+        self.__text_rect = text_rect
+        self.__text = text
+        self.__bg = bg
+        self.__fg = fg
+        self.__surface = surface
 
+    @property
+    def rect(self):
+        return self.__rect
 
-class SurfaceTextBox(control.button.SurfaceButton):
-    def __init__(self,
-                 rect: tuple[int, int] = (0, 0),
-                 size: tuple[int, int] = (50, 50),
-                 rectInSize: tuple[int, int] = (0, 0),
-                 area: int = None,
-                 text: str = "SurfaceButton",
-                 bg: tuple[int, int, int] = (255, 255, 255),
-                 fg: tuple[int, int, int] = (0, 0, 0),
-                 surface: list[pygame.surface.Surface] = None,
-                 font: pygame.font.Font = None,
-                 name="Button"):
-        super().__init__(rect, size, rectInSize, area, text, bg, fg, surface, font, name)
+    @rect.setter
+    def rect(self, rect):
+        self.__rect = rect
+
+    @property
+    def size(self):
+        return self.__size
+
+    @size.setter
+    def size(self, size):
+        self.__size = size
+
+    @property
+    def text_rect(self):
+        return self.__text_rect
+
+    @text_rect.setter
+    def text_rect(self, text_rect):
+        self.__text_rect = text_rect
+
+    @property
+    def text(self):
+        return self.__text
+
+    @text.setter
+    def text(self, text):
+        self.__text = text
+
+    @property
+    def bg(self):
+        return self.__bg
+
+    @bg.setter
+    def bg(self, bg):
+        self.__bg = bg
+
+    @property
+    def fg(self):
+        return self.__fg
+
+    @fg.setter
+    def fg(self, fg):
+        self.__fg = fg
+
+    @property
+    def surface(self):
+        return self.__surface
+
+    @surface.setter
+    def surface(self, surface):
+        self.__surface = surface
+
+    def render(self, screen: pygame.Surface):
+        text_surface = main.g.FONT.render(self.__text, True, self.__fg, self.__bg)
+        button_surface = pygame.Surface(self.__size)
+        button_surface.fill(self.__bg)
+        button_surface.blit(self.__surface, (0, 0))
+        button_surface.blit(text_surface, self.__text_rect)
+        screen.blit(button_surface, self.__rect)

@@ -1,27 +1,25 @@
 import sys
-import control.button
-import game_master.gameSurface
-import settings
 import pygame
+import settings
 from game_master import level
+from game_master import fileManager
 
 
 class Game:
     def __init__(self):
-        self.__game_speed = 100
         pygame.init()
+        self.FONT = pygame.font.SysFont('microsoftyaheimicrosoftyaheiui', 16)
+        self.__game_speed = 100
         self.__running = True
         self.screen = pygame.display.set_mode((settings.WIDTH, settings.HEIGHT))
         pygame.display.set_caption(settings.TITLE)
+        self.init()
         self.clock = pygame.time.Clock()
         self.level = level.Level(self.screen)
-        self.init()
-        self.button = control.button.Button(size=(400, 400), text="Hello!", rectInSize=(100, 100),
-                                            area=game_master.gameSurface.HaveNameSurface.CENTER,
-                                            fg=(0, 255, 0), bg=(0, 0, 0))
 
     def init(self):
-        pass
+        fileManager.loading_item()
+        fileManager.loading_game_surfaces()
 
     def item(self):
         pass
@@ -46,7 +44,6 @@ class Game:
                     sys.exit()
 
             self.screen.fill((255, 255, 255))
-            self.button.render(self.screen)
 
             pygame.display.update()
             self.clock.tick(settings.FPS)
