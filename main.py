@@ -1,11 +1,11 @@
-from game_master import game
+from game_master.game import Game
 
 
-def stop(o: game.Game):
+def stop(o: Game):
     o.running = False
 
 
 if __name__ == "__main__":
-    g = game.Game()
+    g = Game()
     g.run()
     

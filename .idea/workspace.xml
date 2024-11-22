@@ -6,11 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="c388fb3f-2172-4411-a75d-ada954abd72c" name="更改" comment="test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/222.zip" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/control/button.py" beforeDir="false" afterPath="$PROJECT_DIR$/control/button.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/control/inputField.py" beforeDir="false" afterPath="$PROJECT_DIR$/control/inputField.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/control/textBox.py" beforeDir="false" afterPath="$PROJECT_DIR$/control/textBox.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_master/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_master/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_master/gameSurface.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_master/gameSurface.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_master/gameObject.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_master/gameObject.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_master/key.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_master/key.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_master/mouse.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_master/mouse.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/test.py" afterDir="false" />
     </list>
@@ -64,6 +67,7 @@
     &quot;Python.game.executor&quot;: &quot;Run&quot;,
     &quot;Python.gameSurface.executor&quot;: &quot;Run&quot;,
     &quot;Python.homework.executor&quot;: &quot;Run&quot;,
+    &quot;Python.inputField.executor&quot;: &quot;Run&quot;,
     &quot;Python.item.executor&quot;: &quot;Run&quot;,
     &quot;Python.main.executor&quot;: &quot;Run&quot;,
     &quot;Python.test.executor&quot;: &quot;Run&quot;,
@@ -168,7 +172,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730947330711</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="test">
+      <option name="closed" value="true" />
+      <created>1731981146586</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1731981146586</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

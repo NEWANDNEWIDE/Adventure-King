@@ -6,12 +6,39 @@ ATTRIBUTE = ("Health", "Shield", "Attack",
              "Critical_strike_chance", "Critical_strike_damage", "Reach_distance")
 
 
+class GameSprite(pygame.sprite.Sprite):
+    def __init__(self, image, width, height, rect, group):
+        super().__init__(group)
+        self.image = image
+        self.rect = rect
+        self.width = width
+        self.height = height
+
+
 class GameObject:
     def __init__(self):
         self.__name = ""
         self.__attribute = [0, 0, 0,
                             0, 0, 0,
                             0, 0, 0]
+        self.__number = 0
+        self.__limit = 1
+
+    @property
+    def number(self):
+        return self.__number
+
+    @number.setter
+    def number(self, number):
+        self.__number = number
+
+    @property
+    def limit(self):
+        return self.__limit
+
+    @limit.setter
+    def limit(self, limit):
+        self.__limit = limit
 
     @property
     def name(self):
@@ -95,25 +122,25 @@ class GameObject:
 
 
 class WoodenSword(GameObject):
-    def __init__(self, name="wooden-sword"):
+    def __init__(self, name="wooden-sword", limit=1):
         super().__init__()
         self.attack = 20
         self.reach_distance = 1
-        self.__surface = game_master.fileManager.game_surface[name]
-        self.__sleep = 1000//(self.attack_speed * (self.__surface[0] - 2))
-        self.__mid = (self.__surface[0] - 1) // 2 + 1
+        self.surface = game_master.fileManager.game_surface[name]
+        self.__sleep = 1000//(self.attack_speed * (self.surface[0] - 2))
+        self.__mid = (self.surface[0] - 1) // 2 + 1
 
     def left_attack(self, surface: pygame.surface.Surface):
         for i in range(2, self.__mid):
-            surface.blit(self.__surface[i], (400, 300))
+            surface.blit(self.surface[i], (400, 300))
             pygame.time.delay(self.__sleep)
-        surface.blit(self.__surface[1], (400, 300))
+        surface.blit(self.surface[1], (400, 300))
 
     def right_attack(self, surface: pygame.surface.Surface):
-        for i in range(self.__mid + 1, self.__surface[0]):
-            surface.blit(self.__surface[i], (400, 300))
+        for i in range(self.__mid + 1, self.surface[0]):
+            surface.blit(self.surface[i], (400, 300))
             pygame.time.delay(self.__sleep)
-        surface.blit(self.__surface[1], (400, 300))
+        surface.blit(self.surface[1], (400, 300))
 
 
 class StoneSword(WoodenSword):

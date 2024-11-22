@@ -7,6 +7,8 @@ class TextBox:
     def __init__(self, rect, size, text_rect, text, bg, fg, surface):
         self.x = rect[0]
         self.y = rect[1]
+        self.w = size[0]
+        self.h = size[1]
         self.__rect = rect
         self.__size = size
         self.__text_rect = text_rect
@@ -22,6 +24,8 @@ class TextBox:
     @rect.setter
     def rect(self, rect):
         self.__rect = rect
+        self.w = rect[0]
+        self.h = rect[1]
 
     @property
     def size(self):

@@ -1,9 +1,10 @@
 import pygame.event
-import main
+import settings
+import game_master
 
 
-def keys_listening():
-    state = main.g.running
+def keys_listening(g: game_master.game.Game):
+    state = g.running
     while state:
         keys = pygame.key.get_pressed()
         if keys[pygame.K_w]:
@@ -18,5 +19,5 @@ def keys_listening():
             pass
         if keys[pygame.K_ESCAPE]:
             pass
-        pygame.time.delay(1000 // main.g.game_speed)
-        state = main.g.running
+        pygame.time.delay(1000 // settings.FPS)
+        state = g.running

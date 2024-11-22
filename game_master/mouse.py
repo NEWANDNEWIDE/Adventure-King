@@ -1,9 +1,10 @@
 import pygame
-import main
+import settings
+import game_master
 
 
-def mouse_listening():
-    state = main.g.running
+def mouse_listening(g: game_master.game.Game):
+    state = g.running
     while state:
         mouses = pygame.mouse.get_pressed()
         if mouses[pygame.BUTTON_LEFT]:
@@ -16,5 +17,5 @@ def mouse_listening():
             pass
         if mouses[pygame.BUTTON_WHEELDOWN]:
             pass
-        state = main.g.running
-        pygame.time.delay(1000 // main.g.game_speed)
+        pygame.time.delay(1000 // settings.FPS)
+        state = g.running
