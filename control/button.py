@@ -103,4 +103,4 @@ class Button:
         button_surface.fill(self.__bg)
         button_surface.blit(self.__surface, (0, 0))
         button_surface.blit(text_surface, self.__text_rect)
-        screen.blit(button_surface, self.__rect)
+        return button_surface, self.__rect

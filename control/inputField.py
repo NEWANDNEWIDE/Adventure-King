@@ -94,6 +94,10 @@ class InputField:
     def surface(self, surface):
         self.__surface = surface
 
+    @property
+    def box(self):
+        return self.__box
+
     def action(self, pos, event):
         if not event:
             return self.__box
@@ -110,7 +114,7 @@ class InputField:
                 self.__state = 0
         return self.update(event)
 
-    def update(self, event: Union[pygame.event.Event, int]):
+    def update(self, event: Union[pygame.event.Event] = None):
         if self.__state:
             if event.type == pygame.KEYDOWN:
                 key = event.key

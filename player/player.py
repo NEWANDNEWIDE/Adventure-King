@@ -36,45 +36,62 @@ class Bag:
         self.w = w
         self.h = h
         self.__state = 0
+        self.__full = 0
         self.__selected = 0
         self.__selected_obj = 0
 
     def selected(self, pos):
+        """
+        state是背包的打开状态，1为打开，x，y分别是背包左上角的格子的位置，w, h是格子的宽高
+        :param pos: 当鼠标点击时的位置
+        :return: None
+        """
         if self.__state:
-            pos[0] -= self.x
-            pos[1] -= self.y
-            pos[0] //= self.w
-            pos[1] //= self.h
-            index = pos[1] * 9 + pos[0]
-            if not self.__selected:
-                if self.__bag[index]:
-                    self.__selected = 1
-                    self.__selected_obj = self.__bag[index]
-                    self.__bag[index] = 0
-            else:
-                if self.__bag[index]:
-                    self.__selected = 1
-                    t = self.__selected_obj
-                    self.__selected_obj = self.__bag[index]
-                    self.__bag[index] = t
+            if self.x < pos[0] < self.x + self.__temp.width and self.y < pos[1] < self.y + self.__temp.height:
+                pos[0] -= self.x
+                pos[1] -= self.y
+                pos[0] //= self.w
+                pos[1] //= self.h
+                index = pos[1] * 9 + pos[0]
+                if not self.__selected:
+                    if self.__bag[index]:
+                        self.__selected = 1
+                        self.__selected_obj = self.__bag[index]
+                        self.__bag[index] = 0
                 else:
-                    self.__bag[index] = self.__selected_obj
+                    if self.__bag[index]:
+                        self.__selected = 1
+                        t = self.__selected_obj
+                        self.__selected_obj = self.__bag[index]
+                        self.__bag[index] = t
+                    else:
+                        self.__bag[index] = self.__selected_obj
+                        self.__selected = 0
+                        self.__selected_obj = 0
+            else:
+                if self.__selected:
+                    self.out(self.__selected_obj)
                     self.__selected = 0
                     self.__selected_obj = 0
-            return self.render(pos)
 
     def put(self, obj):
-        first = -1
-        for i in range(36):
-            if self.__bag[i]:
-                if self.__bag[i].name == obj.name and self.__bag[i].limit >= obj.number + self.__bag[i].number:
-                    self.__bag[i].number += obj.number
-                    return
+        if not self.__full:
+            first = -1
+            for i in range(36):
+                if self.__bag[i]:
+                    if self.__bag[i].name == obj.name and self.__bag[i].limit >= obj.number + self.__bag[i].number:
+                        self.__bag[i].number += obj.number
+                        return
+                else:
+                    if first == -1:
+                        first = i
+            if 0 <= first <= 35:
+                self.__bag[first] = obj
             else:
-                if first == -1:
-                    first = i
-        if 0 <= first <= 35:
-            self.__bag[first] = obj
+                self.__full = 1
+
+    def out(self, obj):
+        pass
 
     def render(self, rect):
         self.__surface.blit(self.__temp)
@@ -82,5 +99,5 @@ class Bag:
             self.__surface.blit(self.__selected_obj.surface, rect)
         for i in range(36):
             if self.__bag[i]:
-                self.__surface.blit(self.__bag[i].surface, (self.x + i * 20, self.y + i * 20))
+                self.__surface.blit(self.__bag[i].surface, (self.x + i * self.w, self.y + i * self.h))
         return self.__surface

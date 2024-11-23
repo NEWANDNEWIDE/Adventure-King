@@ -75,10 +75,10 @@ class TextBox:
     def surface(self, surface):
         self.__surface = surface
 
-    def render(self, screen: pygame.Surface):
+    def render(self):
         text_surface = main.g.FONT.render(self.__text, True, self.__fg, self.__bg)
         button_surface = pygame.Surface(self.__size)
         button_surface.fill(self.__bg)
         button_surface.blit(self.__surface, (0, 0))
         button_surface.blit(text_surface, self.__text_rect)
-        screen.blit(button_surface, self.__rect)
+        return button_surface, self.__rect
