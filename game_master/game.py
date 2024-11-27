@@ -3,6 +3,7 @@ import sys
 import pygame
 import settings
 from game_master import level, fileManager
+import control.inputField
 
 
 class Game:
@@ -35,15 +36,16 @@ class Game:
         self.__running = running
 
     def run(self):
+        text = control.inputField.InputField((100, 100), (300, 100), "666", (127, 127, 127), (255, 255, 255), (0, 0, 0))
         while self.__running:
             event: pygame.event.Event | None = None
             self.screen.fill((255, 255, 255))
-
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.__running = False
                     pygame.quit()
                     sys.exit()
+            self.screen.blit(text.action(pygame.mouse.get_pos(), event), text.rect)
 
             pygame.display.update()
             self.clock.tick(settings.FPS)
