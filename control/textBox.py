@@ -1,14 +1,15 @@
 from __future__ import annotations
 import pygame.surface
-import main
+import game_master.game
 
 
 class TextBox:
-    def __init__(self, rect, size, text_rect, text, bg, fg, surface):
+    def __init__(self, rect, size, text_rect, text, bg, fg, name, surface=None):
         self.x = rect[0]
         self.y = rect[1]
         self.w = size[0]
         self.h = size[1]
+        self.name = name
         self.__rect = rect
         self.__size = size
         self.__text_rect = text_rect
@@ -76,9 +77,10 @@ class TextBox:
         self.__surface = surface
 
     def render(self):
-        text_surface = main.g.FONT.render(self.__text, True, self.__fg, self.__bg)
+        text_surface = game_master.game.Game.FONT.render(self.__text, True, self.__fg, self.__bg)
         button_surface = pygame.Surface(self.__size)
         button_surface.fill(self.__bg)
-        button_surface.blit(self.__surface, (0, 0))
+        if self.__surface:
+            button_surface.blit(self.__surface, (0, 0))
         button_surface.blit(text_surface, self.__text_rect)
         return button_surface, self.__rect

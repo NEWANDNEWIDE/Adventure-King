@@ -8,11 +8,12 @@ os.environ["SDL_IME_SHOW_UI"] = "1"
 
 
 class InputField:
-    def __init__(self, rect, size, text, bg, fg, text_color, surface=None):
+    def __init__(self, rect, size, text, bg, fg, text_color, name, surface=None):
         self.x = rect[0]
         self.y = rect[1]
         self.w = size[0]
         self.h = size[1]
+        self.name = name
         self.__rect = rect
         self.__size = size
         self.__text_color = text_color

@@ -5,8 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c388fb3f-2172-4411-a75d-ada954abd72c" name="更改" comment="test">
+      <change afterPath="$PROJECT_DIR$/control/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/control/button.py" beforeDir="false" afterPath="$PROJECT_DIR$/control/button.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/control/inputField.py" beforeDir="false" afterPath="$PROJECT_DIR$/control/inputField.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/control/scene.py" beforeDir="false" afterPath="$PROJECT_DIR$/control/scene.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/control/textBox.py" beforeDir="false" afterPath="$PROJECT_DIR$/control/textBox.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/edit/edit.py" beforeDir="false" afterPath="$PROJECT_DIR$/edit/edit.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_master/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_master/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_master/gameObject.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_master/gameObject.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -55,6 +62,7 @@
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;Python.__init__.executor&quot;: &quot;Run&quot;,
     &quot;Python.button.executor&quot;: &quot;Run&quot;,
+    &quot;Python.edit.executor&quot;: &quot;Run&quot;,
     &quot;Python.fileManager.executor&quot;: &quot;Run&quot;,
     &quot;Python.game.executor&quot;: &quot;Run&quot;,
     &quot;Python.gameSurface.executor&quot;: &quot;Run&quot;,
@@ -188,7 +196,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732335757992</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="test">
+      <option name="closed" value="true" />
+      <created>1732681525569</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1732681525569</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

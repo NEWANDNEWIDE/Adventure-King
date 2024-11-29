@@ -1,18 +1,15 @@
 import os
 
 
-path = "D:\\test"
+def addition(a, b, *args):
+    t = 0
+    for i in args:
+        t += i
+    return t
 
-for name in os.listdir(path):
-    p = os.path.join(path, name)
-    f = open(p, encoding="utf-8")
-    s = ""
-    line = f.readline()
-    while line:
-        s += line
-        line = f.readline()
-    s = s.split('<')[1:]
-    for t in range(len(s)):
-        s[t] = s[t].split(">")[0]
-        s[t] = s[t].split("\t")[0]
-    print(s)
+
+def func(*args):
+    return addition(*args)
+
+print(addition(1, 2, 3))
+print(func(1, 2, 3))

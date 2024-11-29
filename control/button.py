@@ -4,7 +4,7 @@ import game_master
 
 
 class Button:
-    def __init__(self, rect, size, text_rect, text, bg, fg, action_color, surface):
+    def __init__(self, rect, size, text_rect, text, bg, fg, action_color, name, callback=None, surface=None):
         self.x = rect[0]
         self.y = rect[1]
         self.w = size[0]
@@ -18,6 +18,8 @@ class Button:
         self.__action_color = action_color
         self.__action = True
         self.__surface = surface
+        self.name = name
+        self.callback = callback
 
     @property
     def rect(self):
@@ -93,14 +95,117 @@ class Button:
     def surface(self, surface):
         self.__surface = surface
 
-    def activate(self, func, *args):
-        if self.__action:
-            func(*args)
+    def activate(self, pos, *args):
+        if self.__action and self.callback:
+            if self.rect[0] < pos[0] < self.rect[0] + self.size[0] and self.rect[1] < pos[1] < self.rect[1] + self.size[1]:
+                print(self.name)
+                self.callback(*args)
+        return False
 
-    def render(self, screen: pygame.Surface):
+    def render(self, width=None, height=None):
         text_surface = game_master.game.Game.FONT.render(self.__text, True, self.__fg, self.__bg)
-        button_surface = pygame.Surface(self.__size)
+        if width and height:
+            button_surface = pygame.Surface((width, height))
+        elif width:
+            button_surface = pygame.Surface((width, self.__size[1]))
+        elif height:
+            button_surface = pygame.Surface((self.__size[0], height))
+        else:
+            button_surface = pygame.Surface(self.__size)
         button_surface.fill(self.__bg)
-        button_surface.blit(self.__surface, (0, 0))
+        if self.__surface:
+            button_surface.blit(self.__surface, (0, 0))
         button_surface.blit(text_surface, self.__text_rect)
         return button_surface, self.__rect
+
+
+class ButtonList(Button):
+    def __init__(self, rect, size, text_rect, text, bg, fg, action_color, name, callback=None, surface=None,
+                 b_list=None, area="V"):
+        super().__init__(rect, size, text_rect, text, bg, fg, action_color, name, callback, surface)
+        self.__b_list = []
+        self.__len = 0
+        self.__l = False
+        self.__area = area
+        if b_list:
+            if isinstance(b_list, list):
+                self.__b_list = b_list
+                self.__len = len(b_list)
+            else:
+                self.__b_list.append(b_list)
+                self.__len += 1
+        self.__b_size = 0
+        if b_list:
+            if self.__area == "V":
+                self.__b_size += 2
+                for i in b_list:
+                    self.__b_size += self.size[1]
+                    i.size = self.size
+                    i.rect = (self.rect[0], self.rect[1] + self.__b_size)
+                    self.__b_size += 2
+            elif self.__area == "L":
+                for i in b_list:
+                    self.__b_size += self.size[1]
+                    i.size = self.size
+                    i.rect = (self.rect[0], self.rect[1] + self.__b_size)
+                    self.__b_size += 2
+
+
+    def activate(self, pos, *args):
+        if self.action:
+            if self.rect[0] < pos[0] < self.rect[0] + self.size[0] and self.rect[1] < pos[1] < self.rect[1] + self.size[1]:
+                if self.__l:
+                    self.__l = False
+                    self.callback(*args)
+                    return True
+                else:
+                    self.__l = True
+                    self.callback(*args)
+            else:
+                if self.rect[0] < pos[0] < self.rect[0] + self.size[0] and self.__l:
+                    t = (pos[1] - self.rect[1]) // self.size[1]
+                    if 0 < t <= self.__len:
+                        self.__l = self.__b_list[t-1].activate(pos, *args)
+                    else:
+                        self.__l = False
+                else:
+                    self.__l = False
+        return self.__l
+
+    def render(self, width=None, height=None):
+        text_surface = game_master.game.Game.FONT.render(self.text, True, self.fg, self.bg)
+        if self.__l:
+            if width and height:
+                button_surface = pygame.Surface((width, height + self.__b_size))
+            elif width:
+                button_surface = pygame.Surface((width, self.size[1] + self.__b_size))
+            elif height:
+                button_surface = pygame.Surface((self.size[0], height + self.__b_size))
+            else:
+                button_surface = pygame.Surface((self.size[0], self.size[1] + self.__b_size))
+            button_surface.fill(self.bg)
+            if self.surface:
+                button_surface.blit(self.surface, (0, 0))
+            button_surface.blit(text_surface, self.text_rect)
+            h = self.size[1]
+            button_surface.fill((0, 0, 0), (self.rect[0], self.rect[1] + h, self.size[0], 2))
+            for i in range(len(self.__b_list)):
+                t = self.__b_list[i].render()
+                button_surface.blit(t[0], (self.rect[0], self.rect[1] + h + 2))
+                h += self.size[1] + 2
+                button_surface.fill((0, 0, 0), (self.rect[0], self.rect[1] + h, self.size[0], 2))
+
+        else:
+            if width and height:
+                button_surface = pygame.Surface((width, height))
+            elif width:
+                button_surface = pygame.Surface((width, self.size[1]))
+            elif height:
+                button_surface = pygame.Surface((self.size[0], height))
+            else:
+                button_surface = pygame.Surface(self.size)
+            button_surface.fill(self.bg)
+            if self.surface:
+                button_surface.blit(self.surface, (0, 0))
+            button_surface.blit(text_surface, self.text_rect)
+        return button_surface, self.rect

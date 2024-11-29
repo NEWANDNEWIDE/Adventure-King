@@ -9,15 +9,18 @@ import control.inputField
 class Game:
     FONT: pygame.font.Font = None
 
-    def __init__(self):
-        pygame.init()
-        Game.FONT = pygame.font.SysFont('microsoftyaheiui', 16)
-        self.__running = True
-        self.screen = pygame.display.set_mode((settings.WIDTH, settings.HEIGHT))
-        pygame.display.set_caption(settings.TITLE)
-        self.__init()
-        self.clock = pygame.time.Clock()
-        self.level = level.Level(self.screen)
+    def __init__(self, edit=False):
+        if edit:
+            Game.FONT = pygame.font.SysFont('microsoftyaheiui', 16)
+        else:
+            pygame.init()
+            Game.FONT = pygame.font.SysFont('microsoftyaheiui', 16)
+            self.__running = True
+            self.screen = pygame.display.set_mode((settings.WIDTH, settings.HEIGHT))
+            pygame.display.set_caption(settings.TITLE)
+            self.__init()
+            self.clock = pygame.time.Clock()
+            self.level = level.Level(self.screen)
 
     def __init(self):
         pygame.key.stop_text_input()

@@ -124,6 +124,8 @@ class GameObject:
 class WoodenSword(GameObject):
     def __init__(self, name="wooden-sword", limit=1):
         super().__init__()
+        self.name = name
+        self.limit = limit
         self.attack = 20
         self.reach_distance = 1
         self.surface = game_master.fileManager.game_surface[name]
