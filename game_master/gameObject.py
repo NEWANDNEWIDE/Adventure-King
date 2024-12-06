@@ -6,13 +6,26 @@ ATTRIBUTE = ("Health", "Shield", "Attack",
              "Critical_strike_chance", "Critical_strike_damage", "Reach_distance")
 
 
-class GameSprite(pygame.sprite.Sprite):
-    def __init__(self, image, width, height, rect, group):
+class GameNpc(pygame.sprite.Sprite):
+    def __init__(self, pos, group, name):
         super().__init__(group)
-        self.image = image
-        self.rect = rect
-        self.width = width
-        self.height = height
+        self.__surface = game_master.fileManager.game_surface[name]
+        self.attribute = game_master.gameObject.GameObject()
+        self.attribute.rect = pos
+        self.index = 1
+        self.image = self.__surface[self.index]
+
+    def move(self, dt):
+        pass
+
+    def action(self):
+        pass
+
+    def attack(self):
+        pass
+
+    def update(self):
+        pass
 
 
 class GameObject:
@@ -23,6 +36,7 @@ class GameObject:
                             0, 0, 0]
         self.__number = 0
         self.__limit = 1
+        self.rect = [-1, -1]
 
     @property
     def number(self):
@@ -120,7 +134,21 @@ class GameObject:
     def reach_distance(self, reach_distance):
         self.__attribute[8] = reach_distance
 
+    def use(self):
+        pass
 
+
+# 装备
+class IronArmor(GameObject):
+    def __init__(self, name, limit=1):
+        super().__init__()
+        self.name = name
+        self.limit = limit
+        self.shield = 20
+        self.surface = game_master.fileManager.game_surface[name]
+
+
+# 武器
 class WoodenSword(GameObject):
     def __init__(self, name="wooden-sword", limit=1):
         super().__init__()
@@ -129,7 +157,7 @@ class WoodenSword(GameObject):
         self.attack = 20
         self.reach_distance = 1
         self.surface = game_master.fileManager.game_surface[name]
-        self.__sleep = 1000//(self.attack_speed * (self.surface[0] - 2))
+        self.__sleep = 1000 // (self.attack_speed * (self.surface[0] - 2))
         self.__mid = (self.surface[0] - 1) // 2 + 1
 
     def left_attack(self, surface: pygame.surface.Surface):

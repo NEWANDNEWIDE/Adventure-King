@@ -30,14 +30,30 @@ class Scene:
             if isinstance(i, control.button.Button) | isinstance(i, control.button.ButtonList):
                 i.activate(pos, screen)
 
-    def render(self, screen, area=None):
+    def render(self, screen, area=None, surf_list=None):
         x, y = 0, 0
-        for i in self.__item:
-            t = i.render()
-            screen.blit(t[0], (t[1][0] + x, t[1][1] + y))
-            if area == "V":
-                y = 2
-                screen.fill((0, 0, 0), (t[1][0], t[1][1] + t[0].height, t[0].width, y))
-            elif area == "L":
-                x = 2
-                screen.fill((0, 0, 0), (t[1][0] + t[0].width, t[1][1], x, t[0].height))
+        if not surf_list:
+            for i in self.__item:
+                t = i.render()
+                screen.blit(t[0], (t[1][0] + x, t[1][1] + y))
+                if area == "V":
+                    y = 2
+                    screen.fill((0, 0, 0), (t[1][0], t[1][1] + t[0].height, t[0].width, y))
+                elif area == "L":
+                    x = 2
+                    screen.fill((0, 0, 0), (t[1][0] + t[0].width, t[1][1], x, t[0].height))
+                if len(t) == 3:
+                    if len(t[2]) >= 2:
+                        self.render(screen, area, t[2])
+        else:
+            if len(surf_list) >= 2:
+                screen.blit(surf_list[0], surf_list[1])
+                if area == "V":
+                    y = 2
+                    screen.fill((0, 0, 0), (surf_list[1][0], surf_list[1][1] + surf_list[0].height, surf_list[0].width, y))
+                elif area == "L":
+                    x = 2
+                    screen.fill((0, 0, 0), (surf_list[1][0] + surf_list[0].width, surf_list[1][1], x, surf_list[0].height))
+                if len(surf_list) == 3:
+                    if surf_list[2] >= 2:
+                        self.render(screen, area, surf_list[2])

@@ -21,7 +21,7 @@ h_l = []
 
 f_l.append(control.button.Button((2, 2), (60, 60), (0, 0), "666", (123, 234, 222), (0, 0, 0), (0, 0, 0), "666", h))
 f_l.append(control.button.Button((2, 2), (60, 60), (0, 0), "222", (123, 234, 222), (0, 0, 0), (0, 0, 0), "222", h))
-f_l.append(control.button.ButtonList((80, 0), (80, 30), (2, 2), "帮助", (123, 234, 222), (0, 0, 0), (0, 0, 0), "h", h, b_list=h_l))
+f_l.append(control.button.ButtonList((80, 0), (80, 30), (2, 2), "帮助", (123, 234, 222), (0, 0, 0), (0, 0, 0), "h", h, b_list=h_l, area="L"))
 h_l.append(control.button.Button((2, 2), (60, 60), (0, 0), "666", (123, 234, 222), (0, 0, 0), (0, 0, 0), "666", h))
 h_l.append(control.button.Button((2, 2), (60, 60), (0, 0), "222", (123, 234, 222), (0, 0, 0), (0, 0, 0), "222", h))
 

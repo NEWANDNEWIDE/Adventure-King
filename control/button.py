@@ -145,11 +145,13 @@ class ButtonList(Button):
                     self.__b_size += 2
             elif self.__area == "L":
                 for i in b_list:
-                    self.__b_size += self.size[1]
                     i.size = self.size
-                    i.rect = (self.rect[0], self.rect[1] + self.__b_size)
-                    self.__b_size += 2
+                    i.rect = (self.rect[0] + self.size[0], self.rect[1] + self.__b_size)
+                    self.__b_size += self.size[1] + 2
 
+    @property
+    def area(self):
+        return self.__area
 
     def activate(self, pos, *args):
         if self.action:
@@ -165,6 +167,7 @@ class ButtonList(Button):
                 if self.rect[0] < pos[0] < self.rect[0] + self.size[0] and self.__l:
                     t = (pos[1] - self.rect[1]) // self.size[1]
                     if 0 < t <= self.__len:
+                        print(t)
                         self.__l = self.__b_list[t-1].activate(pos, *args)
                     else:
                         self.__l = False
@@ -175,37 +178,67 @@ class ButtonList(Button):
     def render(self, width=None, height=None):
         text_surface = game_master.game.Game.FONT.render(self.text, True, self.fg, self.bg)
         if self.__l:
-            if width and height:
-                button_surface = pygame.Surface((width, height + self.__b_size))
-            elif width:
-                button_surface = pygame.Surface((width, self.size[1] + self.__b_size))
-            elif height:
-                button_surface = pygame.Surface((self.size[0], height + self.__b_size))
-            else:
-                button_surface = pygame.Surface((self.size[0], self.size[1] + self.__b_size))
-            button_surface.fill(self.bg)
-            if self.surface:
-                button_surface.blit(self.surface, (0, 0))
-            button_surface.blit(text_surface, self.text_rect)
-            h = self.size[1]
-            button_surface.fill((0, 0, 0), (self.rect[0], self.rect[1] + h, self.size[0], 2))
-            for i in range(len(self.__b_list)):
-                t = self.__b_list[i].render()
-                button_surface.blit(t[0], (self.rect[0], self.rect[1] + h + 2))
-                h += self.size[1] + 2
+            other = []
+            if self.__area == "V":
+                if width and height:
+                    button_surface = pygame.Surface((width, height + self.__b_size))
+                elif width:
+                    button_surface = pygame.Surface((width, self.size[1] + self.__b_size))
+                elif height:
+                    button_surface = pygame.Surface((self.size[0], height + self.__b_size))
+                else:
+                    button_surface = pygame.Surface((self.size[0], self.size[1] + self.__b_size))
+                button_surface.fill(self.bg)
+                if self.surface:
+                    button_surface.blit(self.surface, (0, 0))
+                button_surface.blit(text_surface, self.text_rect)
+                h = self.size[1]
                 button_surface.fill((0, 0, 0), (self.rect[0], self.rect[1] + h, self.size[0], 2))
-
+                for i in range(len(self.__b_list)):
+                    t = self.__b_list[i].render()
+                    button_surface.blit(t[0], (self.rect[0], self.rect[1] + h + 2))
+                    if isinstance(self.__b_list[i], ButtonList):
+                        if self.__b_list[i].area == "L" and len(t) == 3:
+                            other.append(t[2])
+                    h += self.size[1] + 2
+                    button_surface.fill((0, 0, 0), (self.rect[0], self.rect[1] + h, self.size[0], 2))
+                return button_surface, self.rect, other
+            elif self.__area == "L":
+                if width and height:
+                    button_surface = pygame.Surface((width, height))
+                elif width:
+                    button_surface = pygame.Surface((width, self.size[1]))
+                elif height:
+                    button_surface = pygame.Surface((self.size[0], height))
+                else:
+                    button_surface = pygame.Surface(self.size)
+                button_surface.fill(self.bg)
+                if self.surface:
+                    button_surface.blit(self.surface, (0, 0))
+                button_surface.blit(text_surface, self.text_rect)
+                level_surface = pygame.Surface((self.size[0], self.__b_size))
+                other.append(level_surface)
+                h = 0
+                for i in range(len(self.__b_list)):
+                    t = self.__b_list[i].render()
+                    level_surface.blit(t[0], (self.rect[0] + self.size[0] + 2, self.rect[1] + h))
+                    if isinstance(self.__b_list[i], ButtonList):
+                        if self.__b_list[i].area == "L" and len(t) == 3:
+                            other.append(t[2])
+                    h += self.size[1]
+                    level_surface.fill((0, 0, 0), (self.rect[0] + self.size[0] + 2, self.rect[1] + h, self.size[0], 2))
+                    h += 2
+                return button_surface, self.rect, other
+        if width and height:
+            button_surface = pygame.Surface((width, height))
+        elif width:
+            button_surface = pygame.Surface((width, self.size[1]))
+        elif height:
+            button_surface = pygame.Surface((self.size[0], height))
         else:
-            if width and height:
-                button_surface = pygame.Surface((width, height))
-            elif width:
-                button_surface = pygame.Surface((width, self.size[1]))
-            elif height:
-                button_surface = pygame.Surface((self.size[0], height))
-            else:
-                button_surface = pygame.Surface(self.size)
-            button_surface.fill(self.bg)
-            if self.surface:
-                button_surface.blit(self.surface, (0, 0))
-            button_surface.blit(text_surface, self.text_rect)
+            button_surface = pygame.Surface(self.size)
+        button_surface.fill(self.bg)
+        if self.surface:
+            button_surface.blit(self.surface, (0, 0))
+        button_surface.blit(text_surface, self.text_rect)
         return button_surface, self.rect

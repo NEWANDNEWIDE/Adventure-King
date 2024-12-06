@@ -8,6 +8,14 @@ class GameSurface:
         self.__name = name
 
     @property
+    def surface(self):
+        return self.__surface
+
+    @surface.setter
+    def surface(self, surface):
+        self.__surface = surface
+
+    @property
     def name(self):
         return self.__name
 

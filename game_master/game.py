@@ -1,9 +1,12 @@
 from __future__ import annotations
+
 import sys
+
 import pygame
+
+import map.HWmap
 import settings
-from game_master import level, fileManager
-import control.inputField
+from game_master import fileManager
 
 
 class Game:
@@ -20,7 +23,7 @@ class Game:
             pygame.display.set_caption(settings.TITLE)
             self.__init()
             self.clock = pygame.time.Clock()
-            self.level = level.Level(self.screen)
+            self.map = map.HWmap.Map(self.screen)
 
     def __init(self):
         pygame.key.stop_text_input()
@@ -39,19 +42,17 @@ class Game:
         self.__running = running
 
     def run(self):
-        text = control.inputField.InputField((100, 100), (300, 100), "666", (127, 127, 127), (255, 255, 255), (0, 0, 0))
         while self.__running:
-            event: pygame.event.Event | None = None
+            dt = self.clock.tick() / 1000
             self.screen.fill((255, 255, 255))
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.__running = False
                     pygame.quit()
                     sys.exit()
-            self.screen.blit(text.action(pygame.mouse.get_pos(), event), text.rect)
-
+                self.map.event_update(event)
+            self.map.update(dt)
+            self.map.render()
             pygame.display.update()
-            self.clock.tick(settings.FPS)
-
         pygame.quit()
         sys.exit()
