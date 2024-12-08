@@ -1,9 +1,6 @@
 from __future__ import annotations
-
 import sys
-
 import pygame
-
 import map.HWmap
 import settings
 from game_master import fileManager
@@ -46,6 +43,7 @@ class Game:
             dt = self.clock.tick() / 1000
             self.screen.fill((255, 255, 255))
             for event in pygame.event.get():
+                print(event)
                 if event.type == pygame.QUIT:
                     self.__running = False
                     pygame.quit()

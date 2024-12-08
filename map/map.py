@@ -1,9 +1,9 @@
 from random import seed
-from block import *
+from map import block
 
 
 class Map:
     def __init__(self, seeds):
         self.seeds = seeds
         seed(self.seeds)
-        self.headBlock = Block()
+        self.headBlock = block.Block()

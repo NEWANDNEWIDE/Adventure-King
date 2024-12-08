@@ -1,29 +1,44 @@
 import pygame.event
 import game_master
-import player
+import game_player.player
 
 
 class Map:
     def __init__(self, screen):
-        self.__surface = game_master.fileManager.game_surface["map"]
+        self.__surface = pygame.image.load(r"C:\Users\10962\Desktop\Pygame-Cameras-main\graphics\ground.png").convert_alpha()
         self.__item = game_master.item.Item()
-        self.__state = 0
+        self.__state = 1
         self.__screen = screen
-        self.camera = player.player.CameraGroup()
-        self.player = player.player.Player((640, 360), self.camera)
-        self.object_rect = []
+        self.camera = game_player.player.CameraGroup(self.__surface)
+        self.player = game_player.player.Player([640, 360], self.camera)
+        self.inventory_rect = self.player.bag.inventory_rect
+        self.object = []
         self.losing = []
         self.losing_time = []
 
-        self.object_rect.append(self.player.attribute.rect)
+        self.object.append(self.player)
 
     def create(self, obj):
         self.camera.add(obj)
-        self.object_rect.append(obj.attribute.rect)
+        self.object.append(obj.attribute)
 
     def add(self, obj):
         self.camera.add(obj)
-        self.object_rect.append(obj.rect)
+        self.losing.append(obj.rect)
+
+    @staticmethod
+    def get_rect_x(obj):
+        return obj.attribute.rect[0]
+
+    @staticmethod
+    def get_rect_y(obj):
+        return obj.attribute.rect[1]
+
+    def sort_losing(self):
+        self.losing.sort(key=Map.get_rect_x)
+
+    def sort_object(self):
+        self.object.sort(key=Map.get_rect_y)
 
     def setup(self):
         pass
@@ -31,32 +46,58 @@ class Map:
     def event_update(self, event: pygame.event.Event):
         if self.__state:
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_a:
-                    self.player.vec2[0] = -1
-                elif event.key == pygame.K_d:
-                    self.player.vec2[0] = 1
-                elif event.key == pygame.K_w:
-                    self.player.vec2[1] = -1
-                elif event.key == pygame.K_s:
-                    self.player.vec2[1] = 1
-                elif event.key == pygame.K_b:
-                    if not self.player.bag.state:
-                        self.player.bag.open()
-                    else:
+                if event.key == pygame.K_b:
+                    if self.player.bag.state:
                         self.player.bag.close()
+                    else:
+                        self.player.bag.open()
+                elif 48 <= event.key <= 57:
+                    print(event.key)
+                    if event.key == 48:
+                        self.player.bag.selection_box = 43
+                    elif self.player.bag.selection_box != event.key - 48:
+                        self.player.bag.selection_box = event.key - 15
+                    self.player.bag.update_inventory()
+            elif event.type == pygame.KEYUP:
+                pass
             elif event.type == pygame.MOUSEBUTTONDOWN:
+                pos = pygame.mouse.get_pos()
+                pos = list(pos)
+                if self.inventory_rect[0] + 2 <= pos[0] <= self.inventory_rect[0] + 420 and self.inventory_rect[1] + 2 <= pos[1] <= self.inventory_rect[1] + 42:
+                    pos[0] -= self.inventory_rect[0] + 2
+                    i = 0
+                    for i in range(10):
+                        print(pos)
+                        pos[0] -= 40
+                        if pos[0] <= 0:
+                            break
+                        elif 0 < pos[0] < 2:
+                            i = -1
+                            break
+                        pos[0] -= 2
+                    if i + 1 and self.player.bag.selection_box != 34 + i:
+                        self.player.bag.selection_box = 34 + i
+                        self.player.bag.update_inventory()
+                        return
                 if event.button == pygame.BUTTON_LEFT:
                     self.player.attack()
                 elif event.button == pygame.BUTTON_RIGHT:
                     self.player.use()
-            elif event.type == pygame.MOUSEWHEEL:
-                if event.button == 4:
+                elif event.button == 4:
                     self.player.bag.selection_box += 1
-                else:
+                    self.player.bag.update_inventory()
+                elif event.button == 5:
                     self.player.bag.selection_box -= 1
+                    self.player.bag.update_inventory()
 
     def update(self, dt):
-        self.camera.update(dt)
+        self.player.update(dt)
+
+    def render_UI(self):
+        self.player.bag.render_inventory()
 
     def render(self):
-        pass
+        self.camera.custom_draw(self.player.attribute.rect)
+        self.render_UI()
+        if self.player.bag.state:
+            self.player.bag.render()

@@ -1,4 +1,4 @@
-WIDTH, HEIGHT = 800, 600
+WIDTH, HEIGHT = 1200, 900
 FPS = 120
 TITLE = "冒险王"
 TITLE_JP = "アドベンチャーキング"

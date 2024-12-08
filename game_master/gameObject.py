@@ -12,11 +12,15 @@ class GameNpc(pygame.sprite.Sprite):
         self.__surface = game_master.fileManager.game_surface[name]
         self.attribute = game_master.gameObject.GameObject()
         self.attribute.rect = pos
-        self.index = 1
-        self.image = self.__surface[self.index]
+        self.rect = self.__surface.get_rect(center=pos)
+        self.vec2 = [0, 0]
+        """self.index = 1
+        self.image = self.__surface[self.index]"""
 
     def move(self, dt):
-        pass
+        self.attribute.rect[0] += self.vec2[0] * self.attribute.move_speed * dt
+        self.attribute.rect[1] += self.vec2[1] * self.attribute.move_speed * dt
+        self.rect.center = self.attribute.rect
 
     def action(self):
         pass
