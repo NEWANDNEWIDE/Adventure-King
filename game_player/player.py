@@ -131,28 +131,43 @@ class Player(pygame.sprite.Sprite):
 
 class Bag:
     def __init__(self):
+        # 背包是否打开
         self.__state = 0
-        self.__inventory = pygame.Surface((422, 44))
+        # 物品栏位置
         self.__inventory_rect = ((1200 - 422) / 2, 900 - 64)
+        # 背包位置
         self.__rect = ((1200 - 458) / 2, (900 - 410) / 2)
+        # 物品栏大小
+        self.__inventory = pygame.Surface((422, 44))
+        # 背包大小
         self.__background = pygame.Surface((458, 410))
+        # 人物框大小
         self.__role_box = pygame.Surface((100, 166))
+        # 保存每个格子的surface
         self.__frame = [pygame.Surface((40, 40)) for _ in range(49)]
+        # 保存格子的状态, 用于判断是否改变
         self.__frame_state = [0 for _ in range(49)]
+        # 保存合成格中物品之前存储的索引
         self.__synthesis = [0 for _ in range(4)]
+        # 箭头
         self.__arrowhead = pygame.Surface((40, 40))  # game_master.fileManager.game_surface["arrowhead"]
         self.__arrowhead.fill((0, 0, 0))
-        self.__box = pygame.Surface((44, 44))
+        # 颜色, 偏移量
         self.__offset = 2
         self.__offset_rect = 20
         self.__bg = (196, 196, 196)
         self.__fg = (138, 138, 138)
+        # 保存背包物品和空余数
         self.__bag = [0 for _ in range(49)]
         self.__free = 40
+        # 物品栏选择框
+        self.__box = pygame.Surface((44, 44))
         self.__selection_box = 34
+        # 鼠标选择
         self.__selection_offset = [0, 0]
         self.__selection = 0
         self.__selection_index = -1
+        # 初始化格子
         for i in range(49):
             self.__frame[i].fill(self.__fg)
         self.__role_box.fill((0, 0, 0))
@@ -181,6 +196,7 @@ class Bag:
         return self.__inventory_rect
 
     def setup(self, index=None):
+        # 在index不为None的情况下为更新格子
         if not index:
             self.__background.fill(self.__bg)
             self.__inventory.blit(self.__box, (42 * (self.__selection_box - 34), 0))
@@ -217,9 +233,8 @@ class Bag:
                     self.__background.blit(self.__frame[44 + i], (272 + (self.__offset + 40) * (i % 2),
                                                                   self.__offset_rect + self.__offset + 40 + (
                                                                           self.__offset + 40) * (i // 2)))
-                    self.__background.blit(self.__frame[-1], (398, 83))
-                else:
-                    self.__background.blit(self.__frame[-1], (398, 83))
+            if index[-1] >= 44:
+                self.__background.blit(self.__frame[-1], (398, 83))
 
     def open(self):
         self.__state = 1
