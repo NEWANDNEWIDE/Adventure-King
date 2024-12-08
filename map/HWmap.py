@@ -1,10 +1,13 @@
 import pygame.event
+import pytmx.util_pygame
+
 import game_master
 import game_player.player
 
 
 class Map:
     def __init__(self, screen):
+        # self.tmx = pytmx.util_pygame.load_pygame(r"C:\Users\10962\Desktop\First_ground1.tmx")
         self.__surface = pygame.image.load(r"C:\Users\10962\Desktop\Pygame-Cameras-main\graphics\ground.png").convert_alpha()
         self.__item = game_master.item.Item()
         self.__state = 1
@@ -17,6 +20,8 @@ class Map:
         self.losing_time = []
 
         self.object.append(self.player)
+
+        self.player.bag.put(game_master.goods.TestItem(number=1))
 
     def create(self, obj):
         self.camera.add(obj)
@@ -80,9 +85,15 @@ class Map:
                         self.player.bag.update_inventory()
                         return
                 if event.button == pygame.BUTTON_LEFT:
-                    self.player.attack()
+                    if not self.player.bag.state:
+                        self.player.attack()
+                    else:
+                        self.player.bag.selected(pos, pygame.BUTTON_LEFT)
                 elif event.button == pygame.BUTTON_RIGHT:
-                    self.player.use()
+                    if not self.player.bag.state:
+                        self.player.use()
+                    else:
+                        self.player.bag.selected(pos, pygame.BUTTON_RIGHT)
                 elif event.button == 4:
                     self.player.bag.selection_box += 1
                     self.player.bag.update_inventory()

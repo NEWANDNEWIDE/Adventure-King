@@ -5,16 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c388fb3f-2172-4411-a75d-ada954abd72c" name="更改" comment="test">
-      <change afterPath="$PROJECT_DIR$/game_player/player.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/game_master/goods.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_master/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_master/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_master/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_master/game.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_master/gameObject.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_master/gameObject.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_player/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_player/player.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/map/HWmap.py" beforeDir="false" afterPath="$PROJECT_DIR$/map/HWmap.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/map/map.py" beforeDir="false" afterPath="$PROJECT_DIR$/map/map.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_player/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/player/player.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,6 +63,7 @@
     "Python.edit.executor": "Run",
     "Python.fileManager.executor": "Run",
     "Python.game.executor": "Run",
+    "Python.gameObject.executor": "Run",
     "Python.gameSurface.executor": "Run",
     "Python.homework.executor": "Run",
     "Python.inputField.executor": "Run",
@@ -221,7 +219,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733453647245</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="test">
+      <option name="closed" value="true" />
+      <created>1733657307934</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1733657307934</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

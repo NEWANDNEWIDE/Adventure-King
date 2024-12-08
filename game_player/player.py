@@ -1,13 +1,13 @@
 import random
 from typing import List
-
 import pygame
+from pytmx import TiledMap
 import game_master.fileManager
 import game_master.gameObject
 
 
 class CameraGroup(pygame.sprite.Group):
-    def __init__(self, surface: pygame.Surface):
+    def __init__(self, surface: pygame.Surface, tmx=None):
         super().__init__()
         self.__display = pygame.display.get_surface()
         self.offset = pygame.math.Vector2()
@@ -16,19 +16,29 @@ class CameraGroup(pygame.sprite.Group):
         self.h_w = self.__display.width // 2
         self.h_h = self.__display.height // 2
 
-        self.ground_rect = self.__surface.get_rect(topleft = (0,0))
+        self.ground_rect = self.__surface.get_rect(topleft=(0, 0))
+
+        self.tmx: TiledMap = tmx
+
+    def draw_tmx(self):
+        for [layer] in self.tmx.visible_layers:
+            for x, y, gid in layer:
+                tile = self.tmx.get_tile_image_by_gid(gid)
+                if tile:
+                    self.__surface.blit(tile, (x * self.tmx.tilewidth, y * self.tmx.tileheight))
 
     def center_target_camera(self, target):
         self.offset.x = target[0] - self.h_w
         self.offset.y = target[1] - self.h_h
 
     def custom_draw(self, rect):
+        if self.tmx:
+            self.draw_tmx()
 
         self.center_target_camera(rect)
 
         ground_offset = self.ground_rect.topleft - self.offset
         self.__display.blit(self.__surface, ground_offset)
-
 
         # active elements
         for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
@@ -39,7 +49,8 @@ class CameraGroup(pygame.sprite.Group):
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, group):
         super().__init__(group)
-        self.__surface = pygame.image.load(r"C:\Users\10962\Desktop\Pygame-Cameras-main\graphics\player.png").convert_alpha()
+        self.__surface = pygame.image.load(
+            r"C:\Users\10962\Desktop\Pygame-Cameras-main\graphics\player.png").convert_alpha()
         # self.__l = (self.__surface[0] - 1) // 4
         self.__vec2 = [0, 0]
 
@@ -78,7 +89,7 @@ class Player(pygame.sprite.Sprite):
     def attack(self):
         if self.bag.bag[self.bag.selection_box]:
             chance = self.attribute.critical_strike_chance + self.bag.bag[self.bag.selection_box].critical_strike_chance
-            damage = self.attribute.attack + self.bag.bag[self.bag.selection_box].attack
+            damage = self.attribute.attack + self.bag.bag[self.bag.selection_box].attacked
             if self.attribute.critical_strike_chance < 1:
                 r = random.random()
                 damage = damage * self.attribute.critical_strike_damage if chance >= r else damage
@@ -116,6 +127,7 @@ class Player(pygame.sprite.Sprite):
     def update(self, dt):
         self.move(dt)
         self.bag.update()
+
 
 class Bag:
     def __init__(self):
@@ -168,23 +180,46 @@ class Bag:
     def inventory_rect(self):
         return self.__inventory_rect
 
-    def setup(self):
-        self.__background.fill(self.__bg)
-        self.__inventory.blit(self.__box, (42 * (self.__selection_box - 34), 0))
-        for i in range(4):
-            self.__background.blit(self.__frame[i], (self.__offset_rect, self.__offset_rect + (self.__offset + 40) * i))
-            self.__background.blit(self.__frame[44 + i], (272 + (self.__offset + 40) * (i % 2),
-                                                          self.__offset_rect + self.__offset + 40 + (
+    def setup(self, index=None):
+        if not index:
+            self.__background.fill(self.__bg)
+            self.__inventory.blit(self.__box, (42 * (self.__selection_box - 34), 0))
+            for i in range(4):
+                self.__background.blit(self.__frame[i], (self.__offset_rect, self.__offset_rect + (self.__offset + 40) * i))
+                self.__background.blit(self.__frame[44 + i], (272 + (self.__offset + 40) * (i % 2),
+                                                              self.__offset_rect + self.__offset + 40 + (
                                                                       self.__offset + 40) * (i // 2)))
-        self.__background.blit(self.__role_box, (self.__offset_rect * 2 + 40, self.__offset_rect))
-        self.__background.blit(self.__arrowhead, (356, 83))
-        self.__background.blit(self.__frame[-1], (398, 83))
-        for i in range(30):
-            self.__background.blit(self.__frame[4 + i],
-                                   (20 + (self.__offset + 40) * (i % 10), 206 + (self.__offset + 40) * (i // 10)))
-        for i in range(10):
-            self.__background.blit(self.__frame[34 + i], (20 + (self.__offset + 40) * i, 350))
-            self.__inventory.blit(self.__frame[34 + i], (2 + (self.__offset + 40) * i, 2))
+            self.__background.blit(self.__role_box, (self.__offset_rect * 2 + 40, self.__offset_rect))
+            self.__background.blit(self.__arrowhead, (356, 83))
+            self.__background.blit(self.__frame[-1], (398, 83))
+            for i in range(30):
+                self.__background.blit(self.__frame[4 + i],
+                                       (20 + (self.__offset + 40) * (i % 10), 206 + (self.__offset + 40) * (i // 10)))
+            for i in range(10):
+                self.__background.blit(self.__frame[34 + i], (20 + (self.__offset + 40) * i, 350))
+                self.__inventory.blit(self.__frame[34 + i], (2 + (self.__offset + 40) * i, 2))
+        else:
+            for i in index:
+                if 0 <= i <= 3:
+                    self.__background.blit(self.__frame[i],
+                                           (self.__offset_rect, self.__offset_rect + (self.__offset + 40) * i))
+                elif 4 <= i <= 33:
+                    i -= 4
+                    self.__background.blit(self.__frame[4 + i],
+                                           (20 + (self.__offset + 40) * (i % 10),
+                                            206 + (self.__offset + 40) * (i // 10)))
+                elif 34 <= i <= 43:
+                    i -= 34
+                    self.__background.blit(self.__frame[34 + i], (20 + (self.__offset + 40) * i, 350))
+                    self.__inventory.blit(self.__frame[34 + i], (2 + (self.__offset + 40) * i, 2))
+                elif 44 <= i <= 47:
+                    i -= 44
+                    self.__background.blit(self.__frame[44 + i], (272 + (self.__offset + 40) * (i % 2),
+                                                                  self.__offset_rect + self.__offset + 40 + (
+                                                                          self.__offset + 40) * (i // 2)))
+                    self.__background.blit(self.__frame[-1], (398, 83))
+                else:
+                    self.__background.blit(self.__frame[-1], (398, 83))
 
     def open(self):
         self.__state = 1
@@ -225,9 +260,12 @@ class Bag:
         if self.__bag[self.__selection_box]:
             self.__bag[self.__selection_box].use()
 
-    def selected(self, pos: List[int]):
+    def selected(self, pos: List[int], state):
         pos = list(pos)
+        pos[0] -= self.__rect[0]
+        pos[1] -= self.__rect[1]
         if 20 <= pos[0] <= 60 and 20 <= pos[1] <= 186:
+            print(1)
             pos[1] -= 20
             i = 0
             for i in range(4):
@@ -257,24 +295,25 @@ class Bag:
                     self.__selection = 0
                 self.__frame_state[i] = 1
         elif 272 <= pos[0] <= 356 and 62 <= pos[1] <= 144:
+            print(2)
             pos[0] -= 272
             pos[1] -= 62
             i, j = 0, 0
             for i in range(2):
                 pos[1] -= 40
                 if pos[1] <= 0:
+                    if pos[0] > 0:
+                        for j in range(2):
+                            pos[0] -= 40
+                            if pos[0] <= 0:
+                                break
+                            elif 0 < pos[0] < 2:
+                                return
+                            pos[0] -= 2
                     break
                 elif 0 < pos[1] < 2:
                     return
                 pos[1] -= 2
-                if pos[0] > 0:
-                    for j in range(2):
-                        pos[0] -= 40
-                        if pos[0] <= 0:
-                            break
-                        elif 0 < pos[0] < 2:
-                            return
-                        pos[0] -= 2
             i = 44 + i * 2 + j
             if self.__selection_index == -1:
                 if self.__bag[i]:
@@ -283,6 +322,7 @@ class Bag:
                     self.__selection = self.__bag[i]
                     self.__bag[i] = 0
                     self.__frame_state[i] = 1
+                    self.__frame_state[-1] = 1
             else:
                 if self.__bag[i]:
                     self.__selection_index = i
@@ -295,7 +335,9 @@ class Bag:
                     self.__selection_index = -1
                     self.__selection = 0
                 self.__frame_state[i] = 1
+                self.__frame_state[-1] = 1
         elif 398 <= pos[0] <= 438 and 83 <= pos[1] <= 123:
+            print(3)
             if self.__selection_index == -1 and self.__bag[48]:
                 self.__selection_offset = [pos[0] - 398, pos[1] - 83]
                 self.__selection_index = 48
@@ -303,25 +345,28 @@ class Bag:
                 self.__bag[48] = 0
                 self.__frame_state[48] = 1
         elif 20 <= pos[0] <= 438:
-            pos[0] -= 20
             if 206 <= pos[1] <= 330:
+                print(4)
+                pos[0] -= 20
                 pos[1] -= 206
                 i, j = 0, 0
                 for i in range(3):
                     pos[1] -= 40
                     if pos[1] <= 0:
+                        if pos[0] > 0:
+                            for j in range(10):
+                                pos[0] -= 40
+                                if pos[0] <= 0:
+                                    break
+                                elif 0 < pos[0] < 2:
+                                    return
+                                pos[0] -= 2
                         break
                     elif 0 < pos[1] < 2:
                         return
                     pos[1] -= 2
-                    if pos[0] > 0:
-                        for j in range(10):
-                            pos[0] -= 40
-                            if pos[0] <= 0:
-                                break
-                            elif 0 < pos[0] < 2:
-                                return
-                            pos[0] -= 2
+                print(pos)
+                print(i, j)
                 i = 4 + i * 10 + j
                 if self.__selection_index == -1:
                     if self.__bag[i]:
@@ -343,6 +388,8 @@ class Bag:
                         self.__selection = 0
                     self.__frame_state[i] = 1
             elif 350 <= pos[1] <= 390:
+                print(5)
+                pos[0] -= 20
                 i = 0
                 for i in range(10):
                     pos[0] -= 40
@@ -371,6 +418,13 @@ class Bag:
                         self.__selection_index = -1
                         self.__selection = 0
                     self.__frame_state[i] = 1
+        elif pos[0] < 0 or pos[0] > 458 or pos[1] < 0 or pos[1] > 410:
+            print(pos)
+            if self.__selection_index != -1:
+                self.out(self.__selection_index)
+                self.__selection_index = -1
+                self.__selection = 0
+                self.__selection_offset = [0, 0]
 
     def put(self, obj):
         if self.__free:
@@ -379,6 +433,7 @@ class Bag:
                     self.__bag[4 + i] = obj
                     self.__frame_state[4 + i] = 1
                     self.__free -= 1
+                    print(4 + i)
                     return 1
         return 0
 
@@ -404,13 +459,16 @@ class Bag:
             self.__inventory.blit(self.__frame[34 + i], (2 + (self.__offset + 40) * i, 2))
 
     def update(self):
+        temp = []
         for i in range(49):
             if self.__frame_state[i]:
                 self.__frame[i].fill(self.__fg)
                 if self.__bag[i]:
+                    # pygame.transform.scale(self.__bag[i].surface, (40, 40), self.__frame[i])
                     self.__frame[i].blit(self.__bag[i].surface)
                 self.__frame_state[i] = 0
-        # self.setup()
+                temp.append(i)
+        self.setup(temp)
 
     def render_inventory(self):
         pygame.display.get_surface().blit(self.__inventory, self.__inventory_rect)
@@ -421,4 +479,4 @@ class Bag:
             if self.__selection_index != -1:
                 pos = pygame.mouse.get_pos()
                 pygame.display.get_surface().blit(self.__selection.surface, (
-                pos[0] - self.__selection_offset[0], pos[1] - self.__selection_offset[1]))
+                    pos[0] - self.__selection_offset[0], pos[1] - self.__selection_offset[1]))

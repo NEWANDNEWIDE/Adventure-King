@@ -83,12 +83,12 @@ class GameObject:
         self.__attribute[1] = shield
 
     @property
-    def attack(self):
+    def attacked(self):
         return self.__attribute[2]
 
-    @attack.setter
-    def attack(self, attack):
-        self.__attribute[2] = attack
+    @attacked.setter
+    def attacked(self, attacked):
+        self.__attribute[2] = attacked
 
     @property
     def defense(self):
@@ -138,13 +138,16 @@ class GameObject:
     def reach_distance(self, reach_distance):
         self.__attribute[8] = reach_distance
 
+    def attack(self):
+        pass
+
     def use(self):
         pass
 
 
 # 装备
 class IronArmor(GameObject):
-    def __init__(self, name, limit=1):
+    def __init__(self, name, limit=1, number=0):
         super().__init__()
         self.name = name
         self.limit = limit
@@ -154,7 +157,7 @@ class IronArmor(GameObject):
 
 # 武器
 class WoodenSword(GameObject):
-    def __init__(self, name="wooden-sword", limit=1):
+    def __init__(self, name="wooden-sword", limit=1, number=0):
         super().__init__()
         self.name = name
         self.limit = limit
