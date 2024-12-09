@@ -184,6 +184,7 @@ class Bag:
         # 保存背包物品和空余数, 0-3是盔甲格子, 4-33是背包格子, 34-43是物品栏格子, 44-47是合成格子, 48是合成的物品格子
         self.__bag = [0 for _ in range(49)]
         self.__free = 40
+        self.remaining_quantity = []
         # 物品栏选择框
         self.__box = pygame.Surface((44, 44))
         self.__selection_box = 34
@@ -458,7 +459,6 @@ class Bag:
                     self.selection_offset = [0, 0]
         else:
             if 20 <= pos[0] <= 60 and 20 <= pos[1] <= 186:
-                print(1)
                 pos[1] -= 20
                 i = 0
                 for i in range(4):
@@ -488,7 +488,6 @@ class Bag:
                         self.selection = 0
                     self.__frame_state[i] = 1
             elif 272 <= pos[0] <= 356 and 62 <= pos[1] <= 144:
-                print(2)
                 pos[0] -= 272
                 pos[1] -= 62
                 i, j = 0, 0
@@ -534,19 +533,19 @@ class Bag:
                         self.selection = 0
                     self.__frame_state[i] = 1
                     self.__frame_state[-1] = 1
-                print(self.__synthesis)
-                print(self.__bag)
             elif 398 <= pos[0] <= 438 and 83 <= pos[1] <= 123:
-                print(3)
                 if self.selection_index == -1 and self.__bag[48]:
                     self.selection_offset = [pos[0] - 398, pos[1] - 83]
                     self.selection_index = 48
                     self.selection = self.__bag[48]
                     self.__bag[48] = 0
                     self.__frame_state[48] = 1
+                    for i in self.remaining_quantity:
+                        print(i)
+                        self.__bag[i] = 0
+                        self.__frame_state[i] = 1
             elif 20 <= pos[0] <= 438:
                 if 206 <= pos[1] <= 330:
-                    print(4)
                     pos[0] -= 20
                     pos[1] -= 206
                     i, j = 0, 0
@@ -586,7 +585,6 @@ class Bag:
                             self.selection = 0
                         self.__frame_state[i] = 1
                 elif 350 <= pos[1] <= 390:
-                    print(5)
                     pos[0] -= 20
                     i = 0
                     for i in range(10):
@@ -617,7 +615,6 @@ class Bag:
                             self.selection = 0
                         self.__frame_state[i] = 1
             elif pos[0] < 0 or pos[0] > 458 or pos[1] < 0 or pos[1] > 410:
-                print(pos)
                 if self.selection_index != -1:
                     self.out(self.selection_index)
                     self.selection_index = -1
@@ -657,6 +654,49 @@ class Bag:
             return t
         return 0
 
+    def synthesis(self):
+        number = []
+        for i in range(4):
+            if self.__frame_state[44 + i] and self.__bag[44 + i]:
+                number.append(i)
+        if not number:
+            return 0
+        state = 1
+        ans = 0
+        obj = 0
+        for g in game_master.synthesis.PLAYER_SYNTHESIS_LIST:
+            print(g)
+            l = len(g) - 1
+            if len(number) == l:
+                for i in range(l):
+                    if self.__bag[44 + number[i]].name != g[i][0] or self.__bag[44 + number[i]].number < g[i][1]:
+                        state = 0
+                        break
+                if state:
+                    i = 0
+                    while self.__bag[44 + number[i]].number >= g[i][1]:
+                        self.__bag[44 + number[i]].number -= g[i][1]
+                        if i == l - 1:
+                            i = 0
+                            ans += 1
+                        else:
+                            i += 1
+                    obj = g
+                    break
+        if ans and obj:
+            self.__bag[-1] = game_master.className.GOODS[obj[-1][0]](obj[-1][0], number=ans)
+            self.__frame_state[-1] = 1
+            temp = []
+            for i in range(len(number)):
+                if self.__bag[number[i] + 44].number == 0:
+                    temp.append(number[i] + 44)
+            return temp
+        else:
+            if self.__bag[-1]:
+                self.__bag[-1] = 0
+                self.__frame_state[-1] = 1
+        return 0
+
     def update_inventory(self):
         if self.selection_box < 34:
             self.selection_box = 34
@@ -669,6 +709,9 @@ class Bag:
 
     def update(self):
         temp = []
+        if not self.remaining_quantity:
+            t = self.synthesis()
+            self.remaining_quantity = t if t else []
         for i in range(49):
             if self.__frame_state[i]:
                 self.__frame[i].fill(self.fg)

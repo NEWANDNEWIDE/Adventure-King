@@ -1,8 +1,14 @@
 import pygame
-
+import game_master.goods
 import game_player.player
 
 SYNTHESIS = 114514
+# 人物身上的合成
+# 类名可在className.GOODS里加入或查看
+PLAYER_SYNTHESIS_LIST = [
+    # 五个格子, 前四个以(类名, 数量)写入, 最后一个为输出
+    ((game_master.goods.TestItem.NAME, 1), (game_master.goods.TestItemOther.NAME, 1))
+]
 
 
 class Synthesis:
