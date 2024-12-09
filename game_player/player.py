@@ -539,8 +539,11 @@ class Bag:
                     self.__bag[48] = 0
                     self.__frame_state[48] = 1
                     for i in self.remaining_quantity:
-                        self.__bag[i] = 0
-                        self.__frame_state[i] = 1
+                        if i[0]:
+                            self.__bag[i[1]].number = i[0]
+                        else:
+                            self.__bag[i[1]] = 0
+                        self.__frame_state[i[1]] = 1
             elif 20 <= pos[0] <= 438:
                 if 206 <= pos[1] <= 330:
                     pos[0] -= 20
@@ -658,6 +661,7 @@ class Bag:
                 number.append(i)
         if not number:
             return 0
+        temp = []
         state = 1
         ans = 0
         obj = 0
@@ -669,9 +673,12 @@ class Bag:
                         state = 0
                         break
                 if state:
+                    for i in number:
+                        t = self.__bag[i + 44]
+                        temp.append([t.number, i + 44])
                     i = 0
-                    while self.__bag[44 + number[i]].number >= g[i][1]:
-                        self.__bag[44 + number[i]].number -= g[i][1]
+                    while temp[i][0] >= g[i][1]:
+                        temp[i][0] -= g[i][1]
                         if i == l - 1:
                             i = 0
                             ans += 1
@@ -682,10 +689,6 @@ class Bag:
         if ans and obj:
             self.__bag[-1] = game_master.className.GOODS[obj[-1][0]](obj[-1][0], number=ans)
             self.__frame_state[-1] = 1
-            temp = []
-            for i in range(len(number)):
-                if self.__bag[number[i] + 44].number == 0:
-                    temp.append(number[i] + 44)
             return temp
         else:
             if self.__bag[-1]:
