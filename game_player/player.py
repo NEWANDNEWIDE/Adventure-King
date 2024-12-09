@@ -546,8 +546,6 @@ class Bag:
                         elif 0 < pos[1] < 2:
                             return
                         pos[1] -= 2
-                    print(pos)
-                    print(i, j)
                     i = 4 + i * 10 + j
                     if self.selection_index == -1:
                         if self.__bag[i]:
