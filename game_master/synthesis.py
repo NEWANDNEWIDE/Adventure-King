@@ -1,11 +1,12 @@
 import pygame
 
+import game_player.player
 
 SYNTHESIS = 114514
 
 
 class Synthesis:
-    def __init__(self, bag):
+    def __init__(self, bag: game_player.player.Bag):
         self.bag = bag
         # 合成界面是否打开
         self.state = 0
@@ -79,15 +80,15 @@ class Synthesis:
         pos = list(pos)
         pos[0] -= self.bag.rect[0]
         pos[1] -= self.bag.rect[1]
-        """if 272 <= pos[0] <= 356 and 62 <= pos[1] <= 144:
-            pos[0] -= 272
-            pos[1] -= 62
+        if 107 <= pos[0] <= 231 and 20 <= pos[1] <= 144:
+            pos[0] -= 107
+            pos[1] -= 20
             i, j = 0, 0
-            for i in range(2):
+            for i in range(3):
                 pos[1] -= 40
                 if pos[1] <= 0:
                     if pos[0] > 0:
-                        for j in range(2):
+                        for j in range(3):
                             pos[0] -= 40
                             if pos[0] <= 0:
                                 break
@@ -98,31 +99,30 @@ class Synthesis:
                 elif 0 < pos[1] < 2:
                     return
                 pos[1] -= 2
-            k = i
-            i = 44 + i * 2 + j
-            if self.selection_index == -1:
-                if self.__bag[i]:
-                    self.selection_offset = [pos[0] + 40, pos[1] + 40]
-                    self.selection_index = i
-                    self.selection = self.__bag[i]
-                    self.__synthesis[k * 2 + j] = 0
-                    self.__bag[i] = 0
+            i = i * 3 + j
+            if self.bag.selection_index == -1:
+                if self.__synthesis[i]:
+                    self.bag.selection_offset = [pos[0] + 40, pos[1] + 40]
+                    self.bag.selection_index = i
+                    self.bag.selection = self.__synthesis[i]
+                    self.__synthesis_index[i] = 0
+                    self.__synthesis[i] = 0
                     self.__frame_state[i] = 1
                     self.__frame_state[-1] = 1
             else:
-                self.__synthesis[k * 2 + j] = self.selection_index
-                if self.__bag[i]:
-                    self.selection_index = i
-                    t = self.selection
-                    self.selection = self.__bag[i]
-                    self.__bag[i] = t
+                self.__synthesis_index[i] = self.bag.selection_index
+                if self.__synthesis[i]:
+                    self.bag.selection_index = i
+                    t = self.bag.selection
+                    self.bag.selection = self.__synthesis[i]
+                    self.__synthesis[i] = t
                 else:
-                    self.__bag[i] = self.selection
-                    self.selection_offset = [0, 0]
-                    self.selection_index = -1
-                    self.selection = 0
+                    self.__synthesis[i] = self.bag.selection
+                    self.bag.selection_offset = [0, 0]
+                    self.bag.selection_index = -1
+                    self.bag.selection = 0
                 self.__frame_state[i] = 1
-                self.__frame_state[-1] = 1"""
+                self.__frame_state[-1] = 1
 
     def update(self):
         self.bag.update()

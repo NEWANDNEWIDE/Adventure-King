@@ -287,25 +287,43 @@ class Bag:
     def close(self):
         self.__state = 0
         if self.selection_index != -1:
-            t = self.__bag[self.selection_index]
-            n = t.number + self.selection.number
-            if t.name == self.selection.name and t.limit >= n:
-                t.number = n
-                self.selection = 0
-                self.selection_index = -1
-                self.selection_offset = [0, 0]
-            else:
+            if self.selection_index > 43:
                 t = self.selection
                 self.selection = 0
                 self.selection_index = -1
                 self.selection_offset = [0, 0]
                 if not self.put(t):
                     return self.out(obj=t)
-        print(self.__bag)
-        print(self.__synthesis)
+            elif self.__bag[self.selection_index]:
+                t = self.__bag[self.selection_index]
+                n = t.number + self.selection.number
+                if t.name == self.selection.name and t.limit >= n:
+                    t.number = n
+                    self.selection = 0
+                    self.selection_index = -1
+                    self.selection_offset = [0, 0]
+                else:
+                    t = self.selection
+                    self.selection = 0
+                    self.selection_index = -1
+                    self.selection_offset = [0, 0]
+                    if not self.put(t):
+                        return self.out(obj=t)
+            else:
+                self.__frame_state[self.selection_index] = 1
+                self.__bag[self.selection_index] = self.selection
+                self.selection = 0
+                self.selection_index = -1
+                self.selection_offset = [0, 0]
         for i in range(4):
             if self.__synthesis[i]:
-                if self.__bag[self.__synthesis[i]]:
+                if self.__synthesis[i] > 43:
+                    t, n = self.__bag[44 + i], self.__synthesis[i]
+                    self.__bag[44 + i] = 0
+                    self.__synthesis[i] = 0
+                    if not self.put(t):
+                        return self.out(n)
+                elif self.__bag[self.__synthesis[i]]:
                     t = self.__bag[self.__synthesis[i]]
                     n = t.number + self.__bag[44 + i].number
                     if t.name == self.__bag[44 + i].name and t.limit >= n:
@@ -325,6 +343,7 @@ class Bag:
                     self.__frame_state[44 + i] = 1
                     self.__bag[self.__synthesis[i]] = self.__bag[44 + i]
                     self.__bag[44 + i] = 0
+                    self.__synthesis[i] = 0
         return 0
 
     def use(self):
@@ -474,26 +493,30 @@ class Bag:
                 if self.selection_index == -1:
                     if self.__bag[i]:
                         self.selection_offset = [pos[0] + 40, pos[1] + 40]
-                        self.selection_index = i
+                        self.selection_index = self.__synthesis[k * 2 + j]
                         self.selection = self.__bag[i]
                         self.__synthesis[k * 2 + j] = 0
                         self.__bag[i] = 0
                         self.__frame_state[i] = 1
                         self.__frame_state[-1] = 1
                 else:
-                    self.__synthesis[k * 2 + j] = self.selection_index
                     if self.__bag[i]:
-                        self.selection_index = i
+                        n = self.__synthesis[k * 2 + j]
+                        self.__synthesis[k * 2 + j] = self.selection_index
+                        self.selection_index = n
                         t = self.selection
                         self.selection = self.__bag[i]
                         self.__bag[i] = t
                     else:
                         self.__bag[i] = self.selection
+                        self.__synthesis[k * 2 + j] = self.selection_index
                         self.selection_offset = [0, 0]
                         self.selection_index = -1
                         self.selection = 0
                     self.__frame_state[i] = 1
                     self.__frame_state[-1] = 1
+                print(self.__synthesis)
+                print(self.__bag)
             elif 398 <= pos[0] <= 438 and 83 <= pos[1] <= 123:
                 print(3)
                 if self.selection_index == -1 and self.__bag[48]:

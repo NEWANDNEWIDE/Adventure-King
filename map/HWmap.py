@@ -12,12 +12,16 @@ class Map:
         self.__item = game_master.item.Item()
         self.__state = 1
         self.__screen = screen
+
         self.camera = game_player.player.CameraGroup(self.__surface)
         self.player = game_player.player.Player([640, 360], self.camera)
+
         self.inventory_rect = self.player.bag.inventory_rect
+
         self.object = []
-        self.losing = []
         self.goods = []
+
+        self.losing = []
         self.losing_time = []
 
         self.object.append(self.player)
@@ -28,11 +32,14 @@ class Map:
 
     def create(self, obj):
         self.camera.add(obj)
-        self.object.append(obj.attribute)
+        self.object.append(obj)
 
     def add(self, obj):
         self.camera.add(obj)
-        self.losing.append(obj.rect)
+        self.losing.append(obj)
+
+    def create_goods(self):
+        pass
 
     @staticmethod
     def get_rect_x(obj):
