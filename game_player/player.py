@@ -397,8 +397,6 @@ class Bag:
                         elif 0 < pos[1] < 2:
                             return
                         pos[1] -= 2
-                    print(pos)
-                    print(i, j)
                     i = 4 + i * 10 + j
                     if self.selection_index == -1:
                         if self.__bag[i]:
@@ -541,7 +539,6 @@ class Bag:
                     self.__bag[48] = 0
                     self.__frame_state[48] = 1
                     for i in self.remaining_quantity:
-                        print(i)
                         self.__bag[i] = 0
                         self.__frame_state[i] = 1
             elif 20 <= pos[0] <= 438:
@@ -665,7 +662,6 @@ class Bag:
         ans = 0
         obj = 0
         for g in game_master.synthesis.PLAYER_SYNTHESIS_LIST:
-            print(g)
             l = len(g) - 1
             if len(number) == l:
                 for i in range(l):

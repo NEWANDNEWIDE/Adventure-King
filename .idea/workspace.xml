@@ -5,13 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c388fb3f-2172-4411-a75d-ada954abd72c" name="更改" comment="test">
-      <change afterPath="$PROJECT_DIR$/game_master/className.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_master/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_master/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_master/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_master/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_master/gameObject.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_master/gameObject.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_master/goods.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_master/goods.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_master/synthesis.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_master/synthesis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_player/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_player/player.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -325,7 +318,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733735790512</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="test">
+      <option name="closed" value="true" />
+      <created>1733741580197</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1733741580197</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
