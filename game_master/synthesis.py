@@ -76,7 +76,7 @@ class Synthesis:
 
     def selected(self, pos, state):
         self.bag.selected(pos, SYNTHESIS)
-        if 272 <= pos[0] <= 356 and 62 <= pos[1] <= 144:
+        """if 272 <= pos[0] <= 356 and 62 <= pos[1] <= 144:
             pos[0] -= 272
             pos[1] -= 62
             i, j = 0, 0
@@ -119,7 +119,7 @@ class Synthesis:
                     self.selection_index = -1
                     self.selection = 0
                 self.__frame_state[i] = 1
-                self.__frame_state[-1] = 1
+                self.__frame_state[-1] = 1"""
 
     def update(self):
         self.bag.update()
