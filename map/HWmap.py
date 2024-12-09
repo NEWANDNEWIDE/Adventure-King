@@ -78,6 +78,11 @@ class Map:
                         self.player.sys_state = self.goods[0].open()
                     else:
                         self.player.sys_state = self.goods[0].close()
+                elif event.key == 1073742049:
+                    self.player.run = 0 if self.player.run else 1
+                elif event.key == 32 and not self.player.shanbi_state and self.player.shanbi >= 0:
+                    self.player.shanbi_state = 1
+                    self.player.shanbi = 0.1
             elif event.type == pygame.KEYUP:
                 pass
             elif event.type == pygame.MOUSEBUTTONDOWN:

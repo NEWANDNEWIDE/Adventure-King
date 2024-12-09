@@ -127,9 +127,13 @@ class Synthesis:
                     self.bag.selection = 0
                 self.__frame_state[i] = 1
                 self.__frame_state[-1] = 1
-            print(self.__synthesis)
-            print(self.__synthesis_index)
-            print(self.bag.selection)
+        elif 251 <= pos[0] <= 291 and 62 <= pos[1] <= 102:
+            if self.bag.selection_index == -1 and self.__synthesis[-1]:
+                self.bag.selection_offset = [pos[0] - 398, pos[1] - 83]
+                self.bag.selection_index = 48
+                self.bag.selection = self.__synthesis[-1]
+                self.__synthesis[-1] = 0
+                self.__frame_state[-1] = 1
 
     def update(self):
         self.bag.update()

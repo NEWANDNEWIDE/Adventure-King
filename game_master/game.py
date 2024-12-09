@@ -43,7 +43,7 @@ class Game:
             dt = self.clock.tick() / 1000
             self.screen.fill((255, 255, 255))
             for event in pygame.event.get():
-                """print(event)"""
+                print(event)
                 if event.type == pygame.QUIT:
                     self.__running = False
                     pygame.quit()

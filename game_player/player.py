@@ -56,6 +56,11 @@ class Player(pygame.sprite.Sprite):
 
         # 是否打开合成台
         self.sys_state = 0
+        # 是否奔跑
+        self.run = 0
+        # 闪避
+        self.shanbi = 0
+        self.shanbi_state = 1
 
         self.index = 1
         self.image = self.__surface
@@ -77,7 +82,7 @@ class Player(pygame.sprite.Sprite):
         self.attribute.critical_strike_chance = 0.05
         self.attribute.critical_strike_damage = 1.5
         self.attribute.reach_distance = 1
-        self.attribute.move_speed = 100
+        self.attribute.move_speed = 200
 
         self.attack_box = self.attribute.reach_distance * 50
 
@@ -122,10 +127,24 @@ class Player(pygame.sprite.Sprite):
 
     def move(self, dt):
         self.input()
-        self.attribute.rect[0] += self.vec2[0] * self.attribute.move_speed * dt
-        self.attribute.rect[1] += self.vec2[1] * self.attribute.move_speed * dt
+        if not self.run and not self.shanbi_state:
+            self.attribute.rect[0] += self.vec2[0] * self.attribute.move_speed * dt
+            self.attribute.rect[1] += self.vec2[1] * self.attribute.move_speed * dt
+        elif self.shanbi_state:
+            if self.shanbi > 0:
+                self.attribute.rect[0] += self.vec2[0] * self.attribute.move_speed * dt * 10
+                self.attribute.rect[1] += self.vec2[1] * self.attribute.move_speed * dt * 10
+                self.shanbi -= dt
+            else:
+                self.shanbi = -0.5
+                self.shanbi_state = 0
+        else:
+            self.attribute.rect[0] += self.vec2[0] * self.attribute.move_speed * dt * 2
+            self.attribute.rect[1] += self.vec2[1] * self.attribute.move_speed * dt * 2
         self.rect.centerx = self.attribute.rect[0]
         self.rect.centery = self.attribute.rect[1]
+        if not self.shanbi_state and self.shanbi < 0:
+            self.shanbi += dt
 
     def update(self, dt):
         self.move(dt)

@@ -142,6 +142,9 @@ class GameObject:
     def reach_distance(self, reach_distance):
         self.__attribute[8] = reach_distance
 
+    def create(self):
+        return GameObject()
+
     def attack(self):
         pass
 
