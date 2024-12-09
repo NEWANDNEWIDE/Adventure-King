@@ -157,7 +157,7 @@ class Bag:
         self.__offset_rect = 20
         self.__bg = (196, 196, 196)
         self.__fg = (138, 138, 138)
-        # 保存背包物品和空余数
+        # 保存背包物品和空余数, 0-3是盔甲格子, 4-33是背包格子, 34-43是物品栏格子, 44-47是合成格子, 48是合成的物品格子
         self.__bag = [0 for _ in range(49)]
         self.__free = 40
         # 物品栏选择框
@@ -183,6 +183,10 @@ class Bag:
     def bag(self):
         return self.__bag
 
+    @bag.setter
+    def bag(self, bag):
+        self.__bag = bag
+
     @property
     def selection_box(self):
         return self.__selection_box
@@ -194,6 +198,14 @@ class Bag:
     @property
     def inventory_rect(self):
         return self.__inventory_rect
+
+    @property
+    def frame(self):
+        return self.__frame
+
+    @frame.setter
+    def frame(self, frame):
+        self.__frame = frame
 
     def setup(self, index=None):
         # 在index不为None的情况下为更新格子
@@ -269,7 +281,8 @@ class Bag:
                     self.__bag[44 + i] = 0
                     self.__synthesis[i] = 0
                     if not self.put(t):
-                        self.out(n)
+                        return self.out(n)
+        return 0
 
     def use(self):
         if self.__bag[self.__selection_box]:
@@ -442,6 +455,16 @@ class Bag:
                 self.__selection_offset = [0, 0]
 
     def put(self, obj):
+        for i in range(40):
+            if self.bag[4 + i] and self.bag[4 + i].name == obj.name and self.bag[4 + i].limit > self.bag[4 + i].number:
+                t = self.__bag[4 + i]
+                n = t.number + obj.number
+                if t.limit >= n:
+                    t.number = n
+                    return 1
+                else:
+                    obj.number -= t.limit - t.number
+                    t.number =t.limit
         if self.__free:
             for i in range(40):
                 if not self.__bag[4 + i]:

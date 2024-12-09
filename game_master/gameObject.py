@@ -6,6 +6,7 @@ ATTRIBUTE = ("Health", "Shield", "Attack",
              "Critical_strike_chance", "Critical_strike_damage", "Reach_distance")
 
 
+# 所有游戏npc的基类
 class GameNpc(pygame.sprite.Sprite):
     def __init__(self, pos, group, name):
         super().__init__(group)
@@ -40,6 +41,9 @@ class GameObject:
                             0, 0, 0]
         self.__number = 0
         self.__limit = 1
+        # 是否可以穿上
+        self.dressed = 0
+        # 位置
         self.rect = [-1, -1]
 
     @property
@@ -151,6 +155,7 @@ class IronArmor(GameObject):
         super().__init__()
         self.name = name
         self.limit = limit
+        self.dressed = 1
         self.shield = 20
         self.surface = game_master.fileManager.game_surface[name]
 

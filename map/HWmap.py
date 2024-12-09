@@ -21,7 +21,8 @@ class Map:
 
         self.object.append(self.player)
 
-        self.player.bag.put(game_master.goods.TestItem(number=1))
+        self.player.bag.put(game_master.goods.TestItem(number=64))
+        self.player.bag.put(game_master.goods.TestItemOther(number=61))
 
     def create(self, obj):
         self.camera.add(obj)
