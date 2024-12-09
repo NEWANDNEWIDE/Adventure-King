@@ -69,7 +69,7 @@ class Synthesis:
                         if not self.bag.put(t):
                             return self.bag.out(n)
                 else:
-                    self.bag.frame_state[self.__synthesis[i]] = 1
+                    self.bag.frame_state[self.__synthesis_index[i]] = 1
                     self.__frame_state[i] = 1
                     self.bag.bag[self.__synthesis_index[i]] = self.__synthesis[i]
                     self.__synthesis[i] = 0
@@ -101,6 +101,7 @@ class Synthesis:
                     return
                 pos[1] -= 2
             i = i * 3 + j
+            print(pos)
             if self.bag.selection_index == -1:
                 if self.__synthesis_index[i]:
                     self.bag.selection_offset = [pos[0] + 40, pos[1] + 40]
@@ -126,16 +127,19 @@ class Synthesis:
                     self.bag.selection = 0
                 self.__frame_state[i] = 1
                 self.__frame_state[-1] = 1
+            print(self.__synthesis)
+            print(self.__synthesis_index)
+            print(self.bag.selection)
 
     def update(self):
         self.bag.update()
         temp = []
         for i in range(10):
-            if self.__synthesis_index[i]:
+            if self.__frame_state[i]:
                 self.__frame[i].fill(self.bag.fg)
                 if self.__synthesis[i]:
                     self.__frame[i].blit(self.__synthesis[i].surface)
-                self.__synthesis_index[i] = 0
+                self.__frame_state[i] = 0
                 temp.append(i)
         self.setup(temp)
 
