@@ -54,6 +54,9 @@ class Player(pygame.sprite.Sprite):
         # self.__l = (self.__surface[0] - 1) // 4
         self.__vec2 = [0, 0]
 
+        # 是否打开合成台
+        self.sys_state = 0
+
         self.index = 1
         self.image = self.__surface
         self.attribute = game_master.gameObject.GameObject()
@@ -127,6 +130,8 @@ class Player(pygame.sprite.Sprite):
     def update(self, dt):
         self.move(dt)
         self.bag.update()
+        if self.sys_state:
+            self.sys_state.update()
 
 
 class Bag:
@@ -150,13 +155,13 @@ class Bag:
         # 保存合成格中物品之前存储的索引
         self.__synthesis = [0 for _ in range(4)]
         # 箭头
-        self.__arrowhead = pygame.Surface((40, 40))  # game_master.fileManager.game_surface["arrowhead"]
-        self.__arrowhead.fill((0, 0, 0))
+        self.arrowhead = pygame.Surface((40, 40))  # game_master.fileManager.game_surface["arrowhead"]
+        self.arrowhead.fill((0, 0, 0))
         # 颜色, 偏移量
-        self.__offset = 2
-        self.__offset_rect = 20
-        self.__bg = (196, 196, 196)
-        self.__fg = (138, 138, 138)
+        self.offset = 2
+        self.offset_rect = 20
+        self.bg = (196, 196, 196)
+        self.fg = (138, 138, 138)
         # 保存背包物品和空余数, 0-3是盔甲格子, 4-33是背包格子, 34-43是物品栏格子, 44-47是合成格子, 48是合成的物品格子
         self.__bag = [0 for _ in range(49)]
         self.__free = 40
@@ -164,20 +169,44 @@ class Bag:
         self.__box = pygame.Surface((44, 44))
         self.__selection_box = 34
         # 鼠标选择
-        self.__selection_offset = [0, 0]
-        self.__selection = 0
-        self.__selection_index = -1
+        self.selection_offset = [0, 0]
+        self.selection = 0
+        self.selection_index = -1
         # 初始化格子
         for i in range(49):
-            self.__frame[i].fill(self.__fg)
+            self.__frame[i].fill(self.fg)
         self.__role_box.fill((0, 0, 0))
-        self.__inventory.fill(self.__bg)
+        self.__inventory.fill(self.bg)
         self.__box.fill((0, 0, 0))
         self.setup()
 
     @property
     def state(self):
         return self.__state
+
+    @property
+    def frame_state(self):
+        return self.__frame_state
+
+    @frame_state.setter
+    def frame_state(self, frame_state):
+        self.__frame_state = frame_state
+
+    @property
+    def background(self):
+        return self.__background
+
+    @background.setter
+    def background(self, background):
+        self.__background = background
+
+    @property
+    def inventory(self):
+        return self.__inventory
+
+    @inventory.setter
+    def inventory(self, inventory):
+        self.__inventory = inventory
 
     @property
     def bag(self):
@@ -200,6 +229,10 @@ class Bag:
         return self.__inventory_rect
 
     @property
+    def rect(self):
+        return self.__rect
+
+    @property
     def frame(self):
         return self.__frame
 
@@ -210,41 +243,41 @@ class Bag:
     def setup(self, index=None):
         # 在index不为None的情况下为更新格子
         if not index:
-            self.__background.fill(self.__bg)
+            self.__background.fill(self.bg)
             self.__inventory.blit(self.__box, (42 * (self.__selection_box - 34), 0))
             for i in range(4):
-                self.__background.blit(self.__frame[i], (self.__offset_rect, self.__offset_rect + (self.__offset + 40) * i))
-                self.__background.blit(self.__frame[44 + i], (272 + (self.__offset + 40) * (i % 2),
-                                                              self.__offset_rect + self.__offset + 40 + (
-                                                                      self.__offset + 40) * (i // 2)))
-            self.__background.blit(self.__role_box, (self.__offset_rect * 2 + 40, self.__offset_rect))
-            self.__background.blit(self.__arrowhead, (356, 83))
+                self.__background.blit(self.__frame[i], (self.offset_rect, self.offset_rect + (self.offset + 40) * i))
+                self.__background.blit(self.__frame[44 + i], (272 + (self.offset + 40) * (i % 2),
+                                                              self.offset_rect + self.offset + 40 + (
+                                                                      self.offset + 40) * (i // 2)))
+            self.__background.blit(self.__role_box, (self.offset_rect * 2 + 40, self.offset_rect))
+            self.__background.blit(self.arrowhead, (356, 83))
             self.__background.blit(self.__frame[-1], (398, 83))
             for i in range(30):
                 self.__background.blit(self.__frame[4 + i],
-                                       (20 + (self.__offset + 40) * (i % 10), 206 + (self.__offset + 40) * (i // 10)))
+                                       (20 + (self.offset + 40) * (i % 10), 206 + (self.offset + 40) * (i // 10)))
             for i in range(10):
-                self.__background.blit(self.__frame[34 + i], (20 + (self.__offset + 40) * i, 350))
-                self.__inventory.blit(self.__frame[34 + i], (2 + (self.__offset + 40) * i, 2))
+                self.__background.blit(self.__frame[34 + i], (20 + (self.offset + 40) * i, 350))
+                self.__inventory.blit(self.__frame[34 + i], (2 + (self.offset + 40) * i, 2))
         else:
             for i in index:
                 if 0 <= i <= 3:
                     self.__background.blit(self.__frame[i],
-                                           (self.__offset_rect, self.__offset_rect + (self.__offset + 40) * i))
+                                           (self.offset_rect, self.offset_rect + (self.offset + 40) * i))
                 elif 4 <= i <= 33:
                     i -= 4
                     self.__background.blit(self.__frame[4 + i],
-                                           (20 + (self.__offset + 40) * (i % 10),
-                                            206 + (self.__offset + 40) * (i // 10)))
+                                           (20 + (self.offset + 40) * (i % 10),
+                                            206 + (self.offset + 40) * (i // 10)))
                 elif 34 <= i <= 43:
                     i -= 34
-                    self.__background.blit(self.__frame[34 + i], (20 + (self.__offset + 40) * i, 350))
-                    self.__inventory.blit(self.__frame[34 + i], (2 + (self.__offset + 40) * i, 2))
+                    self.__background.blit(self.__frame[34 + i], (20 + (self.offset + 40) * i, 350))
+                    self.__inventory.blit(self.__frame[34 + i], (2 + (self.offset + 40) * i, 2))
                 elif 44 <= i <= 47:
                     i -= 44
-                    self.__background.blit(self.__frame[44 + i], (272 + (self.__offset + 40) * (i % 2),
-                                                                  self.__offset_rect + self.__offset + 40 + (
-                                                                          self.__offset + 40) * (i // 2)))
+                    self.__background.blit(self.__frame[44 + i], (272 + (self.offset + 40) * (i % 2),
+                                                                  self.offset_rect + self.offset + 40 + (
+                                                                          self.offset + 40) * (i // 2)))
             if index[-1] >= 44:
                 self.__background.blit(self.__frame[-1], (398, 83))
 
@@ -253,35 +286,45 @@ class Bag:
 
     def close(self):
         self.__state = 0
-        if self.__selection_index != -1:
-            t = self.__bag[self.__selection_index]
-            n = t.number + self.__selection.number
-            if t.name == self.__selection.name and t.limit >= n:
+        if self.selection_index != -1:
+            t = self.__bag[self.selection_index]
+            n = t.number + self.selection.number
+            if t.name == self.selection.name and t.limit >= n:
                 t.number = n
-                self.__selection = 0
-                self.__selection_index = -1
-                self.__selection_offset = [0, 0]
+                self.selection = 0
+                self.selection_index = -1
+                self.selection_offset = [0, 0]
             else:
-                t = self.__selection
-                self.__selection = 0
-                self.__selection_index = -1
-                self.__selection_offset = [0, 0]
+                t = self.selection
+                self.selection = 0
+                self.selection_index = -1
+                self.selection_offset = [0, 0]
                 if not self.put(t):
                     return self.out(obj=t)
+        print(self.__bag)
+        print(self.__synthesis)
         for i in range(4):
             if self.__synthesis[i]:
-                t = self.__bag[self.__synthesis[i]]
-                n = t.number + self.__bag[44 + i].number
-                if t.name == self.__bag[44 + i] and t.limit >= n:
-                    t.number = n
-                    self.__bag[44 + i] = 0
-                    self.__synthesis[i] = 0
+                if self.__bag[self.__synthesis[i]]:
+                    t = self.__bag[self.__synthesis[i]]
+                    n = t.number + self.__bag[44 + i].number
+                    if t.name == self.__bag[44 + i].name and t.limit >= n:
+                        t.number = n
+                        self.__frame_state[self.__synthesis[i]] = 1
+                        self.__frame_state[44 + i] = 1
+                        self.__bag[44 + i] = 0
+                        self.__synthesis[i] = 0
+                    else:
+                        t, n = self.__bag[44 + i], self.__synthesis[i]
+                        self.__bag[44 + i] = 0
+                        self.__synthesis[i] = 0
+                        if not self.put(t):
+                            return self.out(n)
                 else:
-                    t, n = self.__bag[44 + i], self.__synthesis[i]
+                    self.__frame_state[self.__synthesis[i]] = 1
+                    self.__frame_state[44 + i] = 1
+                    self.__bag[self.__synthesis[i]] = self.__bag[44 + i]
                     self.__bag[44 + i] = 0
-                    self.__synthesis[i] = 0
-                    if not self.put(t):
-                        return self.out(n)
         return 0
 
     def use(self):
@@ -292,97 +335,129 @@ class Bag:
         pos = list(pos)
         pos[0] -= self.__rect[0]
         pos[1] -= self.__rect[1]
-        if 20 <= pos[0] <= 60 and 20 <= pos[1] <= 186:
-            print(1)
-            pos[1] -= 20
-            i = 0
-            for i in range(4):
-                pos[1] -= 40
-                if pos[1] <= 0:
-                    break
-                elif 0 < pos[1] < 2:
-                    return
-                pos[1] -= 2
-            if self.__selection_index == -1:
-                if self.__bag[i]:
-                    self.__selection_offset = [pos[0] - 20, pos[1] + 40]
-                    self.__selection_index = i
-                    self.__selection = self.__bag[i]
-                    self.__bag[i] = 0
-                    self.__frame_state[i] = 1
-            else:
-                if self.__bag[i]:
-                    self.__selection_index = i
-                    t = self.__selection
-                    self.__selection = self.__bag[i]
-                    self.__bag[i] = t
+        if state == game_master.synthesis.SYNTHESIS:
+            if 20 <= pos[0] <= 438:
+                if 206 <= pos[1] <= 330:
+                    print(4)
+                    pos[0] -= 20
+                    pos[1] -= 206
+                    i, j = 0, 0
+                    for i in range(3):
+                        pos[1] -= 40
+                        if pos[1] <= 0:
+                            if pos[0] > 0:
+                                for j in range(10):
+                                    pos[0] -= 40
+                                    if pos[0] <= 0:
+                                        break
+                                    elif 0 < pos[0] < 2:
+                                        return
+                                    pos[0] -= 2
+                            break
+                        elif 0 < pos[1] < 2:
+                            return
+                        pos[1] -= 2
+                    print(pos)
+                    print(i, j)
+                    i = 4 + i * 10 + j
+                    if self.selection_index == -1:
+                        if self.__bag[i]:
+                            self.selection_offset = [pos[0] + 40, pos[1] + 40]
+                            self.selection_index = i
+                            self.selection = self.__bag[i]
+                            self.__bag[i] = 0
+                            self.__frame_state[i] = 1
+                    else:
+                        if self.__bag[i]:
+                            self.selection_index = i
+                            t = self.selection
+                            self.selection = self.__bag[i]
+                            self.__bag[i] = t
+                        else:
+                            self.__bag[i] = self.selection
+                            self.selection_offset = [0, 0]
+                            self.selection_index = -1
+                            self.selection = 0
+                        self.__frame_state[i] = 1
+                elif 350 <= pos[1] <= 390:
+                    print(5)
+                    pos[0] -= 20
+                    i = 0
+                    for i in range(10):
+                        pos[0] -= 40
+                        if pos[0] <= 0:
+                            break
+                        elif 0 < pos[0] < 2:
+                            return
+                        pos[0] -= 2
+                    i = 34 + i
+                    if self.selection_index == -1:
+                        if self.__bag[i]:
+                            self.selection_offset = [pos[0] + 40, pos[1] - 350]
+                            self.selection_index = i
+                            self.selection = self.__bag[i]
+                            self.__bag[i] = 0
+                            self.__frame_state[i] = 1
+                    else:
+                        if self.__bag[i]:
+                            self.selection_index = i
+                            t = self.selection
+                            self.selection = self.__bag[i]
+                            self.__bag[i] = t
+                        else:
+                            self.__bag[i] = self.selection
+                            self.selection_offset = [0, 0]
+                            self.selection_index = -1
+                            self.selection = 0
+                        self.__frame_state[i] = 1
+            elif pos[0] < 0 or pos[0] > 458 or pos[1] < 0 or pos[1] > 410:
+                print(pos)
+                if self.selection_index != -1:
+                    self.out(self.selection_index)
+                    self.selection_index = -1
+                    self.selection = 0
+                    self.selection_offset = [0, 0]
+        else:
+            if 20 <= pos[0] <= 60 and 20 <= pos[1] <= 186:
+                print(1)
+                pos[1] -= 20
+                i = 0
+                for i in range(4):
+                    pos[1] -= 40
+                    if pos[1] <= 0:
+                        break
+                    elif 0 < pos[1] < 2:
+                        return
+                    pos[1] -= 2
+                if self.selection_index == -1:
+                    if self.__bag[i]:
+                        self.selection_offset = [pos[0] - 20, pos[1] + 40]
+                        self.selection_index = i
+                        self.selection = self.__bag[i]
+                        self.__bag[i] = 0
+                        self.__frame_state[i] = 1
                 else:
-                    self.__bag[i] = self.__selection
-                    self.__selection_offset = [0, 0]
-                    self.__selection_index = -1
-                    self.__selection = 0
-                self.__frame_state[i] = 1
-        elif 272 <= pos[0] <= 356 and 62 <= pos[1] <= 144:
-            print(2)
-            pos[0] -= 272
-            pos[1] -= 62
-            i, j = 0, 0
-            for i in range(2):
-                pos[1] -= 40
-                if pos[1] <= 0:
-                    if pos[0] > 0:
-                        for j in range(2):
-                            pos[0] -= 40
-                            if pos[0] <= 0:
-                                break
-                            elif 0 < pos[0] < 2:
-                                return
-                            pos[0] -= 2
-                    break
-                elif 0 < pos[1] < 2:
-                    return
-                pos[1] -= 2
-            i = 44 + i * 2 + j
-            if self.__selection_index == -1:
-                if self.__bag[i]:
-                    self.__selection_offset = [pos[0] + 40, pos[1] + 40]
-                    self.__selection_index = i
-                    self.__selection = self.__bag[i]
-                    self.__bag[i] = 0
+                    if self.__bag[i]:
+                        self.selection_index = i
+                        t = self.selection
+                        self.selection = self.__bag[i]
+                        self.__bag[i] = t
+                    else:
+                        self.__bag[i] = self.selection
+                        self.selection_offset = [0, 0]
+                        self.selection_index = -1
+                        self.selection = 0
                     self.__frame_state[i] = 1
-                    self.__frame_state[-1] = 1
-            else:
-                if self.__bag[i]:
-                    self.__selection_index = i
-                    t = self.__selection
-                    self.__selection = self.__bag[i]
-                    self.__bag[i] = t
-                else:
-                    self.__bag[i] = self.__selection
-                    self.__selection_offset = [0, 0]
-                    self.__selection_index = -1
-                    self.__selection = 0
-                self.__frame_state[i] = 1
-                self.__frame_state[-1] = 1
-        elif 398 <= pos[0] <= 438 and 83 <= pos[1] <= 123:
-            print(3)
-            if self.__selection_index == -1 and self.__bag[48]:
-                self.__selection_offset = [pos[0] - 398, pos[1] - 83]
-                self.__selection_index = 48
-                self.__selection = self.__bag[48]
-                self.__bag[48] = 0
-                self.__frame_state[48] = 1
-        elif 20 <= pos[0] <= 438:
-            if 206 <= pos[1] <= 330:
-                print(4)
-                pos[0] -= 20
-                pos[1] -= 206
+            elif 272 <= pos[0] <= 356 and 62 <= pos[1] <= 144:
+                print(2)
+                pos[0] -= 272
+                pos[1] -= 62
                 i, j = 0, 0
-                for i in range(3):
+                for i in range(2):
                     pos[1] -= 40
                     if pos[1] <= 0:
                         if pos[0] > 0:
-                            for j in range(10):
+                            for j in range(2):
                                 pos[0] -= 40
                                 if pos[0] <= 0:
                                     break
@@ -393,70 +468,125 @@ class Bag:
                     elif 0 < pos[1] < 2:
                         return
                     pos[1] -= 2
+                k = i
+                i = 44 + i * 2 + j
+                if self.selection_index == -1:
+                    if self.__bag[i]:
+                        self.selection_offset = [pos[0] + 40, pos[1] + 40]
+                        self.selection_index = i
+                        self.selection = self.__bag[i]
+                        self.__synthesis[k * 2 + j] = 0
+                        self.__bag[i] = 0
+                        self.__frame_state[i] = 1
+                        self.__frame_state[-1] = 1
+                else:
+                    self.__synthesis[k * 2 + j] = self.selection_index
+                    if self.__bag[i]:
+                        self.selection_index = i
+                        t = self.selection
+                        self.selection = self.__bag[i]
+                        self.__bag[i] = t
+                    else:
+                        self.__bag[i] = self.selection
+                        self.selection_offset = [0, 0]
+                        self.selection_index = -1
+                        self.selection = 0
+                    self.__frame_state[i] = 1
+                    self.__frame_state[-1] = 1
+            elif 398 <= pos[0] <= 438 and 83 <= pos[1] <= 123:
+                print(3)
+                if self.selection_index == -1 and self.__bag[48]:
+                    self.selection_offset = [pos[0] - 398, pos[1] - 83]
+                    self.selection_index = 48
+                    self.selection = self.__bag[48]
+                    self.__bag[48] = 0
+                    self.__frame_state[48] = 1
+            elif 20 <= pos[0] <= 438:
+                if 206 <= pos[1] <= 330:
+                    print(4)
+                    pos[0] -= 20
+                    pos[1] -= 206
+                    i, j = 0, 0
+                    for i in range(3):
+                        pos[1] -= 40
+                        if pos[1] <= 0:
+                            if pos[0] > 0:
+                                for j in range(10):
+                                    pos[0] -= 40
+                                    if pos[0] <= 0:
+                                        break
+                                    elif 0 < pos[0] < 2:
+                                        return
+                                    pos[0] -= 2
+                            break
+                        elif 0 < pos[1] < 2:
+                            return
+                        pos[1] -= 2
+                    print(pos)
+                    print(i, j)
+                    i = 4 + i * 10 + j
+                    if self.selection_index == -1:
+                        if self.__bag[i]:
+                            self.selection_offset = [pos[0] + 40, pos[1] + 40]
+                            self.selection_index = i
+                            self.selection = self.__bag[i]
+                            self.__bag[i] = 0
+                            self.__frame_state[i] = 1
+                    else:
+                        if self.__bag[i]:
+                            self.selection_index = i
+                            t = self.selection
+                            self.selection = self.__bag[i]
+                            self.__bag[i] = t
+                        else:
+                            self.__bag[i] = self.selection
+                            self.selection_offset = [0, 0]
+                            self.selection_index = -1
+                            self.selection = 0
+                        self.__frame_state[i] = 1
+                elif 350 <= pos[1] <= 390:
+                    print(5)
+                    pos[0] -= 20
+                    i = 0
+                    for i in range(10):
+                        pos[0] -= 40
+                        if pos[0] <= 0:
+                            break
+                        elif 0 < pos[0] < 2:
+                            return
+                        pos[0] -= 2
+                    i = 34 + i
+                    if self.selection_index == -1:
+                        if self.__bag[i]:
+                            self.selection_offset = [pos[0] + 40, pos[1] - 350]
+                            self.selection_index = i
+                            self.selection = self.__bag[i]
+                            self.__bag[i] = 0
+                            self.__frame_state[i] = 1
+                    else:
+                        if self.__bag[i]:
+                            self.selection_index = i
+                            t = self.selection
+                            self.selection = self.__bag[i]
+                            self.__bag[i] = t
+                        else:
+                            self.__bag[i] = self.selection
+                            self.selection_offset = [0, 0]
+                            self.selection_index = -1
+                            self.selection = 0
+                        self.__frame_state[i] = 1
+            elif pos[0] < 0 or pos[0] > 458 or pos[1] < 0 or pos[1] > 410:
                 print(pos)
-                print(i, j)
-                i = 4 + i * 10 + j
-                if self.__selection_index == -1:
-                    if self.__bag[i]:
-                        self.__selection_offset = [pos[0] + 40, pos[1] + 40]
-                        self.__selection_index = i
-                        self.__selection = self.__bag[i]
-                        self.__bag[i] = 0
-                        self.__frame_state[i] = 1
-                else:
-                    if self.__bag[i]:
-                        self.__selection_index = i
-                        t = self.__selection
-                        self.__selection = self.__bag[i]
-                        self.__bag[i] = t
-                    else:
-                        self.__bag[i] = self.__selection
-                        self.__selection_offset = [0, 0]
-                        self.__selection_index = -1
-                        self.__selection = 0
-                    self.__frame_state[i] = 1
-            elif 350 <= pos[1] <= 390:
-                print(5)
-                pos[0] -= 20
-                i = 0
-                for i in range(10):
-                    pos[0] -= 40
-                    if pos[0] <= 0:
-                        break
-                    elif 0 < pos[0] < 2:
-                        return
-                    pos[0] -= 2
-                i = 34 + i
-                if self.__selection_index == -1:
-                    if self.__bag[i]:
-                        self.__selection_offset = [pos[0] + 40, pos[1] - 350]
-                        self.__selection_index = i
-                        self.__selection = self.__bag[i]
-                        self.__bag[i] = 0
-                        self.__frame_state[i] = 1
-                else:
-                    if self.__bag[i]:
-                        self.__selection_index = i
-                        t = self.__selection
-                        self.__selection = self.__bag[i]
-                        self.__bag[i] = t
-                    else:
-                        self.__bag[i] = self.__selection
-                        self.__selection_offset = [0, 0]
-                        self.__selection_index = -1
-                        self.__selection = 0
-                    self.__frame_state[i] = 1
-        elif pos[0] < 0 or pos[0] > 458 or pos[1] < 0 or pos[1] > 410:
-            print(pos)
-            if self.__selection_index != -1:
-                self.out(self.__selection_index)
-                self.__selection_index = -1
-                self.__selection = 0
-                self.__selection_offset = [0, 0]
+                if self.selection_index != -1:
+                    self.out(self.selection_index)
+                    self.selection_index = -1
+                    self.selection = 0
+                    self.selection_offset = [0, 0]
 
     def put(self, obj):
         for i in range(40):
             if self.bag[4 + i] and self.bag[4 + i].name == obj.name and self.bag[4 + i].limit > self.bag[4 + i].number:
+                self.__frame_state[4 + i] = 1
                 t = self.__bag[4 + i]
                 n = t.number + obj.number
                 if t.limit >= n:
@@ -464,7 +594,7 @@ class Bag:
                     return 1
                 else:
                     obj.number -= t.limit - t.number
-                    t.number =t.limit
+                    t.number = t.limit
         if self.__free:
             for i in range(40):
                 if not self.__bag[4 + i]:
@@ -491,16 +621,16 @@ class Bag:
             self.selection_box = 34
         elif self.selection_box > 43:
             self.selection_box = 43
-        self.__inventory.fill(self.__bg)
+        self.__inventory.fill(self.bg)
         self.__inventory.blit(self.__box, (42 * (self.__selection_box - 34), 0))
         for i in range(10):
-            self.__inventory.blit(self.__frame[34 + i], (2 + (self.__offset + 40) * i, 2))
+            self.__inventory.blit(self.__frame[34 + i], (2 + (self.offset + 40) * i, 2))
 
     def update(self):
         temp = []
         for i in range(49):
             if self.__frame_state[i]:
-                self.__frame[i].fill(self.__fg)
+                self.__frame[i].fill(self.fg)
                 if self.__bag[i]:
                     # pygame.transform.scale(self.__bag[i].surface, (40, 40), self.__frame[i])
                     self.__frame[i].blit(self.__bag[i].surface)
@@ -514,7 +644,7 @@ class Bag:
     def render(self):
         if self.__state:
             pygame.display.get_surface().blit(self.__background, self.__rect)
-            if self.__selection_index != -1:
+            if self.selection_index != -1:
                 pos = pygame.mouse.get_pos()
-                pygame.display.get_surface().blit(self.__selection.surface, (
-                    pos[0] - self.__selection_offset[0], pos[1] - self.__selection_offset[1]))
+                pygame.display.get_surface().blit(self.selection.surface, (
+                    pos[0] - self.selection_offset[0], pos[1] - self.selection_offset[1]))

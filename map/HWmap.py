@@ -17,12 +17,14 @@ class Map:
         self.inventory_rect = self.player.bag.inventory_rect
         self.object = []
         self.losing = []
+        self.goods = []
         self.losing_time = []
 
         self.object.append(self.player)
 
         self.player.bag.put(game_master.goods.TestItem(number=64))
         self.player.bag.put(game_master.goods.TestItemOther(number=61))
+        self.goods.append(game_master.synthesis.Synthesis(self.player.bag))
 
     def create(self, obj):
         self.camera.add(obj)
@@ -64,6 +66,11 @@ class Map:
                     elif self.player.bag.selection_box != event.key - 48:
                         self.player.bag.selection_box = event.key - 15
                     self.player.bag.update_inventory()
+                elif event.key == pygame.K_e:
+                    if not self.player.sys_state:
+                        self.player.sys_state = self.goods[0].open()
+                    else:
+                        self.player.sys_state = self.goods[0].close()
             elif event.type == pygame.KEYUP:
                 pass
             elif event.type == pygame.MOUSEBUTTONDOWN:
@@ -113,3 +120,5 @@ class Map:
         self.render_UI()
         if self.player.bag.state:
             self.player.bag.render()
+        elif self.player.sys_state:
+            self.player.sys_state.render()
