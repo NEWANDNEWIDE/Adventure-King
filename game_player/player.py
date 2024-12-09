@@ -336,6 +336,7 @@ class Bag:
         pos[0] -= self.__rect[0]
         pos[1] -= self.__rect[1]
         if state == game_master.synthesis.SYNTHESIS:
+            print(pos)
             if 20 <= pos[0] <= 438:
                 if 206 <= pos[1] <= 330:
                     print(4)

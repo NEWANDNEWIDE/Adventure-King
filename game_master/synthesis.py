@@ -76,6 +76,9 @@ class Synthesis:
 
     def selected(self, pos, state):
         self.bag.selected(pos, SYNTHESIS)
+        pos = list(pos)
+        pos[0] -= self.bag.rect[0]
+        pos[1] -= self.bag.rect[1]
         """if 272 <= pos[0] <= 356 and 62 <= pos[1] <= 144:
             pos[0] -= 272
             pos[1] -= 62
@@ -139,4 +142,4 @@ class Synthesis:
             if self.bag.selection_index != -1:
                 pos = pygame.mouse.get_pos()
                 pygame.display.get_surface().blit(self.bag.selection.surface, (
-                    pos[0] - self.bag.selection_index[0], pos[1] - self.bag.selection_index[1]))
+                    pos[0] - self.bag.selection_offset[0], pos[1] - self.bag.selection_offset[1]))

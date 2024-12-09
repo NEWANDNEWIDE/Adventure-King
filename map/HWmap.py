@@ -93,15 +93,19 @@ class Map:
                         self.player.bag.update_inventory()
                         return
                 if event.button == pygame.BUTTON_LEFT:
-                    if not self.player.bag.state:
-                        self.player.attack()
-                    else:
+                    if self.player.bag.state:
                         self.player.bag.selected(pos, pygame.BUTTON_LEFT)
-                elif event.button == pygame.BUTTON_RIGHT:
-                    if not self.player.bag.state:
-                        self.player.use()
+                    elif self.player.sys_state:
+                        self.player.sys_state.selected(pos, pygame.BUTTON_LEFT)
                     else:
+                        self.player.attack()
+                elif event.button == pygame.BUTTON_RIGHT:
+                    if self.player.bag.state:
                         self.player.bag.selected(pos, pygame.BUTTON_RIGHT)
+                    elif self.player.sys_state:
+                        self.player.sys_state.selected(pos, pygame.BUTTON_RIGHT)
+                    else:
+                        self.player.use()
                 elif event.button == 4:
                     self.player.bag.selection_box += 1
                     self.player.bag.update_inventory()
