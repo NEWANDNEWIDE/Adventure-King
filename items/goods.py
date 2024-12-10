@@ -16,8 +16,8 @@ class TestItem(game_master.gameObject.GameObject):
         self.surface = pygame.transform.scale(self.surface, (40, 40))
 
     @staticmethod
-    def create(name="test", limit=64, number=0):
-        return TestItem(name, limit, number)
+    def create(number=0):
+        return TestItem(number=number)
 
 
 class TestItemOther(game_master.gameObject.GameObject):
@@ -32,5 +32,5 @@ class TestItemOther(game_master.gameObject.GameObject):
         self.surface = pygame.transform.scale(self.surface, (40, 40))
 
     @staticmethod
-    def create(name="test1", limit=64, number=0):
-        return TestItemOther(name, limit, number)
+    def create(number=0):
+        return TestItemOther(number=number)

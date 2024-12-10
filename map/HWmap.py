@@ -7,7 +7,7 @@ import game_player.player
 
 class Map:
     def __init__(self, screen):
-        # self.tmx = pytmx.util_pygame.load_pygame(r"C:\Users\10962\Desktop\First_ground1.tmx")
+        self.tmx = pytmx.util_pygame.load_pygame(r"C:\Users\10962\Desktop\test\test.tmx")
         self.__surface = pygame.image.load(r"C:\Users\10962\Desktop\Pygame-Cameras-main\graphics\ground.png").convert_alpha()
         self.__item = game_master.item.Item()
         self.__state = 1
@@ -26,8 +26,8 @@ class Map:
 
         self.object.append(self.player)
 
-        self.player.bag.put(game_master.goods.TestItem(number=64))
-        self.player.bag.put(game_master.goods.TestItemOther(number=61))
+        self.player.bag.put(items.goods.TestItem(number=64))
+        self.player.bag.put(items.goods.TestItemOther(number=61))
         self.goods.append(game_master.synthesis.Synthesis(self.player.bag))
 
     def create(self, obj):
