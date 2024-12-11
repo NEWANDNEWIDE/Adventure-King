@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c388fb3f-2172-4411-a75d-ada954abd72c" name="更改" comment="test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_master/synthesis.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_master/synthesis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_player/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_player/player.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/map/HWmap.py" beforeDir="false" afterPath="$PROJECT_DIR$/map/HWmap.py" afterDir="false" />
     </list>
@@ -53,6 +54,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Python.HWmap.executor": "Run",
     "Python.__init__.executor": "Run",
     "Python.button.executor": "Run",
     "Python.camera.executor": "Run",
@@ -61,12 +63,13 @@
     "Python.game.executor": "Run",
     "Python.gameObject.executor": "Run",
     "Python.gameSurface.executor": "Run",
+    "Python.goods.executor": "Run",
     "Python.homework.executor": "Run",
     "Python.inputField.executor": "Run",
     "Python.item.executor": "Run",
     "Python.main.executor": "Run",
     "Python.player.executor": "Run",
-    "Python.synthesis.executor": "Debug",
+    "Python.synthesis.executor": "Run",
     "Python.test.executor": "Run",
     "Python.textBox.executor": "Run",
     "Python.work.executor": "Run",
@@ -83,6 +86,7 @@
       <recent name="D:\llm\Idk\control" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\llm\Idk\items" />
       <recent name="D:\llm\Idk\control" />
       <recent name="D:\llm\Idk\game" />
       <recent name="D:\llm\Idk" />
@@ -345,7 +349,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733742682586</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="test">
+      <option name="closed" value="true" />
+      <created>1733805591634</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1733805591634</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

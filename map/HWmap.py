@@ -1,8 +1,8 @@
 import pygame.event
 import pytmx.util_pygame
-
 import game_master
 import game_player.player
+import items
 
 
 class Map:
@@ -25,6 +25,8 @@ class Map:
         self.losing_time = []
 
         self.object.append(self.player)
+
+        self.setup()
 
         self.player.bag.put(items.goods.TestItem(number=64))
         self.player.bag.put(items.goods.TestItemOther(number=61))
@@ -56,7 +58,8 @@ class Map:
         self.object.sort(key=Map.get_rect_y)
 
     def setup(self):
-        pass
+        game_master.synthesis.PLAYER_SYNTHESIS_LIST = game_master.synthesis.process(game_master.synthesis.PLAYER_SYNTHESIS_LIST_NOT_PROCESSED)
+        game_master.synthesis.SYNTHESIS_LIST = game_master.synthesis.process(game_master.synthesis.SYNTHESIS_LIST_NOT_PROCESSED, 3)
 
     def event_update(self, event: pygame.event.Event):
         if self.__state:
@@ -64,25 +67,25 @@ class Map:
                 if event.key == pygame.K_b:
                     if self.player.bag.state:
                         self.player.bag.close()
-                    else:
+                    elif not self.player.sys_state:
                         self.player.bag.open()
                 elif 48 <= event.key <= 57:
-                    print(event.key)
                     if event.key == 48:
                         self.player.bag.selection_box = 43
                     elif self.player.bag.selection_box != event.key - 48:
                         self.player.bag.selection_box = event.key - 15
                     self.player.bag.update_inventory()
                 elif event.key == pygame.K_e:
-                    if not self.player.sys_state:
+                    if not self.player.bag.state and not self.player.sys_state:
                         self.player.sys_state = self.goods[0].open()
-                    else:
+                    elif self.player.sys_state:
                         self.player.sys_state = self.goods[0].close()
                 elif event.key == 1073742049:
                     self.player.run = 0 if self.player.run else 1
                 elif event.key == 32 and not self.player.shanbi_state and self.player.shanbi >= 0:
                     self.player.shanbi_state = 1
                     self.player.shanbi = 0.1
+                    self.player.dir = self.player.vec2.copy()
             elif event.type == pygame.KEYUP:
                 pass
             elif event.type == pygame.MOUSEBUTTONDOWN:
@@ -92,7 +95,6 @@ class Map:
                     pos[0] -= self.inventory_rect[0] + 2
                     i = 0
                     for i in range(10):
-                        print(pos)
                         pos[0] -= 40
                         if pos[0] <= 0:
                             break
