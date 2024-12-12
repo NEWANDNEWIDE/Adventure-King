@@ -1,3 +1,4 @@
+import os
 import random
 from typing import List
 import pygame
@@ -5,6 +6,7 @@ from pytmx import TiledMap
 import game_master.fileManager
 import game_master.gameObject
 import items
+import settings
 
 
 class CameraGroup(pygame.sprite.Group):
@@ -22,7 +24,7 @@ class CameraGroup(pygame.sprite.Group):
         self.tmx: TiledMap = tmx
 
     def draw_tmx(self):
-        for [layer] in self.tmx.visible_layers:
+        for layer in self.tmx.visible_layers:
             for x, y, gid in layer:
                 tile = self.tmx.get_tile_image_by_gid(gid)
                 if tile:
@@ -43,16 +45,42 @@ class CameraGroup(pygame.sprite.Group):
 
         # active elements
         for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
-            offset_pos = sprite.rect.topleft - self.offset
-            self.__display.blit(sprite.image, offset_pos)
+            offset_pos = sprite.rect.center - self.offset
+            if sprite.attribute.name == "player":
+                if sprite.shanbi_state and len(sprite.move_state) < 6:
+                    if sprite.move_state == "down":
+                        self.__display.blit(sprite.surfs[sprite.move_state], (offset_pos[0] - 10, offset_pos[1]))
+                    elif sprite.move_state == "right":
+                        self.__display.blit(sprite.surfs[sprite.move_state], (offset_pos[0] - 30, offset_pos[1] + 20))
+                    else:
+                        self.__display.blit(sprite.surfs[sprite.move_state], (offset_pos[0] - 10, offset_pos[1] + 20))
+            rect = sprite.image.get_rect(center=offset_pos)
+            self.__display.blit(sprite.image, rect)
 
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, group):
         super().__init__(group)
-        self.__surface = pygame.image.load(
-            r"C:\Users\10962\Desktop\Pygame-Cameras-main\graphics\player.png").convert_alpha()
-        # self.__l = (self.__surface[0] - 1) // 4
+
+        self.surfs = {}
+        self.surf = pygame.Surface((20, 40))
+        self.surf.fill((255, 255, 255))
+        self.surfs["up"] = self.surf
+        self.surfs["right"] = pygame.transform.rotate(self.surf, -90)
+        self.surfs["down"] = pygame.transform.rotate(self.surf, -180)
+        self.surfs["left"] = pygame.transform.rotate(self.surf, -270)
+
+        path = os.path.join(settings.GAMEPATH, "player")
+        self.__surface = {}
+        self.name = ""
+
+        for name in os.listdir(path):
+            t = os.path.join(path, name)
+            temp = []
+            for i in os.listdir(t):
+                temp.append(pygame.image.load(os.path.join(t, i)))
+            self.__surface[name] = temp
+
         self.__vec2 = [0, 0]
 
         # 是否打开合成台
@@ -64,20 +92,23 @@ class Player(pygame.sprite.Sprite):
         self.shanbi_state = 0
         self.dir = [0, 0]
 
-        self.index = 1
-        self.image = self.__surface
-        self.attribute = game_master.gameObject.GameObject()
+        self.index = 0
+        self.move_state = "down"
+        self.image = self.__surface[self.move_state][self.index]
+
         self.spawn_point = pos
-        self.attribute.rect = pos
-        self.rect = self.__surface.get_rect(center=pos)
+        self.rect = self.image.get_rect(center=pos)
 
         # 头 胸 腿 靴
         self.armor = [0, 0, 0, 0]
 
-        self.w = self.__surface.width
-        self.h = self.__surface.height
+        self.w = self.image.width
+        self.h = self.image.height
         self.bag = Bag()
 
+        self.attribute = game_master.gameObject.GameObject()
+        self.attribute.rect = pos
+        self.attribute.name = "player"
         self.attribute.health = 100
         self.attribute.attack = 5
         self.attribute.attack_speed = 1
@@ -116,19 +147,33 @@ class Player(pygame.sprite.Sprite):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d]:
             self.__vec2[0] = 1
+            self.move_state = "right"
         elif keys[pygame.K_a]:
             self.__vec2[0] = -1
+            self.move_state = "left"
         else:
             self.__vec2[0] = 0
         if keys[pygame.K_s]:
             self.__vec2[1] = 1
+            self.move_state = "down"
         elif keys[pygame.K_w]:
             self.__vec2[1] = -1
+            self.move_state = "up"
         else:
             self.__vec2[1] = 0
 
+    def action(self, dt):
+        if not self.vec2[0] and not self.vec2[1] and len(self.move_state) < 6:
+            self.move_state += "_idle"
+        l = len(self.__surface[self.move_state])
+        self.index += dt * l
+        if self.index >= l:
+            self.index = 0
+        self.image = self.__surface[self.move_state][int(self.index)]
+
     def move(self, dt):
         self.input()
+        self.action(dt)
         if not self.run and not self.shanbi_state:
             self.attribute.rect[0] += self.vec2[0] * self.attribute.move_speed * dt
             self.attribute.rect[1] += self.vec2[1] * self.attribute.move_speed * dt
@@ -138,7 +183,7 @@ class Player(pygame.sprite.Sprite):
                 self.attribute.rect[1] += self.dir[1] * self.attribute.move_speed * dt * 10
                 self.shanbi -= dt
             else:
-                self.shanbi = -0.5
+                self.shanbi = -1.0
                 self.shanbi_state = 0
                 self.dir = [0, 0]
         else:
@@ -699,12 +744,14 @@ class Bag:
                     if g[0][-1] == -1:
                         d = number[0] - g[0][-1]
                         for i in range(l):
-                            if d != number[i] - g[i][-1] or self.__bag[44 + number[i]].name != g[i][0] or self.__bag[44 + number[i]].number < g[i][1]:
+                            if d != number[i] - g[i][-1] or self.__bag[44 + number[i]].name != g[i][0] or self.__bag[
+                                44 + number[i]].number < g[i][1]:
                                 state = 0
                                 break
                     else:
                         for i in range(l):
-                            if number[i] != g[i][2] or self.__bag[44 + number[i]].name != g[i][0] or self.__bag[44 + number[i]].number < g[i][1]:
+                            if number[i] != g[i][2] or self.__bag[44 + number[i]].name != g[i][0] or self.__bag[
+                                44 + number[i]].number < g[i][1]:
                                 state = 0
                                 break
                 if state:

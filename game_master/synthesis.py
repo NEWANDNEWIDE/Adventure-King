@@ -48,7 +48,6 @@ def process(start: list, number: int = 2):
             t.sort(key=lambda k: k[-1])
             t.append(g[l])
             target.append(tuple(t))
-        print(target)
     return target
 
 

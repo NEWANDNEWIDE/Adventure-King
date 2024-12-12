@@ -1,5 +1,9 @@
+import os
+import random
+
 import pygame.time
 import game_master.fileManager
+import settings
 
 ATTRIBUTE = ("Health", "Shield", "Attack",
              "Defense", "Move_speed", "Attack_speed",
@@ -8,29 +12,103 @@ ATTRIBUTE = ("Health", "Shield", "Attack",
 
 # 所有游戏npc的基类
 class GameNpc(pygame.sprite.Sprite):
-    def __init__(self, pos, group, name):
+    def __init__(self, pos, group, name="player"):
         super().__init__(group)
-        self.__surface = game_master.fileManager.game_surface[name]
+
+        path = os.path.join(settings.GAMEPATH, name)
+        self.__surface = {}
+
+        for name in os.listdir(path):
+            t = os.path.join(path, name)
+            temp = []
+            for i in os.listdir(t):
+                temp.append(pygame.image.load(os.path.join(t, i)))
+            self.__surface[name] = temp
+
         self.attribute = game_master.gameObject.GameObject()
         self.attribute.rect = pos
-        self.rect = self.__surface.get_rect(center=pos)
+        self.attribute.name = name
+        self.attribute.move_speed = 200
+
         self.vec2 = [0, 0]
-        """self.index = 1
-        self.image = self.__surface[self.index]"""
+
+        self.index = 0
+        self.move_state = "down_idle"
+        self.image = self.__surface[self.move_state][self.index]
+        self.rect = self.image.get_rect(center=pos)
+
+        self.time = 1000
+        self.stand = 0
+        self.start = 0
+
+        self.chouhengjuli = 200
+
+    def random_move(self):
+        if self.stand:
+            if pygame.time.get_ticks() - self.start >= self.time:
+                self.stand = 0
+                self.start = 0
+        elif not self.start:
+            self.vec2[0] = random.randint(-1, 1)
+            if self.vec2[0]:
+                self.vec2[1] = 0
+            else:
+                self.vec2[1] = random.randint(-1, 1)
+            self.start = pygame.time.get_ticks()
+        else:
+            if pygame.time.get_ticks() - self.start >= self.time:
+                self.vec2 = [0, 0]
+                self.start = pygame.time.get_ticks()
+                self.stand = 1
+        if self.vec2[0]:
+            self.move_state = "right" if self.vec2[0] == 1 else "left"
+        if self.vec2[1]:
+            self.move_state = "down" if self.vec2[1] == 1 else "up"
 
     def move(self, dt):
         self.attribute.rect[0] += self.vec2[0] * self.attribute.move_speed * dt
         self.attribute.rect[1] += self.vec2[1] * self.attribute.move_speed * dt
         self.rect.center = self.attribute.rect
 
-    def action(self):
-        pass
+    def move_action(self, dt):
+        if not self.vec2[0] and not self.vec2[1] and len(self.move_state) < 6:
+            self.move_state += "_idle"
+        l = len(self.__surface[self.move_state])
+        self.index += dt * l
+        if self.index >= l:
+            self.index = 0
+        self.image = self.__surface[self.move_state][int(self.index)]
+
+    def action(self, rect):
+        if -self.image.width // 2 <= rect.centerx - self.rect.centerx <= self.image.width // 2 and -self.image.height // 2 <= rect.centery - self.rect.centery <= self.image.height // 2:
+            self.vec2 = [0, 0]
+        elif -self.chouhengjuli <= rect.centerx - self.rect.centerx <= self.chouhengjuli and -self.chouhengjuli <= rect.centery - self.rect.centery <= self.chouhengjuli:
+            if rect.centerx - self.rect.centerx == 0:
+                self.vec2[0] = 0
+            else:
+                self.vec2[0] = 1 if rect.centerx - self.rect.centerx > 0 else -1
+                self.move_state = "right" if self.vec2[0] == 1 else "left"
+            if rect.centery - self.rect.centery == 0:
+                self.vec2[1] = 0
+            else:
+                self.vec2[1] = 1 if rect.centery - self.rect.centery > 0 else -1
+                self.move_state = "down" if self.vec2[1] == 1 else "up"
+        else:
+            self.random_move()
 
     def attack(self):
         pass
 
-    def update(self):
+    def use(self):
         pass
+
+    def update(self, dt, rect:pygame.Rect=None):
+        if rect:
+            self.action(rect)
+        else:
+            self.random_move()
+        self.move_action(dt)
+        self.move(dt)
 
 
 class GameObject:

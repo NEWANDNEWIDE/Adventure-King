@@ -7,14 +7,14 @@ import items
 
 class Map:
     def __init__(self, screen):
-        self.tmx = pytmx.util_pygame.load_pygame(r"C:\Users\10962\Desktop\test\test.tmx")
-        self.__surface = pygame.image.load(r"C:\Users\10962\Desktop\Pygame-Cameras-main\graphics\ground.png").convert_alpha()
+        self.tmx = pytmx.util_pygame.load_pygame(r"C:\Users\10962\Desktop\First_map\first_map.tmx")
+        self.__surface = pygame.image.load(r"D:\PyDew-Valley-main\s23 - Audio & fixes\demo\graphics\world\ground.png").convert_alpha()
         self.__item = game_master.item.Item()
         self.__state = 1
         self.__screen = screen
 
         self.camera = game_player.player.CameraGroup(self.__surface)
-        self.player = game_player.player.Player([640, 360], self.camera)
+        self.player = game_player.player.Player([600, 450], self.camera)
 
         self.inventory_rect = self.player.bag.inventory_rect
 
@@ -31,6 +31,7 @@ class Map:
         self.player.bag.put(items.goods.TestItem(number=64))
         self.player.bag.put(items.goods.TestItemOther(number=61))
         self.goods.append(game_master.synthesis.Synthesis(self.player.bag))
+        self.object.append(game_master.gameObject.GameNpc([800, 600], self.camera, "666"))
 
     def create(self, obj):
         self.camera.add(obj)
@@ -82,7 +83,7 @@ class Map:
                         self.player.sys_state = self.goods[0].close()
                 elif event.key == 1073742049:
                     self.player.run = 0 if self.player.run else 1
-                elif event.key == 32 and not self.player.shanbi_state and self.player.shanbi >= 0:
+                elif event.key == 32 and not self.player.shanbi_state and self.player.shanbi >= 0 and (self.player.vec2[0] or self.player.vec2[1]):
                     self.player.shanbi_state = 1
                     self.player.shanbi = 0.1
                     self.player.dir = self.player.vec2.copy()
@@ -128,15 +129,19 @@ class Map:
                     self.player.bag.update_inventory()
 
     def update(self, dt):
-        self.player.update(dt)
+        for o in self.object:
+            if o.attribute.name != "player":
+                o.update(dt, self.player.rect)
+            else:
+                o.update(dt)
 
     def render_UI(self):
         self.player.bag.render_inventory()
-
-    def render(self):
-        self.camera.custom_draw(self.player.attribute.rect)
-        self.render_UI()
         if self.player.bag.state:
             self.player.bag.render()
         elif self.player.sys_state:
             self.player.sys_state.render()
+
+    def render(self):
+        self.camera.custom_draw(self.player.attribute.rect)
+        self.render_UI()
