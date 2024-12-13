@@ -4,9 +4,10 @@ from typing import List
 import pygame
 from pytmx import TiledMap
 import game_master.fileManager
-import game_master.gameObject
 import items
 import settings
+from game_master.gameObject import GameObject
+from game_master.synthesis import SYNTHESIS, PLAYER_SYNTHESIS_LIST
 
 
 class CameraGroup(pygame.sprite.Group):
@@ -72,14 +73,18 @@ class Player(pygame.sprite.Sprite):
 
         path = os.path.join(settings.GAMEPATH, "player")
         self.__surface = {}
+        self.__masks = {}
         self.name = ""
 
         for name in os.listdir(path):
             t = os.path.join(path, name)
             temp = []
+            mask = []
             for i in os.listdir(t):
                 temp.append(pygame.image.load(os.path.join(t, i)))
+                mask.append(pygame.mask.from_surface(pygame.image.load(os.path.join(t, i))))
             self.__surface[name] = temp
+            self.__masks[name] = mask
 
         self.__vec2 = [0, 0]
 
@@ -95,6 +100,7 @@ class Player(pygame.sprite.Sprite):
         self.index = 0
         self.move_state = "down"
         self.image = self.__surface[self.move_state][self.index]
+        self.mask = self.__masks[self.move_state][self.index]
 
         self.spawn_point = pos
         self.rect = self.image.get_rect(center=pos)
@@ -106,7 +112,7 @@ class Player(pygame.sprite.Sprite):
         self.h = self.image.height
         self.bag = Bag()
 
-        self.attribute = game_master.gameObject.GameObject()
+        self.attribute = GameObject()
         self.attribute.rect = pos
         self.attribute.name = "player"
         self.attribute.health = 100
@@ -170,6 +176,7 @@ class Player(pygame.sprite.Sprite):
         if self.index >= l:
             self.index = 0
         self.image = self.__surface[self.move_state][int(self.index)]
+        self.mask = self.__masks[self.move_state][int(self.index)]
 
     def move(self, dt):
         self.input()
@@ -428,7 +435,7 @@ class Bag:
         pos = list(pos)
         pos[0] -= self.__rect[0]
         pos[1] -= self.__rect[1]
-        if state == game_master.synthesis.SYNTHESIS:
+        if state == SYNTHESIS:
             if 20 <= pos[0] <= 438:
                 if 206 <= pos[1] <= 330:
                     pos[0] -= 20
@@ -733,7 +740,7 @@ class Bag:
         temp = []
         ans = 0
         obj = 0
-        for g in game_master.synthesis.PLAYER_SYNTHESIS_LIST:
+        for g in PLAYER_SYNTHESIS_LIST:
             l = len(g) - 1
             if len(number) == l:
                 state = 1

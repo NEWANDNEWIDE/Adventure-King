@@ -5,37 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c388fb3f-2172-4411-a75d-ada954abd72c" name="更改" comment="test">
-      <change afterPath="$PROJECT_DIR$/res/game/player/down/0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/game/player/down/1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/game/player/down/2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/game/player/down/3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/game/player/down_idle/0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/game/player/down_idle/1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/game/player/left/0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/game/player/left/1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/game/player/left/2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/game/player/left/3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/game/player/left_idle/0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/game/player/left_idle/1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/game/player/right/0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/game/player/right/1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/game/player/right/2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/game/player/right/3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/game/player/right_idle/0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/game/player/right_idle/1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/game/player/up/0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/game/player/up/1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/game/player/up/2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/game/player/up/3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/game/player/up_idle/0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/game/player/up_idle/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/npc/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/npc/boss.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_master/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_master/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_master/fileManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_master/fileManager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_master/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_master/game.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_master/gameObject.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_master/gameObject.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_master/gameSurface.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_master/gameSurface.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_master/level.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_master/level.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_master/synthesis.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_master/synthesis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_player/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_player/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_player/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_player/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/armors.py" beforeDir="false" afterPath="$PROJECT_DIR$/items/armors.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/goods.py" beforeDir="false" afterPath="$PROJECT_DIR$/items/goods.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons.py" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/map/HWmap.py" beforeDir="false" afterPath="$PROJECT_DIR$/map/HWmap.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,35 +62,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Python.HWmap.executor&quot;: &quot;Run&quot;,
-    &quot;Python.__init__.executor&quot;: &quot;Run&quot;,
-    &quot;Python.button.executor&quot;: &quot;Run&quot;,
-    &quot;Python.camera.executor&quot;: &quot;Run&quot;,
-    &quot;Python.edit.executor&quot;: &quot;Run&quot;,
-    &quot;Python.fileManager.executor&quot;: &quot;Run&quot;,
-    &quot;Python.game.executor&quot;: &quot;Run&quot;,
-    &quot;Python.gameObject.executor&quot;: &quot;Run&quot;,
-    &quot;Python.gameSurface.executor&quot;: &quot;Run&quot;,
-    &quot;Python.goods.executor&quot;: &quot;Run&quot;,
-    &quot;Python.homework.executor&quot;: &quot;Run&quot;,
-    &quot;Python.inputField.executor&quot;: &quot;Run&quot;,
-    &quot;Python.item.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.player.executor&quot;: &quot;Run&quot;,
-    &quot;Python.synthesis.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test.executor&quot;: &quot;Run&quot;,
-    &quot;Python.textBox.executor&quot;: &quot;Run&quot;,
-    &quot;Python.work.executor&quot;: &quot;Run&quot;,
-    &quot;Python.图片生成动画.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/llm/Idk/res/game/player&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Python.HWmap.executor": "Run",
+    "Python.__init__.executor": "Run",
+    "Python.button.executor": "Run",
+    "Python.camera.executor": "Run",
+    "Python.edit.executor": "Run",
+    "Python.fileManager.executor": "Run",
+    "Python.game.executor": "Run",
+    "Python.gameObject.executor": "Run",
+    "Python.gameSurface.executor": "Run",
+    "Python.goods.executor": "Run",
+    "Python.homework.executor": "Run",
+    "Python.inputField.executor": "Run",
+    "Python.item.executor": "Run",
+    "Python.level.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.player.executor": "Run",
+    "Python.synthesis.executor": "Run",
+    "Python.test.executor": "Run",
+    "Python.textBox.executor": "Run",
+    "Python.work.executor": "Run",
+    "Python.图片生成动画.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/llm/Idk/res/game/player",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\llm\Idk\res\game\player" />
@@ -114,11 +99,11 @@
       <recent name="D:\llm\Idk\control" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\llm\Idk\game_master" />
+      <recent name="D:\llm\Idk\game_player" />
       <recent name="D:\llm\Idk\items" />
       <recent name="D:\llm\Idk\control" />
       <recent name="D:\llm\Idk\game" />
-      <recent name="D:\llm\Idk" />
-      <recent name="D:\llm\Idk\map" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -401,7 +386,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733913159237</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="test">
+      <option name="closed" value="true" />
+      <created>1734013244958</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1734013244958</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

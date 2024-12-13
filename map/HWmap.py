@@ -31,7 +31,7 @@ class Map:
         self.player.bag.put(items.goods.TestItem(number=64))
         self.player.bag.put(items.goods.TestItemOther(number=61))
         self.goods.append(game_master.synthesis.Synthesis(self.player.bag))
-        self.object.append(game_master.gameObject.GameNpc([800, 600], self.camera, "666"))
+        self.object.append(game_master.gameObject.GameNpc([800, 600], self.camera))
 
     def create(self, obj):
         self.camera.add(obj)
@@ -59,8 +59,10 @@ class Map:
         self.object.sort(key=Map.get_rect_y)
 
     def setup(self):
-        game_master.synthesis.PLAYER_SYNTHESIS_LIST = game_master.synthesis.process(game_master.synthesis.PLAYER_SYNTHESIS_LIST_NOT_PROCESSED)
-        game_master.synthesis.SYNTHESIS_LIST = game_master.synthesis.process(game_master.synthesis.SYNTHESIS_LIST_NOT_PROCESSED, 3)
+        game_master.synthesis.PLAYER_SYNTHESIS_LIST = game_master.synthesis.process(
+            game_master.synthesis.PLAYER_SYNTHESIS_LIST_NOT_PROCESSED)
+        game_master.synthesis.SYNTHESIS_LIST = game_master.synthesis.process(
+            game_master.synthesis.SYNTHESIS_LIST_NOT_PROCESSED, 3)
 
     def event_update(self, event: pygame.event.Event):
         if self.__state:

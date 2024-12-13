@@ -3,7 +3,6 @@ import pygame.image
 import settings
 from game_master import gameSurface
 
-
 game_surface = []
 item_surface = []
 
@@ -12,7 +11,8 @@ def loading_item():
     item_surface.append(1)
     path_surface = os.path.join(settings.ITEMPATH, "surface")
     for name in os.listdir(path_surface):
-        item_surface.append(gameSurface.GameSurface(pygame.image.load(os.path.join(path_surface, name)), name.split(".")[0]))
+        item_surface.append(
+            gameSurface.GameSurface(pygame.image.load(os.path.join(path_surface, name)), name.split(".")[0]))
         item_surface[0] += 1
     return item_surface
 

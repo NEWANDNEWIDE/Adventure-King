@@ -15,6 +15,7 @@ class WoodenSword(GameObject):
         self.attack = 20
         self.reach_distance = 1
         self.surface = game_master.fileManager.game_surface[name]
+        self.mask = pygame.mask.from_surface(self.surface)
         self.__sleep = 1000 // (self.attack_speed * (self.surface[0] - 2))
         self.__mid = (self.surface[0] - 1) // 2 + 1
 

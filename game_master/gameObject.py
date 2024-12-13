@@ -1,8 +1,6 @@
 import os
 import random
-
 import pygame.time
-import game_master.fileManager
 import settings
 
 ATTRIBUTE = ("Health", "Shield", "Attack",
@@ -17,31 +15,36 @@ class GameNpc(pygame.sprite.Sprite):
 
         path = os.path.join(settings.GAMEPATH, name)
         self.__surface = {}
+        self.__masks = {}
 
         for name in os.listdir(path):
             t = os.path.join(path, name)
             temp = []
+            mask = []
             for i in os.listdir(t):
                 temp.append(pygame.image.load(os.path.join(t, i)))
+                mask.append(pygame.mask.from_surface(pygame.image.load(os.path.join(t, i))))
             self.__surface[name] = temp
+            self.__masks[name] = mask
 
-        self.attribute = game_master.gameObject.GameObject()
+        self.attribute = GameObject()
         self.attribute.rect = pos
+        self.attribute.move_speed = 100
         self.attribute.name = name
-        self.attribute.move_speed = 200
 
         self.vec2 = [0, 0]
 
         self.index = 0
         self.move_state = "down_idle"
         self.image = self.__surface[self.move_state][self.index]
+        self.mask = self.__masks[self.move_state][self.index]
         self.rect = self.image.get_rect(center=pos)
 
         self.time = 1000
-        self.stand = 0
+        self.stand = 1
         self.start = 0
 
-        self.chouhengjuli = 200
+        self.chouhengjuli = 100
 
     def random_move(self):
         if self.stand:
@@ -78,6 +81,7 @@ class GameNpc(pygame.sprite.Sprite):
         if self.index >= l:
             self.index = 0
         self.image = self.__surface[self.move_state][int(self.index)]
+        self.mask = self.__masks[self.move_state][int(self.index)]
 
     def action(self, rect):
         if -self.image.width // 2 <= rect.centerx - self.rect.centerx <= self.image.width // 2 and -self.image.height // 2 <= rect.centery - self.rect.centery <= self.image.height // 2:

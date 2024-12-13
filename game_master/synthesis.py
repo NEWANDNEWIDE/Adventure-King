@@ -1,3 +1,4 @@
+from __future__ import annotations
 import pygame
 import game_master
 import items.goods
