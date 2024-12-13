@@ -6,9 +6,11 @@ import items
 
 
 class Map:
+    """这个类是用来交作业的"""
     def __init__(self, screen):
         self.tmx = pytmx.util_pygame.load_pygame(r"C:\Users\10962\Desktop\First_map\first_map.tmx")
-        self.__surface = pygame.image.load(r"D:\PyDew-Valley-main\s23 - Audio & fixes\demo\graphics\world\ground.png").convert_alpha()
+        self.__surface = pygame.image.load(
+            r"D:\PyDew-Valley-main\s23 - Audio & fixes\demo\graphics\world\ground.png").convert_alpha()
         self.__item = game_master.item.Item()
         self.__state = 1
         self.__screen = screen
@@ -85,7 +87,8 @@ class Map:
                         self.player.sys_state = self.goods[0].close()
                 elif event.key == 1073742049:
                     self.player.run = 0 if self.player.run else 1
-                elif event.key == 32 and not self.player.shanbi_state and self.player.shanbi >= 0 and (self.player.vec2[0] or self.player.vec2[1]):
+                elif event.key == 32 and not self.player.shanbi_state and self.player.shanbi >= 0 and (
+                        self.player.vec2[0] or self.player.vec2[1]):
                     self.player.shanbi_state = 1
                     self.player.shanbi = 0.1
                     self.player.dir = self.player.vec2.copy()
@@ -94,7 +97,8 @@ class Map:
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
                 pos = list(pos)
-                if self.inventory_rect[0] + 2 <= pos[0] <= self.inventory_rect[0] + 420 and self.inventory_rect[1] + 2 <= pos[1] <= self.inventory_rect[1] + 42:
+                if self.inventory_rect[0] + 2 <= pos[0] <= self.inventory_rect[0] + 420 and self.inventory_rect[
+                    1] + 2 <= pos[1] <= self.inventory_rect[1] + 42:
                     pos[0] -= self.inventory_rect[0] + 2
                     i = 0
                     for i in range(10):
