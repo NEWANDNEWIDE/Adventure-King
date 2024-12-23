@@ -3,28 +3,28 @@ import pytmx.util_pygame
 import game_master
 import game_player.player
 import items
+from game_master.gameSurface import GameSpirit
 
 
 class Map:
     """这个类是用来交作业的"""
     def __init__(self, screen):
-        self.tmx = pytmx.util_pygame.load_pygame(r"C:\Users\10962\Desktop\First_map\first_map.tmx")
+        self.tmx = pytmx.util_pygame.load_pygame(r"C:\Users\10962\Desktop\First_map\first_map_8000.tmx")
         self.__surface = pygame.image.load(
             r"D:\PyDew-Valley-main\s23 - Audio & fixes\demo\graphics\world\ground.png").convert_alpha()
         self.__item = game_master.item.Item()
         self.__state = 1
         self.__screen = screen
 
-        self.camera = game_player.player.CameraGroup(self.__surface)
+        self.camera = game_player.player.CameraGroup(self.__surface, self.tmx)
         self.player = game_player.player.Player([600, 450], self.camera)
+        self.pick_up = game_master.gameSurface.PickUpSpritesGroup(self.player)
 
         self.inventory_rect = self.player.bag.inventory_rect
 
         self.object = []
         self.goods = []
-
         self.losing = []
-        self.losing_time = []
 
         self.object.append(self.player)
 
@@ -32,19 +32,35 @@ class Map:
 
         self.player.bag.put(items.goods.TestItem(number=64))
         self.player.bag.put(items.goods.TestItemOther(number=61))
-        self.goods.append(game_master.synthesis.Synthesis(self.player.bag))
+        self.goods.append(game_master.synthesis.Synthesis((0, 0), self.camera, self.player.bag))
         self.object.append(game_master.gameObject.GameNpc([800, 600], self.camera))
 
-    def create(self, obj):
-        self.camera.add(obj)
+    def add_obj(self, obj):
         self.object.append(obj)
 
-    def add(self, obj):
-        self.camera.add(obj)
+    def add_losing(self, obj):
+        obj = GameSpirit(obj, self.camera, self.pick_up)
         self.losing.append(obj)
 
-    def create_goods(self):
-        pass
+    def add_goods(self, obj):
+        self.goods.append(obj)
+
+    def throwing(self, losing):
+        losing.rect = self.player.attribute.rect.copy()
+        if self.player.move_state == "up_idle" or self.player.move_state == "up":
+            losing.vec2[1] = -1
+        elif self.player.move_state == "down_idle" or self.player.move_state == "down":
+            losing.vec2[1] = 1
+        elif self.player.move_state == "left_idle" or self.player.move_state == "left":
+            losing.vec2[0] = -1
+        elif self.player.move_state == "right_idle" or self.player.move_state == "right":
+            losing.vec2[0] = 1
+        self.add_losing(losing)
+
+    def move(self, losing, dt):
+        losing.attribute.rect[0] += 400 * losing.attribute.vec2[0] * dt
+        losing.attribute.rect[1] += 400 * losing.attribute.vec2[1] * dt
+        return losing.attribute.rect
 
     @staticmethod
     def get_rect_x(obj):
@@ -97,34 +113,43 @@ class Map:
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
                 pos = list(pos)
-                if self.inventory_rect[0] + 2 <= pos[0] <= self.inventory_rect[0] + 420 and self.inventory_rect[
-                    1] + 2 <= pos[1] <= self.inventory_rect[1] + 42:
-                    pos[0] -= self.inventory_rect[0] + 2
-                    i = 0
-                    for i in range(10):
-                        pos[0] -= 40
-                        if pos[0] <= 0:
-                            break
-                        elif 0 < pos[0] < 2:
-                            i = -1
-                            break
-                        pos[0] -= 2
-                    if i + 1 and self.player.bag.selection_box != 34 + i:
-                        self.player.bag.selection_box = 34 + i
-                        self.player.bag.update_inventory()
-                        return
-                if event.button == pygame.BUTTON_LEFT:
+                if not self.player.bag.state and not self.player.sys_state:
+                    if (self.inventory_rect[0] + 2 <= pos[0] <= self.inventory_rect[0] + 420 and
+                            self.inventory_rect[1] + 2 <= pos[1] <= self.inventory_rect[1] + 42):
+                        pos[0] -= self.inventory_rect[0] + 2
+                        i = 0
+                        for i in range(10):
+                            pos[0] -= 40
+                            if pos[0] <= 0:
+                                break
+                            elif 0 < pos[0] < 2:
+                                i = -1
+                                break
+                            pos[0] -= 2
+                        if i + 1 and self.player.bag.selection_box != 34 + i:
+                            self.player.bag.selection_box = 34 + i
+                            self.player.bag.update_inventory()
+                            return
+                elif event.button == pygame.BUTTON_LEFT:
                     if self.player.bag.state:
-                        self.player.bag.selected(pos, pygame.BUTTON_LEFT)
+                        t = self.player.bag.selected(pos, pygame.BUTTON_LEFT)
+                        if t:
+                            self.throwing(t)
                     elif self.player.sys_state:
-                        self.player.sys_state.selected(pos, pygame.BUTTON_LEFT)
+                        t = self.player.sys_state.selected(pos, pygame.BUTTON_LEFT)
+                        if t:
+                            self.throwing(t)
                     else:
                         self.player.attack()
                 elif event.button == pygame.BUTTON_RIGHT:
                     if self.player.bag.state:
-                        self.player.bag.selected(pos, pygame.BUTTON_RIGHT)
+                        t = self.player.bag.selected(pos, pygame.BUTTON_RIGHT)
+                        if t:
+                            self.throwing(t)
                     elif self.player.sys_state:
-                        self.player.sys_state.selected(pos, pygame.BUTTON_RIGHT)
+                        t = self.player.sys_state.selected(pos, pygame.BUTTON_RIGHT)
+                        if t:
+                            self.throwing(t)
                     else:
                         self.player.use()
                 elif event.button == 4:
@@ -134,12 +159,35 @@ class Map:
                     self.player.bag.selection_box -= 1
                     self.player.bag.update_inventory()
 
-    def update(self, dt):
-        for o in self.object:
-            if o.attribute.name != "player":
-                o.update(dt, self.player.rect)
+    def update_losing(self, dt):
+        l = len(self.losing)
+        for i in range(l):
+            if self.losing[i].attribute.time > 299.7:
+                self.losing[i].attribute.rect = self.move(self.losing[i], dt)
+                self.losing[i].rect.center = self.losing[i].attribute.rect
+            self.losing[i].attribute.time -= dt
+            if self.losing[i].time > 0:
+                self.losing[i].time -= dt
+            if self.losing[i].attribute.time <= 0:
+                self.camera.remove(self.losing[i][0])
+                del self.losing[i]
+            if self.losing[i].time <= 0 and not self.losing[i].get:
+                self.losing[i].get = 1
+
+    def update_goods(self, dt):
+        pass
+
+    def update_object(self, dt):
+        for o in range(len(self.object)):
+            if isinstance(self.object[o], game_player.player.Player):
+                self.object[o].update(dt)
             else:
-                o.update(dt)
+                self.object[o].update(dt, self.player.rect)
+
+    def update(self, dt):
+        self.update_losing(dt)
+        self.update_object(dt)
+        self.update_goods(dt)
 
     def render_UI(self):
         self.player.bag.render_inventory()
@@ -149,5 +197,5 @@ class Map:
             self.player.sys_state.render()
 
     def render(self):
-        self.camera.custom_draw(self.player.attribute.rect)
+        self.camera.custom_draw(self.player.rect)
         self.render_UI()

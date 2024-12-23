@@ -67,6 +67,7 @@ class Game:
                         self.state = self.level.action(pygame.mouse.get_pos())
                 if self.state:
                     self.level.guodu()
+                    self.clock.tick()
             pygame.display.update()
         pygame.quit()
         sys.exit()

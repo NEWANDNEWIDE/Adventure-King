@@ -1,3 +1,4 @@
+from __future__ import annotations
 import os
 import random
 import pygame.time
@@ -27,7 +28,7 @@ class GameNpc(pygame.sprite.Sprite):
             self.__surface[name] = temp
             self.__masks[name] = mask
 
-        self.attribute = GameObject()
+        self.attribute = GameObject().copy()
         self.attribute.rect = pos
         self.attribute.move_speed = 100
         self.attribute.name = name
@@ -42,9 +43,9 @@ class GameNpc(pygame.sprite.Sprite):
 
         self.time = 1000
         self.stand = 1
-        self.start = 0
+        self.start = pygame.time.get_ticks()
 
-        self.chouhengjuli = 100
+        self.chouhengjuli = 200
 
     def random_move(self):
         if self.stand:
@@ -116,17 +117,21 @@ class GameNpc(pygame.sprite.Sprite):
 
 
 class GameObject:
-    def __init__(self):
+    def __init__(self, attribute: list = [0, 0, 0, 0, 0, 0, 0, 0, 0]):
         self.__name = ""
-        self.__attribute = [0, 0, 0,
-                            0, 0, 0,
-                            0, 0, 0]
+        self.__attribute = attribute
         self.__number = 0
         self.__limit = 1
         # 是否可以穿上
         self.dressed = 0
         # 位置
         self.rect = [-1, -1]
+        self.time = 300
+        self.vec2 = [0, 0]
+
+    @property
+    def attribute(self):
+        return self.__attribute
 
     @property
     def number(self):
@@ -224,12 +229,41 @@ class GameObject:
     def reach_distance(self, reach_distance):
         self.__attribute[8] = reach_distance
 
+    def __add__(self, other):
+        if isinstance(other, GameObject):
+            self.attacked += other.attacked
+            self.move_speed += other.move_speed
+            self.critical_strike_chance += other.critical_strike_chance
+            self.critical_strike_damage += other.critical_strike_damage
+            self.reach_distance += other.reach_distance
+            self.defense += other.defense
+            self.health += other.health
+            self.shield += other.shield
+            self.attack_speed += other.attack_speed
+        return self
+
+    def __sub__(self, other):
+        if isinstance(other, GameObject):
+            self.attacked -= other.attacked
+            self.move_speed -= other.move_speed
+            self.critical_strike_chance -= other.critical_strike_chance
+            self.critical_strike_damage -= other.critical_strike_damage
+            self.reach_distance -= other.reach_distance
+            self.defense -= other.defense
+            self.health -= other.health
+            self.shield -= other.shield
+            self.attack_speed -= other.attack_speed
+        return self
+
     @staticmethod
     def create():
-        return GameObject()
+        return GameObject().copy()
 
     def attack(self):
         pass
 
     def use(self):
         pass
+
+    def copy(self):
+        return GameObject(self.attribute.copy())

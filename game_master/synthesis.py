@@ -3,6 +3,8 @@ import pygame
 import game_master
 import items.goods
 import game_player.player
+from game_master.gameObject import GameObject
+from items import className
 
 SYNTHESIS = 114514
 # 人物身上的合成
@@ -52,8 +54,21 @@ def process(start: list, number: int = 2):
     return target
 
 
-class Synthesis:
-    def __init__(self, bag: game_player.player.Bag):
+class Synthesis(pygame.sprite.Sprite):
+    def __init__(self, pos, group, bag: game_player.player.Bag):
+        super().__init__(group)
+
+        self.attribute = GameObject().copy()
+        self.attribute.name = "synthesis"
+        self.attribute.rect = pos
+        self.surface = pygame.Surface((40, 40))
+        self.image = self.surface
+        self.rect = self.image.get_rect(center=pos)
+
+        self.double_right = 0
+        self.time = 300
+        self.start = 0
+
         self.bag = bag
         # 合成界面是否打开
         self.state = 0
@@ -127,7 +142,9 @@ class Synthesis:
         return 0
 
     def selected(self, pos, state):
-        self.bag.selected(pos, SYNTHESIS)
+        losing = self.bag.selected(pos, state, 1)
+        if losing:
+            return losing
         pos = list(pos)
         pos[0] -= self.bag.rect[0]
         pos[1] -= self.bag.rect[1]
@@ -152,47 +169,141 @@ class Synthesis:
                 pos[1] -= 2
             i = i * 3 + j
             if self.bag.selection_index == -1:
-                if self.__synthesis_index[i]:
+                if self.__synthesis[i]:
                     self.bag.selection_offset = [pos[0] + 40, pos[1] + 40]
                     self.bag.selection_index = self.__synthesis_index[i]
-                    self.bag.selection = self.__synthesis[i]
-                    self.__synthesis_index[i] = 0
-                    self.__synthesis[i] = 0
+                    if state == pygame.BUTTON_LEFT or self.__synthesis[i].number == 1:
+                        self.bag.selection = self.__synthesis[i]
+                        self.__synthesis_index[i] = 0
+                        self.__synthesis[i] = 0
+                    elif state == pygame.BUTTON_RIGHT:
+                        mid = self.__synthesis[i].number // 2
+                        self.bag.selection = className.GOODS[self.__synthesis[i].NAME](mid)
+                        self.__synthesis[i].number -= mid
                     self.__frame_state[i] = 1
                     self.bag.selection_state = 1
                     self.remaining_quantity = self.synthesis()
             else:
-                if self.__synthesis_index[i]:
-                    n = self.__synthesis_index[i]
-                    self.__synthesis_index[i] = self.bag.selection_index
-                    self.bag.selection_index = n
-                    t = self.bag.selection
-                    self.bag.selection = self.__synthesis[i]
-                    self.__synthesis[i] = t
+                if self.__synthesis[i]:
+                    if self.bag.selection.name != self.__synthesis[i].name or self.__synthesis[i].number == self.__synthesis[i].limit:
+                        n = self.__synthesis_index[i]
+                        self.__synthesis_index[i] = self.bag.selection_index
+                        self.bag.selection_index = n
+                        t = self.bag.selection
+                        self.bag.selection = self.__synthesis[i]
+                        self.__synthesis[i] = t
+                    elif state == pygame.BUTTON_LEFT:
+                        t = self.bag.selection.number + self.__synthesis[i].number
+                        if self.__synthesis[i].limit >= t:
+                            self.__synthesis[i].number = t
+                            self.bag.selection = 0
+                            self.bag.selection_index = -1
+                        else:
+                            t -= self.__synthesis[i].limit
+                            self.__synthesis[i].number = self.__synthesis[i].limit
+                            self.bag.selection.number = t
+                    elif state == pygame.BUTTON_RIGHT:
+                        t = 1 + self.__synthesis[i].number
+                        if self.__synthesis[i].limit >= t:
+                            self.__synthesis[i].number = t
+                            self.bag.selection.number -= 1
+                        else:
+                            t = self.__synthesis[i].limit - self.__synthesis[i].number
+                            self.__synthesis[i].number = self.__synthesis[i].limit
+                            self.bag.selection.number -= t
                 else:
-                    self.__synthesis_index[i] = self.bag.selection_index
-                    self.__synthesis[i] = self.bag.selection
-                    self.bag.selection_offset = [0, 0]
-                    self.bag.selection_index = -1
-                    self.bag.selection = 0
-                self.__frame_state[i] = 1
+                    if state == pygame.BUTTON_LEFT or self.bag.selection.number == 1:
+                        self.__synthesis[i] = self.bag.selection
+                        self.__synthesis_index[i] = self.bag.selection_index
+                        self.bag.selection_offset = [0, 0]
+                        self.bag.selection_index = -1
+                        self.bag.selection = 0
+                    elif state == pygame.BUTTON_RIGHT:
+                        self.__synthesis[i] = className.GOODS[self.bag.selection.NAME](1)
+                        self.__synthesis_index[i] = self.bag.selection_index
+                        self.bag.selection.number -= 1
                 self.bag.selection_state = 1
+                self.__frame_state[i] = 1
                 self.remaining_quantity = self.synthesis()
         elif 311 <= pos[0] <= 351 and 62 <= pos[1] <= 102:
-            if self.bag.selection_index == -1 and self.__synthesis[-1]:
-                self.bag.selection_offset = [pos[0] - 311, pos[1] - 62]
-                self.bag.selection_index = 48
-                self.bag.selection = self.__synthesis[-1]
-                self.__synthesis[-1] = 0
-                self.__frame_state[-1] = 1
-                self.bag.selection_state = 1
-                for i in self.remaining_quantity:
-                    if i[0]:
-                        self.__synthesis[i[1]].number = i[0]
-                    else:
-                        self.__synthesis[i[1]] = 0
-                        self.__synthesis_index[i[1]] = 0
-                    self.__frame_state[i[1]] = 1
+            if self.__synthesis[9]:
+                if self.bag.selection_index == -1:
+                    self.bag.selection_offset = [pos[0] - 311, pos[1] - 62]
+                    self.bag.selection_index = 48
+                    self.bag.selection_state = 1
+                    if state == pygame.BUTTON_LEFT:
+                        self.bag.selection = className.GOODS[self.__synthesis[9].NAME](self.remaining_quantity[-2])
+                        self.remaining_quantity[-1] -= 1
+                        for i in range(len(self.remaining_quantity) - 2):
+                            self.__synthesis[self.remaining_quantity[i][1]].number -= self.remaining_quantity[i][0]
+                            if not self.__synthesis[self.remaining_quantity[i][1]].number:
+                                self.__synthesis[self.remaining_quantity[i][1]] = 0
+                                self.__synthesis_index[self.remaining_quantity[i][1]] = 0
+                            self.__frame_state[self.remaining_quantity[i][1]] = 1
+                        if not self.remaining_quantity[-1]:
+                            self.remaining_quantity = self.synthesis()
+                    elif state == pygame.BUTTON_RIGHT:
+                        if self.__synthesis[9].limit >= self.remaining_quantity[-2] * self.remaining_quantity[-1]:
+                            self.bag.selection = self.__synthesis[9]
+                            self.bag.selection.number = self.remaining_quantity[-2] * self.remaining_quantity[-1]
+                        else:
+                            self.bag.selection = className.GOODS[self.__synthesis[9].NAME](self.__synthesis[9].limit)
+                            t = self.remaining_quantity[-2] * self.remaining_quantity[-1] - self.__synthesis[9].limit
+                            group = t // self.__synthesis[9].limit
+                            t -= group * self.__synthesis[9].limit
+                            for i in range(group):
+                                self.bag.put(className.GOODS[self.__synthesis[9].NAME](self.__synthesis[9].limit))
+                            if t:
+                                self.bag.put(className.GOODS[self.__synthesis[9].NAME](t))
+                        self.__synthesis[9] = 0
+                        self.__frame_state[9] = 1
+                        for i in range(len(self.remaining_quantity) - 2):
+                            self.__synthesis[self.remaining_quantity[i][1]].number -= self.remaining_quantity[i][0] * \
+                                                                                self.remaining_quantity[-1]
+                            if not self.__synthesis[self.remaining_quantity[i][1]].number:
+                                self.__synthesis[self.remaining_quantity[i][1]] = 0
+                                self.__synthesis_index[self.remaining_quantity[i][1]] = 0
+                            self.__frame_state[self.remaining_quantity[i][1]] = 1
+                        self.remaining_quantity = self.synthesis()
+                elif self.bag.selection.name == self.__synthesis[9].name and self.__synthesis[9].number != self.__synthesis[9].limit:
+                    if (state == pygame.BUTTON_LEFT and
+                            self.bag.selection.number + self.remaining_quantity[-2] <= self.bag.selection.limit):
+                        self.bag.selection.number += self.remaining_quantity[-2]
+                        self.bag.selection_state = 1
+                        self.remaining_quantity[-1] -= 1
+                        for i in range(len(self.remaining_quantity) - 2):
+                            self.__synthesis[self.remaining_quantity[i][1]].number -= self.remaining_quantity[i][0]
+                            if not self.__synthesis[self.remaining_quantity[i][1]].number:
+                                self.__synthesis[self.remaining_quantity[i][1]] = 0
+                                self.__synthesis_index[self.remaining_quantity[i][1]] = 0
+                            self.__frame_state[self.remaining_quantity[i][1]] = 1
+                        if not self.remaining_quantity[-1]:
+                            self.remaining_quantity = self.synthesis()
+                    elif state == pygame.BUTTON_RIGHT:
+                        if self.bag.selection.limit - self.bag.selection.number >= self.remaining_quantity[-2] * \
+                                self.remaining_quantity[-1]:
+                            self.bag.selection.number += self.remaining_quantity[-2] * self.remaining_quantity[-1]
+                        else:
+                            t = self.remaining_quantity[-2] * self.remaining_quantity[
+                                -1] - self.bag.selection.limit + self.bag.selection.number
+                            self.bag.selection.number = self.bag.selection.limit
+                            group = t // self.bag.selection.limit
+                            t -= group * self.bag.selection.limit
+                            for i in range(group):
+                                self.bag.put(className.GOODS[self.bag.selection.NAME](self.bag.selection.limit))
+                            if t:
+                                self.bag.put(className.GOODS[self.bag.selection.NAME](t))
+                        self.bag.selection_state = 1
+                        self.__synthesis[9] = 0
+                        self.__frame_state[9] = 1
+                        for i in range(len(self.remaining_quantity) - 2):
+                            self.__synthesis[self.remaining_quantity[i][1]].number -= self.remaining_quantity[i][0] * \
+                                                                                self.remaining_quantity[-1]
+                            if not self.__synthesis[self.remaining_quantity[i][1]].number:
+                                self.__synthesis[self.remaining_quantity[i][1]] = 0
+                                self.__synthesis_index[self.remaining_quantity[i][1]] = 0
+                            self.__frame_state[self.remaining_quantity[i][1]] = 1
+                        self.remaining_quantity = self.synthesis()
 
     def synthesis(self):
         number = []
@@ -205,7 +316,6 @@ class Synthesis:
         if not number:
             return 0
         temp = []
-        ans = 0
         obj = 0
         for g in game_master.synthesis.SYNTHESIS_LIST:
             l = len(g) - 1
@@ -220,7 +330,6 @@ class Synthesis:
                         for i in range(l):
                             if d != number[i] - g[i][-1] or self.__synthesis[number[i]].name != g[i][0] or \
                                     self.__synthesis[number[i]].number < g[i][1]:
-                                print(number, g[i])
                                 state = 0
                                 break
                     else:
@@ -232,15 +341,15 @@ class Synthesis:
                 if state:
                     t = []
                     for i in range(l):
-                        temp.append([self.__synthesis[number[i]].number, number[i]])
+                        temp.append([g[i][1], number[i]])
                         t.append(self.__synthesis[number[i]].number // g[i][1])
                     ans = min(t)
-                    for i in range(l):
-                        temp[i][0] -= g[i][1] * ans
+                    temp.append(g[-1][-1])
+                    temp.append(ans)
                     obj = g
                     break
-        if ans and obj:
-            self.__synthesis[-1] = items.className.GOODS[obj[-1][0]](number=ans)
+        if obj:
+            self.__synthesis[-1] = items.className.GOODS[obj[-1][0]](number=obj[-1][-1])
             self.__frame_state[-1] = 1
             return temp
         return 0

@@ -5,7 +5,545 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c388fb3f-2172-4411-a75d-ada954abd72c" name="更改" comment="test">
+      <change afterPath="$PROJECT_DIR$/res/font.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_back/walk_back_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_back/walk_back_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_back/walk_back_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_back/walk_back_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_back/walk_back_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_back/walk_back_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_back/walk_back_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_back/walk_back_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_back/walk_back_09.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_back/walk_back_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_back/walk_back_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_front/walk_front_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_front/walk_front_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_front/walk_front_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_front/walk_front_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_front/walk_front_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_front/walk_front_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_front/walk_front_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_front/walk_front_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_front/walk_front_09.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_front/walk_front_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_front/walk_front_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_left/walk_left_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_left/walk_left_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_left/walk_left_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_left/walk_left_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_left/walk_left_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_left/walk_left_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_left/walk_left_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_left/walk_left_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_left/walk_left_09.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_left/walk_left_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_left/walk_left_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_right/walk_right_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_right/walk_right_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_right/walk_right_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_right/walk_right_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_right/walk_right_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_right/walk_right_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_right/walk_right_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_right/walk_right_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_right/walk_right_09.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_right/walk_right_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1/walk_right/walk_right_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/npc1_universal.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_back/walk_back_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_back/walk_back_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_back/walk_back_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_back/walk_back_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_back/walk_back_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_back/walk_back_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_back/walk_back_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_back/walk_back_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_back/walk_back_09.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_back/walk_back_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_back/walk_back_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_front/walk_front_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_front/walk_front_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_front/walk_front_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_front/walk_front_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_front/walk_front_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_front/walk_front_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_front/walk_front_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_front/walk_front_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_front/walk_front_09.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_front/walk_front_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_front/walk_front_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_left/walk_left_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_left/walk_left_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_left/walk_left_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_left/walk_left_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_left/walk_left_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_left/walk_left_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_left/walk_left_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_left/walk_left_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_left/walk_left_09.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_left/walk_left_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_left/walk_left_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_right/walk_right_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_right/walk_right_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_right/walk_right_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_right/walk_right_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_right/walk_right_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_right/walk_right_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_right/walk_right_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_right/walk_right_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_right/walk_right_09.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_right/walk_right_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc1/walk_right/walk_right_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_back/walk_back_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_back/walk_back_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_back/walk_back_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_back/walk_back_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_back/walk_back_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_back/walk_back_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_back/walk_back_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_back/walk_back_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_back/walk_back_09.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_back/walk_back_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_back/walk_back_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_front/walk_front_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_front/walk_front_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_front/walk_front_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_front/walk_front_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_front/walk_front_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_front/walk_front_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_front/walk_front_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_front/walk_front_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_front/walk_front_09.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_front/walk_front_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_front/walk_front_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_left/walk_left_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_left/walk_left_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_left/walk_left_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_left/walk_left_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_left/walk_left_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_left/walk_left_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_left/walk_left_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_left/walk_left_09.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_left/walk_left_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_left/walk_left_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_right/walk_right_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_right/walk_right_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_right/walk_right_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_right/walk_right_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_right/walk_right_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_right/walk_right_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_right/walk_right_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_right/walk_right_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_right/walk_right_09.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_right/walk_right_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2/walk_right/walk_right_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/npc2_universal.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_back/walk_back_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_back/walk_back_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_back/walk_back_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_back/walk_back_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_back/walk_back_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_back/walk_back_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_back/walk_back_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_back/walk_back_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_back/walk_back_09.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_back/walk_back_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_back/walk_back_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_front/walk_front_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_front/walk_front_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_front/walk_front_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_front/walk_front_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_front/walk_front_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_front/walk_front_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_front/walk_front_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_front/walk_front_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_front/walk_front_09.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_front/walk_front_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_front/walk_front_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_left/walk_left_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_left/walk_left_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_left/walk_left_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_left/walk_left_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_left/walk_left_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_left/walk_left_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_left/walk_left_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_left/walk_left_09.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_left/walk_left_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_left/walk_left_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_right/walk_right_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_right/walk_right_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_right/walk_right_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_right/walk_right_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_right/walk_right_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_right/walk_right_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_right/walk_right_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_right/walk_right_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_right/walk_right_09.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_right/walk_right_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/villager/npc2/walk_right/walk_right_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_back/walk_back_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_back/walk_back_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_back/walk_back_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_back/walk_back_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_back/walk_back_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_back/walk_back_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_back/walk_back_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_back/walk_back_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_back/walk_back_09.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_back/walk_back_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_back/walk_back_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_front/walk_front_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_front/walk_front_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_front/walk_front_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_front/walk_front_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_front/walk_front_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_front/walk_front_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_front/walk_front_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_front/walk_front_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_front/walk_front_09.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_front/walk_front_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_front/walk_front_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_left/walk_left_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_left/walk_left_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_left/walk_left_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_left/walk_left_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_left/walk_left_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_left/walk_left_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_left/walk_left_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_left/walk_left_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_left/walk_left_09.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_left/walk_left_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_left/walk_left_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_right/walk_right_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_right/walk_right_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_right/walk_right_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_right/walk_right_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_right/walk_right_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_right/walk_right_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_right/walk_right_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_right/walk_right_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_right/walk_right_09.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_right/walk_right_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/npc/wizard/wizard/walk_right/walk_right_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/attack_back/attack_back_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/attack_back/attack_back_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/attack_back/attack_back_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/attack_back/attack_back_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/attack_back/attack_back_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/attack_back/attack_back_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/attack_front/attack_front_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/attack_front/attack_front_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/attack_front/attack_front_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/attack_front/attack_front_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/attack_front/attack_front_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/attack_front/attack_front_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/attack_left/attack_left_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/attack_left/attack_left_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/attack_left/attack_left_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/attack_left/attack_left_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/attack_left/attack_left_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/attack_left/attack_left_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/attack_right/attack_right_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/attack_right/attack_right_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/attack_right/attack_right_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/attack_right/attack_right_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/attack_right/attack_right_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/attack_right/attack_right_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/dead/dead_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/dead/dead_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/dead/dead_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/dead/dead_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/dead/dead_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/dead/dead_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_back/walk_back_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_back/walk_back_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_back/walk_back_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_back/walk_back_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_back/walk_back_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_back/walk_back_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_back/walk_back_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_back/walk_back_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_back/walk_back_09.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_back/walk_back_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_back/walk_back_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_front/walk_front_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_front/walk_front_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_front/walk_front_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_front/walk_front_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_front/walk_front_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_front/walk_front_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_front/walk_front_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_front/walk_front_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_front/walk_front_09.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_front/walk_front_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_front/walk_front_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_left/walk_left_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_left/walk_left_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_left/walk_left_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_left/walk_left_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_left/walk_left_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_left/walk_left_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_left/walk_left_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_left/walk_left_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_left/walk_left_09.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_left/walk_left_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_left/walk_left_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_right/walk_right_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_right/walk_right_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_right/walk_right_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_right/walk_right_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_right/walk_right_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_right/walk_right_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_right/walk_right_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_right/walk_right_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_right/walk_right_09.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_right/walk_right_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player1/walk_right/walk_right_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/attack_back/attack_back_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/attack_back/attack_back_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/attack_back/attack_back_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/attack_back/attack_back_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/attack_back/attack_back_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/attack_front/attack_front_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/attack_front/attack_front_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/attack_front/attack_front_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/attack_front/attack_front_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/attack_front/attack_front_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/attack_left/attack_left_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/attack_left/attack_left_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/attack_left/attack_left_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/attack_left/attack_left_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/attack_left/attack_left_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/attack_right/attack_right_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/attack_right/attack_right_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/attack_right/attack_right_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/attack_right/attack_right_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/attack_right/attack_right_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/dead/dead_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/dead/dead_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/dead/dead_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/dead/dead_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/dead/dead_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/stand_back/stand_back_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/stand_back/stand_back_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/stand_front/stand_front_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/stand_front/stand_front_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/stand_left/stand_left_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/stand_left/stand_left_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/stand_right/stand_right_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/stand_right/stand_right_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_back/walk_back_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_back/walk_back_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_back/walk_back_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_back/walk_back_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_back/walk_back_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_back/walk_back_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_back/walk_back_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_back/walk_back_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_front/walk_front_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_front/walk_front_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_front/walk_front_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_front/walk_front_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_front/walk_front_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_front/walk_front_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_front/walk_front_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_front/walk_front_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_left/walk_left_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_left/walk_left_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_left/walk_left_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_left/walk_left_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_left/walk_left_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_left/walk_left_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_left/walk_left_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_left/walk_left_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_right/walk_right_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_right/walk_right_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_right/walk_right_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_right/walk_right_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_right/walk_right_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_right/walk_right_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_right/walk_right_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player2/walk_right/walk_right_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/attack_back/attack_back_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/attack_back/attack_back_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/attack_back/attack_back_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/attack_back/attack_back_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/attack_back/attack_back_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/attack_front/attack_front_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/attack_front/attack_front_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/attack_front/attack_front_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/attack_front/attack_front_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/attack_front/attack_front_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/attack_left/attack_left_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/attack_left/attack_left_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/attack_left/attack_left_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/attack_left/attack_left_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/attack_left/attack_left_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/attack_right/attack_right_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/attack_right/attack_right_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/attack_right/attack_right_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/attack_right/attack_right_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/attack_right/attack_right_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/dead/dead_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/dead/dead_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/dead/dead_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/dead/dead_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/dead/dead_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/stand_back/stand_back_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/stand_back/stand_back_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/stand_front/stand_front_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/stand_front/stand_front_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/stand_left/stand_left_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/stand_left/stand_left_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/stand_right/stand_right_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/stand_right/stand_right_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_back/walk_back_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_back/walk_back_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_back/walk_back_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_back/walk_back_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_back/walk_back_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_back/walk_back_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_back/walk_back_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_back/walk_back_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_front/walk_front_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_front/walk_front_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_front/walk_front_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_front/walk_front_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_front/walk_front_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_front/walk_front_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_front/walk_front_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_front/walk_front_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_left/walk_left_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_left/walk_left_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_left/walk_left_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_left/walk_left_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_left/walk_left_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_left/walk_left_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_left/walk_left_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_left/walk_left_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_right/walk_right_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_right/walk_right_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_right/walk_right_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_right/walk_right_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_right/walk_right_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_right/walk_right_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_right/walk_right_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/game/player/player3/walk_right/walk_right_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Elemental/Flam/Preview.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Elemental/Flam/SpriteSheet.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Elemental/Ice/Preview.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Elemental/Ice/SpriteSheet.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Elemental/Ice/SpriteSheetB.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Elemental/Ice/SpriteSheetFlake.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Elemental/Plant/Preview.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Elemental/Plant/SpriteSheet.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Elemental/Plant/SpriteSheetB.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Elemental/Rock/Preview.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Elemental/Rock/SpriteSheet.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Elemental/Rock/SpriteSheetB.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Elemental/Thunder/Preview.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Elemental/Thunder/SpriteSheet.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Magic/Aura/Preview.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Magic/Aura/SpriteSheetPurple.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Magic/Aura/SpriteSheetWhite.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Magic/Circle/Preview.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Magic/Circle/PreviewSpark.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Magic/Circle/PreviewSpark2.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Magic/Circle/SpriteSheetOrange.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Magic/Circle/SpriteSheetSpark.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Magic/Circle/SpriteSheetSpark2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Magic/Circle/SpriteSheetWhite.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Magic/Shield/Preview.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Magic/Shield/SpriteSheetBlue.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Magic/Shield/SpriteSheetYellow.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Magic/Spark/Preview.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Magic/Spark/SpriteSheet.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Magic/Spirit/Preview.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Magic/Spirit/SpriteSheet.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Magic/Spirit/SpriteSheetBlue.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Magic/Spirit/SpriteSheetDouble.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Particle/AllPreview.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Particle/Bamboo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Particle/Clouds.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Particle/Fire.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Particle/Grass.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Particle/Leaf.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Particle/LeafPink.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Particle/Rain.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Particle/RainOnFloor.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Particle/Rock.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Particle/RockGray.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Particle/Snow.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Particle/Spark.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Particle/Vase.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Particle/Wood.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Projectile/AllPreview.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Projectile/Arrow.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Projectile/BigEnergyBall.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Projectile/BigKunai.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Projectile/BigShuriken.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Projectile/CanonBall.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Projectile/EnergyBall.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Projectile/Fireball.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Projectile/IceSpike.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Projectile/Kunai.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Projectile/PlantSpike.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Projectile/Shuriken.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Projectile/ShurikenMagic.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Projectile/SpriteSheetRock.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/SlashFx/CircularSlash/Preview.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/SlashFx/CircularSlash/SpriteSheet.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/SlashFx/Claw/Preview.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/SlashFx/Claw/SpriteSheet.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/SlashFx/ClawDouble/Preview.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/SlashFx/ClawDouble/SpriteSheet.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/SlashFx/Cut/Preview.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/SlashFx/Cut/SpriteSheet.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/SlashFx/Slash/Preview.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/SlashFx/Slash/SpriteSheet.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/SlashFx/SlashCurved/Preview.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/SlashFx/SlashCurved/SpriteSheet.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/SlashFx/SlashDouble/Preview.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/SlashFx/SlashDouble/SpriteSheet.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/SlashFx/SlashDoubleCurved/Sprite.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/SlashFx/SlashDoubleCurved/SpriteSheet.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Smoke/Smoke/Preview.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Smoke/Smoke/SpriteSheet.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Smoke/SmokeCircular/Preview.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/special_effects/FX/Smoke/SmokeCircular/SpriteSheet.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_master/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_master/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_master/gameObject.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_master/gameObject.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_master/gameSurface.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_master/gameSurface.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_master/synthesis.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_master/synthesis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_player/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_player/player.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/map/HWmap.py" beforeDir="false" afterPath="$PROJECT_DIR$/map/HWmap.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/game/player/down/0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/game/player/down/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/game/player/down/2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/game/player/down/3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/game/player/down_idle/0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/game/player/down_idle/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/game/player/left/0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/game/player/left/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/game/player/left/2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/game/player/left/3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/game/player/left_idle/0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/game/player/left_idle/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/game/player/right/0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/game/player/right/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/game/player/right/2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/game/player/right/3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/game/player/right_idle/0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/game/player/right_idle/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/game/player/up/0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/game/player/up/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/game/player/up/2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/game/player/up/3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/game/player/up_idle/0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/game/player/up_idle/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/item/data/example" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,36 +586,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Python.HWmap.executor": "Run",
-    "Python.__init__.executor": "Run",
-    "Python.button.executor": "Run",
-    "Python.camera.executor": "Run",
-    "Python.edit.executor": "Run",
-    "Python.fileManager.executor": "Run",
-    "Python.game.executor": "Run",
-    "Python.gameObject.executor": "Run",
-    "Python.gameSurface.executor": "Run",
-    "Python.goods.executor": "Run",
-    "Python.homework.executor": "Run",
-    "Python.inputField.executor": "Run",
-    "Python.item.executor": "Run",
-    "Python.level.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.player.executor": "Run",
-    "Python.synthesis.executor": "Run",
-    "Python.test.executor": "Run",
-    "Python.textBox.executor": "Run",
-    "Python.work.executor": "Run",
-    "Python.图片生成动画.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/llm/Idk/res/game/player",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Python.HWmap.executor&quot;: &quot;Run&quot;,
+    &quot;Python.__init__.executor&quot;: &quot;Run&quot;,
+    &quot;Python.button.executor&quot;: &quot;Run&quot;,
+    &quot;Python.camera.executor&quot;: &quot;Run&quot;,
+    &quot;Python.edit.executor&quot;: &quot;Run&quot;,
+    &quot;Python.fileManager.executor&quot;: &quot;Run&quot;,
+    &quot;Python.game.executor&quot;: &quot;Run&quot;,
+    &quot;Python.gameObject.executor&quot;: &quot;Run&quot;,
+    &quot;Python.gameSurface.executor&quot;: &quot;Run&quot;,
+    &quot;Python.goods.executor&quot;: &quot;Run&quot;,
+    &quot;Python.homework.executor&quot;: &quot;Run&quot;,
+    &quot;Python.inputField.executor&quot;: &quot;Run&quot;,
+    &quot;Python.item.executor&quot;: &quot;Run&quot;,
+    &quot;Python.level.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.player.executor&quot;: &quot;Run&quot;,
+    &quot;Python.synthesis.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.textBox.executor&quot;: &quot;Run&quot;,
+    &quot;Python.work.executor&quot;: &quot;Run&quot;,
+    &quot;Python.图片生成动画.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/llm/Idk/res/game/player&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\llm\Idk\res\game\player" />
@@ -388,7 +926,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734061718303</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="test">
+      <option name="closed" value="true" />
+      <created>1734062032861</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1734062032861</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
