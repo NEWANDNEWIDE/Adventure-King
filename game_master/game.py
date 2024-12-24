@@ -3,7 +3,6 @@ import sys
 import pygame
 import map.HWmap
 import settings
-from game_master import fileManager
 from game_master.level import Level
 
 
@@ -12,10 +11,10 @@ class Game:
 
     def __init__(self, edit=False):
         if edit:
-            Game.FONT = pygame.font.SysFont('microsoftyaheiui', 16)
+            Game.FONT = pygame.font.Font(settings.FONT, 16)
         else:
             pygame.init()
-            Game.FONT = pygame.font.SysFont('microsoftyaheiui', 16)
+            Game.FONT = pygame.font.Font(settings.FONT, 16)
             self.__running = True
             self.screen = pygame.display.set_mode((settings.WIDTH, settings.HEIGHT))
             pygame.display.set_caption(settings.TITLE)
@@ -27,8 +26,6 @@ class Game:
 
     def __init(self):
         pygame.key.stop_text_input()
-        fileManager.loading_item()
-        fileManager.loading_game_surfaces()
 
     def __event(self, event):
         pass

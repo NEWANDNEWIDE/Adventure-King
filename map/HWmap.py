@@ -2,7 +2,7 @@ import pygame.event
 import pytmx.util_pygame
 import game_master
 import game_player.player
-import items
+import npc.boss
 from game_master.gameSurface import GameSpirit
 
 
@@ -12,12 +12,14 @@ class Map:
         self.tmx = pytmx.util_pygame.load_pygame(r"C:\Users\10962\Desktop\First_map\first_map_8000.tmx")
         self.__surface = pygame.image.load(
             r"D:\PyDew-Valley-main\s23 - Audio & fixes\demo\graphics\world\ground.png").convert_alpha()
+        self.__ui_state = game_player.player.State()
         self.__item = game_master.item.Item()
         self.__state = 1
         self.__screen = screen
 
         self.camera = game_player.player.CameraGroup(self.__surface, self.tmx)
-        self.player = game_player.player.Player([600, 450], self.camera)
+        self.collision = pygame.sprite.Group()
+        self.player = game_player.player.Player([600, 450], self.camera, self.collision)
         self.pick_up = game_master.gameSurface.PickUpSpritesGroup(self.player)
 
         self.inventory_rect = self.player.bag.inventory_rect
@@ -30,10 +32,7 @@ class Map:
 
         self.setup()
 
-        self.player.bag.put(items.goods.TestItem(number=64))
-        self.player.bag.put(items.goods.TestItemOther(number=61))
-        self.goods.append(game_master.synthesis.Synthesis((0, 0), self.camera, self.player.bag))
-        self.object.append(game_master.gameObject.GameNpc([800, 600], self.camera))
+        self.add_obj(npc.boss.Crazy([800, 600], self.camera, self.collision))
 
     def add_obj(self, obj):
         self.object.append(obj)
@@ -43,17 +42,18 @@ class Map:
         self.losing.append(obj)
 
     def add_goods(self, obj):
+        self.collision.add(obj)
         self.goods.append(obj)
 
     def throwing(self, losing):
         losing.rect = self.player.attribute.rect.copy()
-        if self.player.move_state == "up_idle" or self.player.move_state == "up":
+        if self.player.move_state[-5:] == "front":
             losing.vec2[1] = -1
-        elif self.player.move_state == "down_idle" or self.player.move_state == "down":
+        elif self.player.move_state[-4:] == "back":
             losing.vec2[1] = 1
-        elif self.player.move_state == "left_idle" or self.player.move_state == "left":
+        elif self.player.move_state[-4:] == "left":
             losing.vec2[0] = -1
-        elif self.player.move_state == "right_idle" or self.player.move_state == "right":
+        elif self.player.move_state[-5:] == "right":
             losing.vec2[0] = 1
         self.add_losing(losing)
 
@@ -83,7 +83,7 @@ class Map:
             game_master.synthesis.SYNTHESIS_LIST_NOT_PROCESSED, 3)
 
     def event_update(self, event: pygame.event.Event):
-        if self.__state:
+        if self.__state and not self.player.dead:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_b:
                     if self.player.bag.state:
@@ -130,7 +130,7 @@ class Map:
                             self.player.bag.selection_box = 34 + i
                             self.player.bag.update_inventory()
                             return
-                elif event.button == pygame.BUTTON_LEFT:
+                if event.button == pygame.BUTTON_LEFT:
                     if self.player.bag.state:
                         t = self.player.bag.selected(pos, pygame.BUTTON_LEFT)
                         if t:
@@ -180,17 +180,23 @@ class Map:
     def update_object(self, dt):
         for o in range(len(self.object)):
             if isinstance(self.object[o], game_player.player.Player):
-                self.object[o].update(dt)
-            else:
-                self.object[o].update(dt, self.player.rect)
+                t = self.object[o].update(dt)
+                if t:
+                    pass
+            elif isinstance(self.object[o], game_master.gameObject.GameNpc):
+                t = self.object[o].update(dt, self.player.rect)
+                if t:
+                    pass
 
     def update(self, dt):
         self.update_losing(dt)
         self.update_object(dt)
         self.update_goods(dt)
+        self.player.update_collision(dt)
 
     def render_UI(self):
         self.player.bag.render_inventory()
+        self.__ui_state.render(self.player)
         if self.player.bag.state:
             self.player.bag.render()
         elif self.player.sys_state:

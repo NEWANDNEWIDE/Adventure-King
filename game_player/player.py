@@ -1,10 +1,8 @@
 import os
 import random
 from typing import List
-
 import pygame
 from pytmx import TiledMap, TiledTileLayer, TiledObjectGroup
-
 import game_master.fileManager
 import items
 import settings
@@ -26,6 +24,8 @@ class CameraGroup(pygame.sprite.Group):
         self.ground_rect = self.__surface.get_rect(topleft=(0, 0))
 
         self.tmx: TiledMap = tmx
+
+        self.tmx_surface = None
 
         """if self.tmx:
             self.draw_tmx()"""
@@ -56,46 +56,30 @@ class CameraGroup(pygame.sprite.Group):
         # active elements
         for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
             offset_pos = sprite.rect.center - self.offset
-            if sprite.attribute.name == "player":
-                if sprite.shanbi_state and len(sprite.move_state) < 6:
-                    if sprite.move_state == "down":
-                        self.__display.blit(sprite.surfs[sprite.move_state], (offset_pos[0] - 10, offset_pos[1]))
-                    elif sprite.move_state == "right":
-                        self.__display.blit(sprite.surfs[sprite.move_state], (offset_pos[0] - 30, offset_pos[1] + 20))
-                    else:
-                        self.__display.blit(sprite.surfs[sprite.move_state], (offset_pos[0] - 10, offset_pos[1] + 20))
             rect = sprite.image.get_rect(center=offset_pos)
             self.__display.blit(sprite.image, rect)
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, group):
+    def __init__(self, pos, group, collision: pygame.sprite.Group):
         super().__init__(group)
 
-        self.surfs = {}
-        self.surf = pygame.Surface((20, 40))
-        self.surf.fill((255, 255, 255))
-        self.surfs["up"] = self.surf
-        self.surfs["right"] = pygame.transform.rotate(self.surf, -90)
-        self.surfs["down"] = pygame.transform.rotate(self.surf, -180)
-        self.surfs["left"] = pygame.transform.rotate(self.surf, -270)
+        self.collision = collision
 
-        path = os.path.join(settings.GAMEPATH, "player")
+        self.pos = pos
+
+        path = os.path.join(settings.PLAYER, "player1")
         self.__surface = {}
-        self.__masks = {}
-        self.name = ""
 
         for name in os.listdir(path):
             t = os.path.join(path, name)
             temp = []
-            mask = []
             for i in os.listdir(t):
                 temp.append(pygame.image.load(os.path.join(t, i)))
-                mask.append(pygame.mask.from_surface(pygame.image.load(os.path.join(t, i))))
             self.__surface[name] = temp
-            self.__masks[name] = mask
 
         self.__vec2 = [0, 0]
+        self.dead = 0
 
         # 是否打开合成台
         self.sys_state = 0
@@ -107,9 +91,8 @@ class Player(pygame.sprite.Sprite):
         self.dir = [0, 0]
 
         self.index = 0
-        self.move_state = "down"
+        self.move_state = "stand_back"
         self.image = self.__surface[self.move_state][self.index]
-        self.mask = self.__masks[self.move_state][self.index]
 
         self.spawn_point = pos
         self.rect = self.image.get_rect(center=pos)
@@ -133,6 +116,8 @@ class Player(pygame.sprite.Sprite):
         self.attribute.move_speed = 200
 
         self.attack_box = self.attribute.reach_distance * 50
+
+        self.attribute_now = self.attribute.copy()
 
     @property
     def vec2(self):
@@ -162,52 +147,87 @@ class Player(pygame.sprite.Sprite):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d]:
             self.__vec2[0] = 1
-            self.move_state = "right"
+            self.move_state = "walk_right"
         elif keys[pygame.K_a]:
             self.__vec2[0] = -1
-            self.move_state = "left"
+            self.move_state = "walk_left"
         else:
             self.__vec2[0] = 0
         if keys[pygame.K_s]:
             self.__vec2[1] = 1
-            self.move_state = "down"
+            self.move_state = "walk_back"
         elif keys[pygame.K_w]:
             self.__vec2[1] = -1
-            self.move_state = "up"
+            self.move_state = "walk_front"
         else:
             self.__vec2[1] = 0
 
     def action(self, dt):
-        if not self.vec2[0] and not self.vec2[1] and len(self.move_state) < 6:
-            self.move_state += "_idle"
+        if not self.vec2[0] and not self.vec2[1] and self.move_state[:4] == "walk":
+            self.move_state = "stand" + self.move_state[4:]
         l = len(self.__surface[self.move_state])
-        self.index += dt * l
+        self.index += dt * l * self.attribute_now.move_speed / 100
         if self.index >= l:
             self.index = 0
         self.image = self.__surface[self.move_state][int(self.index)]
-        self.mask = self.__masks[self.move_state][int(self.index)]
 
     def move(self, dt):
         self.input()
         self.action(dt)
         if not self.run and not self.shanbi_state:
-            self.attribute.rect[0] += self.vec2[0] * self.attribute.move_speed * dt
-            self.attribute.rect[1] += self.vec2[1] * self.attribute.move_speed * dt
+            self.attribute_now.move_speed = self.attribute.move_speed
+            self.attribute.rect[0] += self.vec2[0] * self.attribute_now.move_speed * dt
+            self.attribute.rect[1] += self.vec2[1] * self.attribute_now.move_speed * dt
         elif self.shanbi_state:
             if self.shanbi > 0:
-                self.attribute.rect[0] += self.dir[0] * self.attribute.move_speed * dt * 10
-                self.attribute.rect[1] += self.dir[1] * self.attribute.move_speed * dt * 10
+                self.attribute_now.move_speed = self.attribute.move_speed * 10
+                self.attribute.rect[0] += self.dir[0] * self.attribute_now.move_speed * dt
+                self.attribute.rect[1] += self.dir[1] * self.attribute_now.move_speed * dt
                 self.shanbi -= dt
             else:
                 self.shanbi = -1.0
                 self.shanbi_state = 0
                 self.dir = [0, 0]
         else:
-            self.attribute.rect[0] += self.vec2[0] * self.attribute.move_speed * dt * 2
-            self.attribute.rect[1] += self.vec2[1] * self.attribute.move_speed * dt * 2
+            self.attribute_now.move_speed = self.attribute.move_speed * 2
+            self.attribute.rect[0] += self.vec2[0] * self.attribute_now.move_speed * dt
+            self.attribute.rect[1] += self.vec2[1] * self.attribute_now.move_speed * dt
         self.rect.center = self.attribute.rect
         if not self.shanbi_state and self.shanbi < 0:
             self.shanbi += dt
+
+    def dying(self, dt):
+        l = len(self.__surface[self.move_state])
+        self.index += dt * l
+        if self.index >= l:
+            self.index = 0
+            return 1
+        self.image = self.__surface[self.move_state][int(self.index)]
+        return 0
+
+    def update_collision(self, dt):
+        collision = 0
+        for s in self.collision.sprites():
+            if hasattr(s, "vec2"):
+                if self.rect.colliderect(s.rect):
+                    s.rect.center = s.pos
+                    s.attribute.rect = s.pos
+                    self.rect.center = self.pos
+                    self.attribute.rect = self.pos
+                else:
+                    s.pos = list(s.rect.center)
+            else:
+                if self.rect.colliderect(s.rect):
+                    self.rect.center = self.pos
+                    self.attribute.rect = self.pos
+        if not collision:
+            self.pos = list(self.rect.center)
+
+    def update_attribute(self):
+        if self.attribute_now.health <= 0 and not self.dead:
+            self.dead = 1
+            self.index = 0
+            self.move_state = "dead"
 
     def update_dressed(self):
         if self.bag.dressed_state:
@@ -218,11 +238,32 @@ class Player(pygame.sprite.Sprite):
                 self.attribute += self.bag.bag[a]
 
     def update(self, dt):
-        self.move(dt)
-        self.bag.update()
-        self.update_dressed()
-        if self.sys_state:
-            self.sys_state.update()
+        self.update_attribute()
+        if not self.dead:
+            self.move(dt)
+            self.bag.update()
+            self.update_dressed()
+            if self.sys_state:
+                self.sys_state.update()
+            return 0
+        else:
+            return self.dying(dt)
+
+
+class State:
+    def __init__(self):
+        self.display = pygame.display.get_surface()
+        self.life_bar = pygame.image.load("res/item/lifebar1.png").convert_alpha()
+        self.life_bar = pygame.transform.scale(self.life_bar, (self.life_bar.width * 3, self.life_bar.height * 3))
+        self.life_bar_w = self.life_bar.width - 8 * 3
+        self.life_bar_h = self.life_bar.height - 8 * 3
+
+    def render(self, player: Player):
+        p = player.attribute_now.health / player.attribute.health
+        surface = pygame.Surface((self.life_bar_w * p, self.life_bar_h))
+        surface.fill((255, 0, 0))
+        self.display.blit(self.life_bar)
+        self.display.blit(surface, (4 * 3, 4 * 3))
 
 
 class Bag:

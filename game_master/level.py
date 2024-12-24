@@ -13,7 +13,7 @@ class Level:
         self.time = 5
         self.start_time = 0
 
-        self.font = pygame.font.SysFont('microsoftyaheiui', 50)
+        self.font = pygame.font.Font(settings.FONT, 50)
         self.png = pygame.image.load(r"C:\Users\10962\Desktop\Pygame-Cameras-main\graphics\ground.png").convert_alpha()
         self.theme = self.font.render("冒险王", True, (0, 0, 0)).convert_alpha()
         self.start_frame = pygame.Surface((100, 50))

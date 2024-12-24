@@ -11,41 +11,56 @@ ATTRIBUTE = ("Health", "Shield", "Attack",
 
 # 所有游戏npc的基类
 class GameNpc(pygame.sprite.Sprite):
-    def __init__(self, pos, group, name="player"):
-        super().__init__(group)
+    def __init__(self, pos, name, *groups):
+        super().__init__(*groups)
 
-        path = os.path.join(settings.GAMEPATH, name)
+        self.dead = 0
+
         self.__surface = {}
-        self.__masks = {}
 
-        for name in os.listdir(path):
-            t = os.path.join(path, name)
-            temp = []
-            mask = []
-            for i in os.listdir(t):
-                temp.append(pygame.image.load(os.path.join(t, i)))
-                mask.append(pygame.mask.from_surface(pygame.image.load(os.path.join(t, i))))
-            self.__surface[name] = temp
-            self.__masks[name] = mask
+        self.pos = pos
 
         self.attribute = GameObject().copy()
         self.attribute.rect = pos
         self.attribute.move_speed = 100
         self.attribute.name = name
 
+        self.attribute_now = self.attribute.copy()
+
         self.vec2 = [0, 0]
 
         self.index = 0
-        self.move_state = "down_idle"
+        self.move_state = ""
+        self.attacking = 0
+
+        self.setup(name)
+
         self.image = self.__surface[self.move_state][self.index]
-        self.mask = self.__masks[self.move_state][self.index]
         self.rect = self.image.get_rect(center=pos)
 
         self.time = 1000
         self.stand = 1
         self.start = pygame.time.get_ticks()
 
-        self.chouhengjuli = 200
+        self.chouhengjuli = 0
+
+    @property
+    def surface(self):
+        return self.__surface
+
+    @surface.setter
+    def surface(self, surface):
+        self.__surface = surface
+
+    def setup(self, name: str):
+        path = os.path.join(settings.NPC_V, name)
+        for n in os.listdir(path):
+            t = os.path.join(path, n)
+            temp = []
+            for i in os.listdir(t):
+                temp.append(pygame.image.load(os.path.join(t, i)).convert_alpha())
+            self.__surface[n] = temp
+        self.move_state = "stand_back"
 
     def random_move(self):
         if self.stand:
@@ -65,24 +80,27 @@ class GameNpc(pygame.sprite.Sprite):
                 self.start = pygame.time.get_ticks()
                 self.stand = 1
         if self.vec2[0]:
-            self.move_state = "right" if self.vec2[0] == 1 else "left"
+            self.move_state = "walk_right" if self.vec2[0] == 1 else "walk_left"
         if self.vec2[1]:
-            self.move_state = "down" if self.vec2[1] == 1 else "up"
+            self.move_state = "walk_back" if self.vec2[1] == 1 else "walk_front"
 
     def move(self, dt):
+        self.attribute_now.move_speed = self.attribute.move_speed
         self.attribute.rect[0] += self.vec2[0] * self.attribute.move_speed * dt
         self.attribute.rect[1] += self.vec2[1] * self.attribute.move_speed * dt
         self.rect.center = self.attribute.rect
 
     def move_action(self, dt):
-        if not self.vec2[0] and not self.vec2[1] and len(self.move_state) < 6:
-            self.move_state += "_idle"
+        if not self.vec2[0] and not self.vec2[1] and self.move_state[:4] == "walk":
+            self.move_state = "stand" + self.move_state[4:]
         l = len(self.__surface[self.move_state])
-        self.index += dt * l
+        if self.move_state[:5] == "stand":
+            self.index += dt * l
+        else:
+            self.index += dt * l * self.attribute_now.move_speed / 100
         if self.index >= l:
             self.index = 0
         self.image = self.__surface[self.move_state][int(self.index)]
-        self.mask = self.__masks[self.move_state][int(self.index)]
 
     def action(self, rect):
         if -self.image.width // 2 <= rect.centerx - self.rect.centerx <= self.image.width // 2 and -self.image.height // 2 <= rect.centery - self.rect.centery <= self.image.height // 2:
@@ -92,12 +110,12 @@ class GameNpc(pygame.sprite.Sprite):
                 self.vec2[0] = 0
             else:
                 self.vec2[0] = 1 if rect.centerx - self.rect.centerx > 0 else -1
-                self.move_state = "right" if self.vec2[0] == 1 else "left"
+                self.move_state = "walk_right" if self.vec2[0] == 1 else "walk_left"
             if rect.centery - self.rect.centery == 0:
                 self.vec2[1] = 0
             else:
                 self.vec2[1] = 1 if rect.centery - self.rect.centery > 0 else -1
-                self.move_state = "down" if self.vec2[1] == 1 else "up"
+                self.move_state = "walk_back" if self.vec2[1] == 1 else "walk_front"
         else:
             self.random_move()
 
@@ -107,13 +125,34 @@ class GameNpc(pygame.sprite.Sprite):
     def use(self):
         pass
 
-    def update(self, dt, rect:pygame.Rect=None):
-        if rect:
-            self.action(rect)
+    def dying(self, dt):
+        l = len(self.__surface[self.move_state])
+        self.index += dt * l
+        if self.index >= l:
+            self.index = 0
+            return 1
+        self.image = self.__surface[self.move_state][self.index]
+
+    def update_attribute(self):
+        if self.attribute_now.health <= 0:
+            self.dead = 1
+            self.index = 0
+            self.move_state = "dead"
+
+    def update(self, dt, rect: pygame.Rect = None):
+        self.update_attribute()
+        if not self.dead:
+            if self.attacking:
+                pass
+            if self.chouhengjuli:
+                self.action(rect)
+            else:
+                self.random_move()
+            self.move_action(dt)
+            self.move(dt)
+            return 0
         else:
-            self.random_move()
-        self.move_action(dt)
-        self.move(dt)
+            return self.dying(dt)
 
 
 class GameObject:

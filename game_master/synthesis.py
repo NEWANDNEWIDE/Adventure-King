@@ -14,16 +14,12 @@ PLAYER_SYNTHESIS_LIST_NOT_PROCESSED = [
     # (0, 0)为左上角第一个格子, 往右一格为(1, 0), 往下一格为(0, 1)
     # 偏移x为正代表在前一个物品的左边, 反之为右边
     # 偏移y为正代表在前一个物品的上面, 反之为下面
-    ((items.goods.TestItem.NAME, 1), (items.goods.TestItemOther.NAME, 1)),
-    ((items.goods.TestItemOther.NAME, 1), (items.goods.TestItem.NAME, 1)),
-    ((items.goods.TestItemOther.NAME, 1), (items.goods.TestItemOther.NAME, 1, (0, -1)), (items.goods.TestItem.NAME, 2))
+
 ]
 
 SYNTHESIS_LIST_NOT_PROCESSED = [
     # 十个格子, 前九个以(类名, 数量)写入, 最后一个为输出
-    ((items.goods.TestItem.NAME, 1), (items.goods.TestItemOther.NAME, 1)),
-    ((items.goods.TestItemOther.NAME, 1), (items.goods.TestItem.NAME, 1)),
-    ((items.goods.TestItemOther.NAME, 1), (items.goods.TestItemOther.NAME, 1, (0, -1)), (items.goods.TestItem.NAME, 2))
+
 ]
 
 PLAYER_SYNTHESIS_LIST = []

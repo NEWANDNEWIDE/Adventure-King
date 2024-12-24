@@ -1,84 +1,128 @@
+import os.path
 import pygame
-import game_master
+import settings
 from game_master.gameObject import GameObject
 
 
 # 武器
-class WoodenSword(GameObject):
-    NAME = "wooden-sword"
+class CrimsonBlade(GameObject):
+    NAME = "crimson_blade"
 
-    def __init__(self, name="wooden-sword", limit=1, number=0):
+    def __init__(self, name="crimson_blade", limit=1, number=1):
         super().__init__()
         self.name = name
         self.limit = limit
-        self.number = number
-        self.attack = 20
-        self.reach_distance = 1
-        self.surface = game_master.fileManager.game_surface[name]
+        self.number = number if number <= limit else limit
+        self.real_name = "浅红之刃"
+
+        self.attacked = 200
+        self.attack_speed = 1
+
+        path = os.path.join(settings.WEAPON, "weapon1")
+        self.action_surface = {}
+        self.action_mask = {}
+        self.action_index = 0
+        self.state = "static"
+
+        for a in os.listdir(path):
+            path_a = os.path.join(path, a)
+            temp = []
+            temp1 = []
+            for b in os.listdir(path_a):
+                t = pygame.image.load(os.path.join(path_a, b)).convert_alpha()
+                temp.append(t)
+                temp1.append(pygame.mask.from_surface(t))
+            self.action_surface[a] = temp
+            self.action_mask[a] = temp1
+
+        self.surface = self.action_surface["attack_left"][0].copy()
+        max_v = max(self.surface.width, self.surface.height)
+        max_v = 40 / max_v
+        self.surface = pygame.transform.scale(self.surface, (self.surface.width * max_v, self.surface.height * max_v)).convert_alpha()
         self.mask = pygame.mask.from_surface(self.surface)
-        self.__sleep = 1000 // (self.attack_speed * (self.surface[0] - 2))
-        self.__mid = (self.surface[0] - 1) // 2 + 1
 
     @staticmethod
     def create(number=0):
-        return WoodenSword(number=number)
-
-    def left_attack(self, surface: pygame.surface.Surface):
-        for i in range(2, self.__mid):
-            surface.blit(self.surface[i], (400, 300))
-            pygame.time.delay(self.__sleep)
-        surface.blit(self.surface[1], (400, 300))
-
-    def right_attack(self, surface: pygame.surface.Surface):
-        for i in range(self.__mid + 1, self.surface[0]):
-            surface.blit(self.surface[i], (400, 300))
-            pygame.time.delay(self.__sleep)
-        surface.blit(self.surface[1], (400, 300))
+        return CrimsonBlade(number=number)
 
 
-class StoneSword(WoodenSword):
-    NAME = "stone-sword"
+class Sword(GameObject):
+    NAME = "sword"
 
-    def __init__(self):
-        super().__init__("stone-sword")
-        self.attack += 20
+    def __init__(self, name="sword", limit=1, number=1):
+        super().__init__()
+        self.name = name
+        self.limit = limit
+        self.number = number if number <= limit else limit
+        self.real_name = "长剑"
 
-    @staticmethod
-    def create(number=0):
-        return WoodenSword(number=number)
+        self.attacked = 30
 
+        path = os.path.join(settings.WEAPON, "weapon2")
+        self.action_surface = {}
+        self.action_mask = {}
+        self.action_index = 0
+        self.state = "static"
 
-class GoldenSword(WoodenSword):
-    NAME = "golden-sword"
+        for a in os.listdir(path):
+            path_a = os.path.join(path, a)
+            temp = []
+            temp1 = []
+            for b in os.listdir(path_a):
+                t = pygame.image.load(os.path.join(path_a, b)).convert_alpha()
+                temp.append(t)
+                temp1.append(pygame.mask.from_surface(t))
+            self.action_surface[a] = temp
+            self.action_mask[a] = temp1
 
-    def __init__(self):
-        super().__init__("golden-sword")
-        self.attack += 30
-
-    @staticmethod
-    def create(number=0):
-        return WoodenSword(number=number)
-
-
-class IronSword(WoodenSword):
-    NAME = "iron-sword"
-
-    def __init__(self):
-        super().__init__("iron-sword")
-        self.attack += 40
+        self.surface = self.action_surface["attack_left"][0].copy()
+        max_v = max(self.surface.width, self.surface.height)
+        max_v = 40 / max_v
+        self.surface = pygame.transform.scale(self.surface,
+                                              (self.surface.width * max_v, self.surface.height * max_v)).convert_alpha()
+        self.mask = pygame.mask.from_surface(self.surface)
 
     @staticmethod
     def create(number=0):
-        return WoodenSword(number=number)
+        return Sword(number=number)
 
 
-class DiamondSword(WoodenSword):
-    NAME = "diamond-sword"
+class Blades(GameObject):
+    NAME = "blades"
 
-    def __init__(self):
-        super().__init__("diamond-sword")
-        self.attack += 60
+    def __init__(self, name="blades", limit=1, number=1):
+        super().__init__()
+        self.name = name
+        self.limit = limit
+        self.number = number if number <= limit else limit
+        self.real_name = "长刃"
+
+        self.attacked = 30
+
+        path = os.path.join(settings.WEAPON, "weapon3")
+        self.action_surface = {}
+        self.action_mask = {}
+        self.action_index = 0
+        self.state = "static"
+
+        for a in os.listdir(path):
+            path_a = os.path.join(path, a)
+            temp = []
+            temp1 = []
+            for b in os.listdir(path_a):
+                t = pygame.image.load(os.path.join(path_a, b)).convert_alpha()
+                temp.append(t)
+                temp1.append(pygame.mask.from_surface(t))
+            self.action_surface[a] = temp
+            self.action_mask[a] = temp1
+
+        self.surface = self.action_surface["attack_left"][0].copy()
+        max_v = max(self.surface.width, self.surface.height)
+        max_v = 40 / max_v
+        self.surface = pygame.transform.scale(self.surface,
+                                              (self.surface.width * max_v, self.surface.height * max_v)).convert_alpha()
+        self.mask = pygame.mask.from_surface(self.surface)
 
     @staticmethod
-    def create(number=0):
-        return WoodenSword(number=number)
+    def create(number=1):
+        return Blades(number=number)

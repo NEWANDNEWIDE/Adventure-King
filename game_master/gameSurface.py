@@ -24,12 +24,21 @@ class GameSurface:
         self.__name = name
 
 
+class MapSpirit(pygame.sprite.Sprite):
+    def __init__(self, pos, surface, name, layer, *group):
+        super().__init__(*group)
+        self.image = surface
+        self.rect = self.image.get_rect(topleft=pos)
+        self.name = name
+        self.layer = layer
+
+
 class GameSpirit(pygame.sprite.Sprite):
     def __init__(self, game_object, *groups):
         super().__init__(*groups)
         self.attribute = game_object
-        self.image = game_object.surface
-        self.rect = game_object.surface.get_rect(center=game_object.rect)
+        self.image = game_object.surface[game_object.index]
+        self.rect = self.image.get_rect(center=game_object.rect)
         self.time = 3
         self.get = 0
 
