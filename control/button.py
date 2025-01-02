@@ -167,7 +167,6 @@ class ButtonList(Button):
                 if self.rect[0] < pos[0] < self.rect[0] + self.size[0] and self.__l:
                     t = (pos[1] - self.rect[1]) // self.size[1]
                     if 0 < t <= self.__len:
-                        print(t)
                         self.__l = self.__b_list[t-1].activate(pos, *args)
                     else:
                         self.__l = False

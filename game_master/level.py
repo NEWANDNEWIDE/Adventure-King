@@ -1,6 +1,8 @@
 import sys
 
 import pygame.image
+
+import control.inputField
 import game_master.game
 import settings
 
@@ -14,7 +16,7 @@ class Level:
         self.start_time = 0
 
         self.font = pygame.font.Font(settings.FONT, 50)
-        self.png = pygame.image.load(r"C:\Users\10962\Desktop\Pygame-Cameras-main\graphics\ground.png").convert_alpha()
+        self.png = pygame.image.load("res/ground.png").convert_alpha()
         self.theme = self.font.render("冒险王", True, (0, 0, 0)).convert_alpha()
         self.start_frame = pygame.Surface((100, 50))
         self.end_frame = self.start_frame.copy()
@@ -35,17 +37,37 @@ class Level:
             sys.exit()
         return 0
 
-    def guodu(self):
+    def guodu(self, clock):
         self.start_time = pygame.time.get_ticks()
         while self.alpha:
             self.display.fill((255, 255, 255))
             self.png.set_alpha(self.alpha)
             self.display.blit(self.png)
+            clock.tick()
             pygame.display.update()
             if pygame.time.get_ticks() - self.start_time >= self.time:
                 self.alpha -= 1
                 self.start_time = pygame.time.get_ticks()
-        self.png.set_alpha(255)
+        text = control.inputField.InputField((500, 430), (200, 40), "请输入名字", (196, 196, 196), (0, 0, 0), (138, 138, 138), "name")
+        font = pygame.font.Font(settings.FONT, 20)
+        help_text = "操作说明:\na:向左走\nd:向右走\nw:向上走\ns:向下走\n空格:闪避\nb:打开/关闭背包\nesc:暂停菜单"
+        help_text = font.render(help_text, True, (0, 0, 0))
+        while True:
+            clock.tick()
+            event = None
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+            name = text.action(pygame.mouse.get_pos(), event)
+            if isinstance(name, str):
+                self.png.set_alpha(255)
+                self.alpha = 255
+                return name
+            else:
+                self.display.blit(name, text.rect)
+            self.display.blit(help_text, (1, 1))
+            pygame.display.update()
 
     def render(self):
         self.start_frame.fill((255, 255, 255))

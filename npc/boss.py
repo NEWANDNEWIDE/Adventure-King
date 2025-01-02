@@ -1,22 +1,32 @@
 import os
 import random
-
 import pygame
 import game_master
 import settings
+from game_master.gameSurface import AttackingObj
 
 
 class Boss(game_master.gameObject.GameNpc):
-    def __init__(self, pos, name, *groups):
-        super().__init__(pos, "boss", *groups)
+    def __init__(self, pos, name, collision, *groups):
+        super().__init__(pos, "boss", collision, *groups)
         self.name = name
 
 
 class Crazy(Boss):
-    def __init__(self, pos, *groups):
-        super().__init__(pos, "crazy", *groups)
+    def __init__(self, pos, collision, *groups):
+        super().__init__(pos, "crazy", collision, *groups)
+        self.attribute.health = 20000
+        self.h_n = 20000
+        self.attribute.attacked = 200
+        self.attribute.attack_speed = 2
+        self.attribute.move_speed = 500
+        self.attribute.defense = 50
+        self.attribute.critical_strike_damage = 1.5
+        self.attribute.critical_strike_chance = 0.05
+        self.attribute_now = self.attribute.copy()
+        self.chouhengjuli = 2000
 
-    def setup(self, name: str):
+    def setup(self, name: str, pos):
         path = os.path.join(settings.MONSTER, name)
         for n in os.listdir(path):
             t = os.path.join(path, n)
@@ -49,9 +59,17 @@ class Crazy(Boss):
             t = self.move_state.split('_')
             self.move_state = "walk_" + t[1]
 
-    def action(self, rect):
-        if -self.image.width // 2 <= rect.centerx - self.rect.centerx <= self.image.width // 2 and -self.image.height // 2 <= rect.centery - self.rect.centery <= self.image.height // 2:
-            self.vec2 = [0, 0]
+    def action(self, rect, group):
+        if self.attacking:
+            return
+        if -self.image.width - 20 <= rect.centerx - self.rect.centerx <= self.image.width + 20 and -self.image.height - 20 <= rect.centery - self.rect.centery <= self.image.height + 20:
+            if not self.attacking:
+                r = f"{random.randint(1, 2)}_"
+                self.attacking = 1
+                self.move_state = "attack" + r + self.move_state.split('_')[1]
+                self.index = 0
+                self.vec2 = [0, 0]
+                self.attack(group)
         elif -self.chouhengjuli <= rect.centerx - self.rect.centerx <= self.chouhengjuli and -self.chouhengjuli <= rect.centery - self.rect.centery <= self.chouhengjuli:
             if rect.centerx - self.rect.centerx == 0:
                 self.vec2[0] = 0
@@ -67,5 +85,15 @@ class Crazy(Boss):
         else:
             self.random_move()
 
-    def attack(self):
-        pass
+    def attack(self, group):
+        self.attack_group = group
+        r = random.random()
+        damage = self.attribute_now.attacked
+        if r < self.attribute_now.critical_strike_chance:
+            damage *= self.attribute_now.critical_strike_damage
+        t = self.move_state.split('_')[1]
+        if t == "right":
+            pos = self.rect.right, self.rect.centery
+        else:
+            pos = self.rect.left, self.rect.centery
+        self.attack_box = AttackingObj(damage, pos, "monster", -1, group, rect=self.image.get_rect(center=pos).copy().inflate(20, 50))

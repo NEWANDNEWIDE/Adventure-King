@@ -154,7 +154,7 @@ class Boots(GameObject):
         self.defense = 5
         self.move_speed = 20
 
-        path = os.path.join(settings.EQUIP, "armor_01a.png")
+        path = os.path.join(settings.EQUIP, "boots_01a.png")
         self.surface = pygame.image.load(path).convert_alpha()
         max_v = max(self.surface.width, self.surface.height)
         max_v = 40 / max_v
@@ -181,7 +181,7 @@ class GoldenBoots(GameObject):
         self.defense = 10
         self.move_speed = 20
 
-        path = os.path.join(settings.EQUIP, "armor_01d.png")
+        path = os.path.join(settings.EQUIP, "boots_01d.png")
         self.surface = pygame.image.load(path).convert_alpha()
         max_v = max(self.surface.width, self.surface.height)
         max_v = 40 / max_v
@@ -208,7 +208,7 @@ class IronBoots(GameObject):
         self.defense = 20
         self.move_speed = 20
 
-        path = os.path.join(settings.EQUIP, "armor_01b.png")
+        path = os.path.join(settings.EQUIP, "boots_01b.png")
         self.surface = pygame.image.load(path).convert_alpha()
         max_v = max(self.surface.width, self.surface.height)
         max_v = 40 / max_v
@@ -235,7 +235,7 @@ class SapphireBoots(GameObject):
         self.defense = 35
         self.move_speed = 40
 
-        path = os.path.join(settings.EQUIP, "armor_01c.png")
+        path = os.path.join(settings.EQUIP, "boots_01c.png")
         self.surface = pygame.image.load(path).convert_alpha()
         max_v = max(self.surface.width, self.surface.height)
         max_v = 40 / max_v
@@ -262,7 +262,7 @@ class RubyBoots(GameObject):
         self.defense = 55
         self.move_speed = 30
 
-        path = os.path.join(settings.EQUIP, "armor_01e.png")
+        path = os.path.join(settings.EQUIP, "boots_01e.png")
         self.surface = pygame.image.load(path).convert_alpha()
         max_v = max(self.surface.width, self.surface.height)
         max_v = 40 / max_v
@@ -314,7 +314,7 @@ class GoldenHelmet(GameObject):
         self.dressed = 1
         self.defense = 10
 
-        path = os.path.join(settings.EQUIP, "helmet_01b.png")
+        path = os.path.join(settings.EQUIP, "helmet_01d.png")
         self.surface = pygame.image.load(path).convert_alpha()
         max_v = max(self.surface.width, self.surface.height)
         max_v = 40 / max_v
@@ -340,7 +340,7 @@ class IronHelmet(GameObject):
         self.dressed = 1
         self.defense = 20
 
-        path = os.path.join(settings.EQUIP, "helmet_01d.png")
+        path = os.path.join(settings.EQUIP, "helmet_01b.png")
         self.surface = pygame.image.load(path).convert_alpha()
         max_v = max(self.surface.width, self.surface.height)
         max_v = 40 / max_v

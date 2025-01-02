@@ -11,14 +11,14 @@ ATTRIBUTE = ("Health", "Shield", "Attack",
 
 # 所有游戏npc的基类
 class GameNpc(pygame.sprite.Sprite):
-    def __init__(self, pos, name, *groups):
+    def __init__(self, pos, name, collision, *groups):
         super().__init__(*groups)
+        self.collision:pygame.sprite.Group = collision
+        self.layer_g = 2
 
         self.dead = 0
 
         self.__surface = {}
-
-        self.pos = pos
 
         self.attribute = GameObject().copy()
         self.attribute.rect = pos
@@ -26,6 +26,14 @@ class GameNpc(pygame.sprite.Sprite):
         self.attribute.name = name
 
         self.attribute_now = self.attribute.copy()
+        self.loss_exp = 100
+
+        self.h_n = self.attribute_now.copy().health
+        self.s_n = self.attribute_now.copy().shield
+        self.can_be_attack = 1
+
+        self.attack_group = None
+        self.attack_box = None
 
         self.vec2 = [0, 0]
 
@@ -33,16 +41,20 @@ class GameNpc(pygame.sprite.Sprite):
         self.move_state = ""
         self.attacking = 0
 
-        self.setup(name)
+        self.setup(name, pos)
 
         self.image = self.__surface[self.move_state][self.index]
         self.rect = self.image.get_rect(center=pos)
+        self.hitbox = self.rect.copy().inflate(-self.rect.width / 5, -self.rect.height / 2)
 
-        self.time = 1000
+        self.time = 3000
         self.stand = 1
         self.start = pygame.time.get_ticks()
 
         self.chouhengjuli = 0
+
+        self.damage_a = -1
+        self.damage_t = 1
 
     @property
     def surface(self):
@@ -52,7 +64,7 @@ class GameNpc(pygame.sprite.Sprite):
     def surface(self, surface):
         self.__surface = surface
 
-    def setup(self, name: str):
+    def setup(self, name: str, pos):
         path = os.path.join(settings.NPC_V, name)
         for n in os.listdir(path):
             t = os.path.join(path, n)
@@ -89,10 +101,24 @@ class GameNpc(pygame.sprite.Sprite):
         self.attribute.rect[0] += self.vec2[0] * self.attribute.move_speed * dt
         self.attribute.rect[1] += self.vec2[1] * self.attribute.move_speed * dt
         self.rect.center = self.attribute.rect
+        self.hitbox.center = self.rect.center
+
+    def action_attack(self, dt):
+        l = len(self.__surface[self.move_state])
+        self.index += dt * l * self.attribute_now.attack_speed
+        if self.index >= l:
+            self.attacking = 0
+            self.index = 0
+            self.move_state = "stand_" + self.move_state.split('_')[1]
+            self.attack_group.remove(self.attack_box)
+            self.attack_box = None
+            self.attack_group = None
+            return
+        self.image = self.__surface[self.move_state][int(self.index)]
 
     def move_action(self, dt):
-        if not self.vec2[0] and not self.vec2[1] and self.move_state[:4] == "walk":
-            self.move_state = "stand" + self.move_state[4:]
+        if not self.vec2[0] and not self.vec2[1]:
+            self.move_state = "stand_" + self.move_state.split('_')[1]
         l = len(self.__surface[self.move_state])
         if self.move_state[:5] == "stand":
             self.index += dt * l
@@ -102,24 +128,31 @@ class GameNpc(pygame.sprite.Sprite):
             self.index = 0
         self.image = self.__surface[self.move_state][int(self.index)]
 
-    def action(self, rect):
-        if -self.image.width // 2 <= rect.centerx - self.rect.centerx <= self.image.width // 2 and -self.image.height // 2 <= rect.centery - self.rect.centery <= self.image.height // 2:
-            self.vec2 = [0, 0]
-        elif -self.chouhengjuli <= rect.centerx - self.rect.centerx <= self.chouhengjuli and -self.chouhengjuli <= rect.centery - self.rect.centery <= self.chouhengjuli:
-            if rect.centerx - self.rect.centerx == 0:
+    def action(self, rect_other, group):
+        if self.attacking:
+            return
+        if -self.image.width * 2 / 3 <= rect_other.centerx - self.rect.centerx <= self.image.width * 2 / 3 and -self.image.height * 2 / 3 <= rect_other.centery - self.rect.centery <= self.image.height * 2 / 3:
+            if not self.attacking:
+                self.attacking = 1
+                self.move_state = "attack_" + self.move_state.split('_')[1]
+                self.index = 0
+                self.vec2 = [0, 0]
+                self.attack(group)
+        elif -self.chouhengjuli <= rect_other.centerx - self.rect.centerx <= self.chouhengjuli and -self.chouhengjuli <= rect_other.centery - self.rect.centery <= self.chouhengjuli:
+            if rect_other.centerx - self.rect.centerx == 0:
                 self.vec2[0] = 0
             else:
-                self.vec2[0] = 1 if rect.centerx - self.rect.centerx > 0 else -1
+                self.vec2[0] = 1 if rect_other.centerx - self.rect.centerx > 0 else -1
                 self.move_state = "walk_right" if self.vec2[0] == 1 else "walk_left"
-            if rect.centery - self.rect.centery == 0:
+            if rect_other.centery - self.rect.centery == 0:
                 self.vec2[1] = 0
             else:
-                self.vec2[1] = 1 if rect.centery - self.rect.centery > 0 else -1
+                self.vec2[1] = 1 if rect_other.centery - self.rect.centery > 0 else -1
                 self.move_state = "walk_back" if self.vec2[1] == 1 else "walk_front"
         else:
             self.random_move()
 
-    def attack(self):
+    def attack(self, group):
         pass
 
     def use(self):
@@ -129,29 +162,75 @@ class GameNpc(pygame.sprite.Sprite):
         l = len(self.__surface[self.move_state])
         self.index += dt * l
         if self.index >= l:
-            self.index = 0
-            return 1
-        self.image = self.__surface[self.move_state][self.index]
+            return self
+        self.image = self.__surface[self.move_state][int(self.index)]
+
+    def update_collision(self):
+        for sprite in self.collision.sprites():
+            if hasattr(sprite, "hitbox"):
+                if self.hitbox.colliderect(sprite.hitbox):
+                    if self.vec2[0] == -1:
+                        self.hitbox.left = sprite.hitbox.right
+                        self.rect.centerx = self.hitbox.centerx
+                        self.attribute.rect[0] = self.hitbox.centerx
+                    elif self.vec2[0] == 1:
+                        self.hitbox.right = sprite.hitbox.left
+                        self.rect.centerx = self.hitbox.centerx
+                        self.attribute.rect[0] = self.hitbox.centerx
+                    elif self.vec2[1] == -1:
+                        self.hitbox.top = sprite.hitbox.bottom
+                        self.rect.centery = self.hitbox.centery
+                        self.attribute.rect[1] = self.hitbox.centery
+                    elif self.vec2[1] == 1:
+                        self.hitbox.bottom = sprite.hitbox.top
+                        self.rect.centery = self.hitbox.centery
+                        self.attribute.rect[1] = self.hitbox.centery
+            else:
+                if self.hitbox.colliderect(sprite.rect):
+                    if self.vec2[0] < 0:
+                        self.hitbox.left = sprite.rect.right
+                        self.rect.centerx = self.hitbox.centerx
+                        self.attribute.rect[0] = self.hitbox.centerx
+                    elif self.vec2[0] > 0:
+                        self.hitbox.right = sprite.rect.left
+                        self.rect.centerx = self.hitbox.centerx
+                        self.attribute.rect[0] = self.hitbox.centerx
+                    elif self.vec2[1] < 0:
+                        self.hitbox.top = sprite.rect.bottom
+                        self.rect.centery = self.hitbox.centery
+                        self.attribute.rect[1] = self.hitbox.centery
+                    elif self.vec2[1] > 0:
+                        self.hitbox.bottom = sprite.rect.top
+                        self.rect.centery = self.hitbox.centery
+                        self.attribute.rect[1] = self.hitbox.centery
 
     def update_attribute(self):
-        if self.attribute_now.health <= 0:
+        if self.dead:
+            return
+        elif self.h_n <= 0 and not self.dead:
             self.dead = 1
             self.index = 0
-            self.move_state = "dead"
+            self.vec2 = [0, 0]
+            self.move_state = "dead_" + self.move_state.split("_")[1]
+        else:
+            self.attribute_now = self.attribute.copy()
 
-    def update(self, dt, rect: pygame.Rect = None):
+    def update(self, dt, group=None, rect: pygame.Rect = None):
         self.update_attribute()
         if not self.dead:
-            if self.attacking:
-                pass
             if self.chouhengjuli:
-                self.action(rect)
+                self.action(rect, group)
             else:
                 self.random_move()
-            self.move_action(dt)
+            if self.attacking:
+                self.action_attack(dt)
+            else:
+                self.move_action(dt)
             self.move(dt)
+            self.update_collision()
             return 0
         else:
+            self.update_collision()
             return self.dying(dt)
 
 
@@ -294,11 +373,24 @@ class GameObject:
             self.attack_speed -= other.attack_speed
         return self
 
+    def __mul__(self, other):
+        if isinstance(other, (int, float)):
+            self.attacked *= other
+            self.move_speed *= other
+            self.critical_strike_chance *= other
+            self.critical_strike_damage *= other
+            self.reach_distance *= other
+            self.defense *= other
+            self.health *= other
+            self.shield *= other
+            self.attack_speed *= other
+        return self
+
     @staticmethod
     def create():
         return GameObject().copy()
 
-    def attack(self):
+    def attack(self, dt):
         pass
 
     def use(self):

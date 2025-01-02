@@ -44,14 +44,13 @@ class Game:
                 dt = self.clock.tick() / 1000
                 self.screen.fill((255, 255, 255))
                 for event in pygame.event.get():
-                    """print(event)"""
                     if event.type == pygame.QUIT:
                         self.__running = False
                         pygame.quit()
                         sys.exit()
                     self.map.event_update(event)
-                self.map.update(dt)
-                self.map.render()
+                self.state = self.map.update(dt)
+                self.map.render(dt)
             else:
                 self.screen.fill((255, 255, 255))
                 self.level.render()
@@ -63,8 +62,11 @@ class Game:
                     elif event.type == pygame.MOUSEBUTTONDOWN:
                         self.state = self.level.action(pygame.mouse.get_pos())
                 if self.state:
-                    self.level.guodu()
-                    self.clock.tick()
+                    name = self.level.guodu(self.clock)
+                    if not name:
+                        name = "名字"
+                    pygame.key.stop_text_input()
+                    self.map.set_name(name)
             pygame.display.update()
         pygame.quit()
         sys.exit()

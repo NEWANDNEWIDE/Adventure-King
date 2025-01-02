@@ -57,6 +57,7 @@ class Sword(GameObject):
         self.real_name = "长剑"
 
         self.attacked = 30
+        self.reach_distance = 50
 
         path = os.path.join(settings.WEAPON, "weapon2")
         self.action_surface = {}

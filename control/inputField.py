@@ -119,8 +119,9 @@ class InputField:
         if self.__state:
             if event.type == pygame.KEYDOWN:
                 key = event.key
-
-                if key == 8:
+                if key == 13:
+                    return self.__input_text
+                elif key == 8:
                     self.__input_text = self.__input_text[:-1]
                     if self.__all_selected:
                         self.__input_text = ""

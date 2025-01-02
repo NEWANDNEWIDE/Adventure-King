@@ -351,7 +351,7 @@ class Synthesis(pygame.sprite.Sprite):
         return 0
 
     def update(self):
-        self.bag.update()
+        self.bag.update(None, 0.001)
         temp = []
         for i in range(10):
             if self.__frame_state[i]:
