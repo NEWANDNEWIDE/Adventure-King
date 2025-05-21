@@ -251,6 +251,10 @@ class GameObject:
     def attribute(self):
         return self.__attribute
 
+    @attribute.setter
+    def attribute(self, a):
+        self.__attribute = a
+
     @property
     def number(self):
         return self.__number
@@ -390,7 +394,7 @@ class GameObject:
     def create():
         return GameObject().copy()
 
-    def attack(self, dt):
+    def attack(self, dt, state, a_s):
         pass
 
     def use(self):

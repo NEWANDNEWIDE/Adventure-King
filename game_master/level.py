@@ -48,24 +48,25 @@ class Level:
             if pygame.time.get_ticks() - self.start_time >= self.time:
                 self.alpha -= 1
                 self.start_time = pygame.time.get_ticks()
-        text = control.inputField.InputField((500, 430), (200, 40), "请输入名字", (196, 196, 196), (0, 0, 0), (138, 138, 138), "name")
+        text = control.inputField.InputField((500, 430), (200, game_master.game.Game.FONT.get_height() + 2), "请输入名字", (196, 196, 196), (0, 0, 0), (138, 138, 138), "name")
         font = pygame.font.Font(settings.FONT, 20)
         help_text = "操作说明:\na:向左走\nd:向右走\nw:向上走\ns:向下走\n空格:闪避\nb:打开/关闭背包\nesc:暂停菜单"
         help_text = font.render(help_text, True, (0, 0, 0))
         while True:
-            clock.tick()
+            dt = clock.tick() / 1000
             event = None
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-            name = text.action(pygame.mouse.get_pos(), event)
+            name = text.action(pygame.mouse.get_pos(), event, dt)
             if isinstance(name, str):
                 self.png.set_alpha(255)
                 self.alpha = 255
                 return name
             else:
                 self.display.blit(name, text.rect)
+                text.render_cursor()
             self.display.blit(help_text, (1, 1))
             pygame.display.update()
 

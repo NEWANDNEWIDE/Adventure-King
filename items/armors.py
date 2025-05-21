@@ -10,6 +10,8 @@ class Leather(GameObject):
 
     def __init__(self, name="leather", limit=1, number=1):
         super().__init__()
+        self.attribute = self.attribute.copy()
+
         self.name = name
         self.limit = limit
         self.number = number if number <= limit else limit
@@ -36,6 +38,8 @@ class GoldenArmor(GameObject):
 
     def __init__(self, name="golden_armor", limit=1, number=1):
         super().__init__()
+        self.attribute = self.attribute.copy()
+
         self.name = name
         self.limit = limit
         self.number = number if number <= limit else limit
@@ -62,6 +66,8 @@ class IronArmor(GameObject):
 
     def __init__(self, name="iron_armor", limit=1, number=1):
         super().__init__()
+        self.attribute = self.attribute.copy()
+
         self.name = name
         self.limit = limit
         self.number = number if number <= limit else limit
@@ -88,6 +94,8 @@ class SapphireArmor(GameObject):
 
     def __init__(self, name="sapphire_armor", limit=1, number=1):
         super().__init__()
+        self.attribute = self.attribute.copy()
+
         self.name = name
         self.limit = limit
         self.number = number if number <= limit else limit
@@ -117,6 +125,8 @@ class RubyArmor(GameObject):
 
     def __init__(self, name="ruby_armor", limit=1, number=1):
         super().__init__()
+        self.attribute = self.attribute.copy()
+
         self.name = name
         self.limit = limit
         self.number = number if number <= limit else limit
@@ -145,6 +155,8 @@ class Boots(GameObject):
 
     def __init__(self, name="boots", limit=1, number=1):
         super().__init__()
+        self.attribute = self.attribute.copy()
+
         self.name = name
         self.limit = limit
         self.number = number if number <= limit else limit
@@ -172,6 +184,8 @@ class GoldenBoots(GameObject):
 
     def __init__(self, name="golden_boots", limit=1, number=1):
         super().__init__()
+        self.attribute = self.attribute.copy()
+
         self.name = name
         self.limit = limit
         self.number = number if number <= limit else limit
@@ -199,6 +213,8 @@ class IronBoots(GameObject):
 
     def __init__(self, name="iron_boots", limit=1, number=1):
         super().__init__()
+        self.attribute = self.attribute.copy()
+
         self.name = name
         self.limit = limit
         self.number = number if number <= limit else limit
@@ -226,6 +242,8 @@ class SapphireBoots(GameObject):
 
     def __init__(self, name="sapphire_boots", limit=1, number=1):
         super().__init__()
+        self.attribute = self.attribute.copy()
+
         self.name = name
         self.limit = limit
         self.number = number if number <= limit else limit
@@ -253,6 +271,8 @@ class RubyBoots(GameObject):
 
     def __init__(self, name="ruby_boots", limit=1, number=1):
         super().__init__()
+        self.attribute = self.attribute.copy()
+
         self.name = name
         self.limit = limit
         self.number = number if number <= limit else limit
@@ -280,6 +300,8 @@ class LeatherHelmet(GameObject):
 
     def __init__(self, name="leather_helmet", limit=1, number=1):
         super().__init__()
+        self.attribute = self.attribute.copy()
+
         self.name = name
         self.limit = limit
         self.number = number if number <= limit else limit
@@ -306,6 +328,8 @@ class GoldenHelmet(GameObject):
 
     def __init__(self, name="golden_helmet", limit=1, number=1):
         super().__init__()
+        self.attribute = self.attribute.copy()
+
         self.name = name
         self.limit = limit
         self.number = number if number <= limit else limit
@@ -332,6 +356,8 @@ class IronHelmet(GameObject):
 
     def __init__(self, name="iron_helmet", limit=1, number=1):
         super().__init__()
+        self.attribute = self.attribute.copy()
+
         self.name = name
         self.limit = limit
         self.number = number if number <= limit else limit
@@ -358,6 +384,8 @@ class SapphireHelmet(GameObject):
 
     def __init__(self, name="sapphire_helmet", limit=1, number=1):
         super().__init__()
+        self.attribute = self.attribute.copy()
+
         self.name = name
         self.limit = limit
         self.number = number if number <= limit else limit
@@ -384,6 +412,8 @@ class RubyHelmet(GameObject):
 
     def __init__(self, name="ruby_helmet", limit=1, number=1):
         super().__init__()
+        self.attribute = self.attribute.copy()
+
         self.name = name
         self.limit = limit
         self.number = number if number <= limit else limit

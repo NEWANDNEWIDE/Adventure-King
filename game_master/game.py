@@ -11,7 +11,7 @@ class Game:
 
     def __init__(self, edit=False):
         if edit:
-            Game.FONT = pygame.font.Font(settings.FONT, 16)
+            Game.FONT = pygame.font.Font(r"D:\llm\Idk\res\font\font.ttf", 16)
         else:
             pygame.init()
             Game.FONT = pygame.font.Font(settings.FONT, 16)
@@ -23,6 +23,7 @@ class Game:
             self.clock = pygame.time.Clock()
             self.level = Level()
             self.map = map.HWmap.Map(self.screen)
+            self.pos = [settings.WIDTH, settings.HEIGHT]
 
     def __init(self):
         pygame.key.stop_text_input()
@@ -40,8 +41,12 @@ class Game:
 
     def run(self):
         while self.__running:
+            dt = self.clock.tick() / 1000
+            p = pygame.display.get_window_position()
+            if p[0] != self.pos[0] or p[1] != self.pos[1]:
+                self.pos = list(p)
+                continue
             if self.state:
-                dt = self.clock.tick() / 1000
                 self.screen.fill((255, 255, 255))
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:

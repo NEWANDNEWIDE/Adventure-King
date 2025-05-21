@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c388fb3f-2172-4411-a75d-ada954abd72c" name="更改" comment="test">
-      <change afterPath="$PROJECT_DIR$/build/main/Analysis-00.toc" afterDir="false" />
+    <list default="true" id="c388fb3f-2172-4411-a75d-ada954abd72c" name="更改" comment="">
       <change afterPath="$PROJECT_DIR$/build/main/EXE-00.toc" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/build/main/PKG-00.toc" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/build/main/PYZ-00.pyz" afterDir="false" />
@@ -13,26 +12,13 @@
       <change afterPath="$PROJECT_DIR$/build/main/base_library.zip" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/build/main/main.exe.manifest" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/build/main/main.pkg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/main/warn-main.txt" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/build/main/xref-main.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/dist/main.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/dir.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/game/monster/goblin/stand_back/walk_back_01.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/game/monster/goblin/stand_front/walk_front_01.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/game/monster/goblin/stand_left/walk_left_01.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/game/monster/goblin/stand_right/walk_right_01.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/item/health.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/item/magic.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/item/power.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/item/sheild.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/item/stamina.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/item/timer.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/item/xp.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/map/first_map/Dungeon_Tileset(1).png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/map/first_map/Dungeon_Tileset(1).tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/map/first_map/boss.tmx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/map/first_map/first_map_8000.tmx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main.spec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/book.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/main/Analysis-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/main/Analysis-00.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/main/warn-main.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/main/warn-main.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/control/button.py" beforeDir="false" afterPath="$PROJECT_DIR$/control/button.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/control/inputField.py" beforeDir="false" afterPath="$PROJECT_DIR$/control/inputField.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_master/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_master/game.py" afterDir="false" />
@@ -42,138 +28,12 @@
       <change beforePath="$PROJECT_DIR$/game_master/synthesis.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_master/synthesis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_player/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_player/player.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/items/armors.py" beforeDir="false" afterPath="$PROJECT_DIR$/items/armors.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/items/item_object.py" beforeDir="false" afterPath="$PROJECT_DIR$/items/item_object.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/goods.py" beforeDir="false" afterPath="$PROJECT_DIR$/items/goods.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/items/weapons.py" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/map/HWmap.py" beforeDir="false" afterPath="$PROJECT_DIR$/map/HWmap.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/npc/boss.py" beforeDir="false" afterPath="$PROJECT_DIR$/npc/boss.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/npc/monster.py" beforeDir="false" afterPath="$PROJECT_DIR$/npc/monster.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/npc/npc.py" beforeDir="false" afterPath="$PROJECT_DIR$/npc/npc.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/game/player/player2/attack_back/attack_back.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/game/player/player2/attack_front/attack_front.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/game/player/player2/attack_left/attack_left.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/game/player/player2/attack_right/attack_right.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/game/player/player2/dead/palyer2_hurt.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/game/player/player2/stand_back/palyer2_idle(3).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/game/player/player2/stand_front/palyer2_idle(1).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/game/player/player2/stand_left/palyer2_idle(2).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/game/player/player2/stand_right/palyer2_idle(4).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/game/player/player2/walk_back/walk_back.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/game/player/player2/walk_front/walk_front.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/game/player/player2/walk_left/walk_left.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/game/player/player2/walk_right/walk_right.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/game/player/player3/attack_back/attack_back.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/game/player/player3/attack_front/attack_front.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/game/player/player3/attack_left/attack_left.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/game/player/player3/attack_right/attack_right.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/game/player/player3/stand_back/stand_back.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/game/player/player3/stand_front/stand_front.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/game/player/player3/stand_left/stand_left.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/game/player/player3/stand_right/stand_right.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/game/player/player3/walk_back/walk_back.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/game/player/player3/walk_front/walk_front.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/game/player/player3/walk_left/walk_left.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/game/player/player3/walk_right/walk_right.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/AllBuildings-Preview(1)(1).png" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/AllBuildings-Preview(1)(1).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/AllBuildings-Preview(1)(1).tsx" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/AllBuildings-Preview(1)(1).tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/AllBuildings-Preview(1).png" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/AllBuildings-Preview(1).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/AllBuildings-Preview(1).tsx" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/AllBuildings-Preview(1).tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/AllBuildings-Preview.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Beach_Tile.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Beach_Tile.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Beach_Tile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Beach_Tile.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Boat-big.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Boat.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Bridge(1).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Bridge(2).png" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Bridge(2).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Bridge(2).tsx" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Bridge(2).tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Bridge(3).png" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Bridge(3).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Bridge(3).tsx" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Bridge(3).tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Bridge.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Bridge.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Bridge.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Bridge.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Cliff(1).png" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Cliff(1).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Cliff(1).tsx" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Cliff(1).tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Cliff.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Cliff_Tile(1).png" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Cliff_Tile(1).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Cliff_Tile(1).tsx" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Cliff_Tile(1).tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Dirt - simplified.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Fall - simplified.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/FarmLand_Tile.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/FireballProjectile(1)(1).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/FireballProjectile(1).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/FireballProjectile.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Grass(1).png" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Grass(1).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Grass(1).tsx" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Grass(1).tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Grass.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/House(1).png" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/House(1).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/House(1).tsx" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/House(1).tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/House.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Houses(1)(1).png" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Houses(1)(1).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Houses(1)(1).tsx" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Houses(1)(1).tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Houses(1).png" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Houses(1).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Houses(1).tsx" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Houses(1).tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Houses.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Outdoor_Decor_Free(1).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Path_Tile(1).png" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Path_Tile(1).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Path_Tile(1).tsx" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Path_Tile(1).tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Portal(1).png" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Portal(1).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Portal(1).tsx" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Portal(1).tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Portal(2).png" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Portal(2).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Portal(2).tsx" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Portal(2).tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Portal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Props-All(1).png" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Props-All(1).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Props-All(1).tsx" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Props-All(1).tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Props-All.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/RedHouses.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/RedTaverns.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/RedWell.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Resources(1).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Resources.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Spring - simplified.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Stone and Rock(1).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Stone and Rock.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Summer - simplified.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/TexturedGrass.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/TilesetDesert.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/TilesetElement.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/TilesetField.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/TilesetField.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/TilesetField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/TilesetField.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/TilesetHouse.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/TilesetNature(1).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/TilesetNature.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/TilesetReliefDetail.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/TilesetVillageAbandoned.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Tombstones(1).png" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Tombstones(1).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Tombstones(1).tsx" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Tombstones(1).tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Tombstones(2).png" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Tombstones(2).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Tombstones(2).tsx" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Tombstones(2).tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Tombstones.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Water Plants(1).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Water Plants.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Water_Middle(1).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Water_Tile(1).png" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Water_Tile(1).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Water_Tile(1).tsx" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Water_Tile(1).tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Water_Tile.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Water_Tile.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/Water_Tile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/Water_Tile.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/attack_back_01.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/attack_back_01.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/attack_back_01.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/attack_back_01.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/black_house.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/black_house.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/black_house.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/black_house.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/first_map.tmx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/first_map_8000.tmx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/first_map_simple.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/first_map_simple.tmx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/free.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/house1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/house2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/house3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/house4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/house5.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/house5.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/house5.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/house5.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/monster.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/monster.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/monster.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/res/map/first_map/monster.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/monster1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map/First_map/red_house.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -242,17 +102,17 @@
     &quot;Python.图片生成动画.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/llm/Idk/res/item&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/llm/Idk/res&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\llm\Idk\res" />
       <recent name="D:\llm\Idk\res\item" />
       <recent name="D:\llm\Idk\res\map\first_map" />
       <recent name="D:\llm\Idk\res\map" />
       <recent name="D:\llm\Idk\res\game\player" />
-      <recent name="D:\llm\Idk\res\game\sprites\metals" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\llm\Idk\res\game\sprites" />
@@ -582,7 +442,23 @@
       <option name="project" value="LOCAL" />
       <updated>1735032327045</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="test">
+      <option name="closed" value="true" />
+      <created>1735796833219</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1735796833219</updated>
+    </task>
+    <task id="LOCAL-00040" summary="test">
+      <option name="closed" value="true" />
+      <created>1735797069539</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1735797069539</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -599,6 +475,6 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="test" />
-    <option name="LAST_COMMIT_MESSAGE" value="test" />
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
 </project>

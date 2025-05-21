@@ -10,6 +10,8 @@ class BoxWhite(game_master.gameObject.GameObject):
 
     def __init__(self, name="box_white", limit=64, number=1):
         super().__init__()
+        self.attribute = self.attribute.copy()
+
         self.name = name
         self.limit = limit
         self.number = number if number <= limit else limit
@@ -34,6 +36,8 @@ class BoxYellow(game_master.gameObject.GameObject):
 
     def __init__(self, name="box_yellow", limit=64, number=1):
         super().__init__()
+        self.attribute = self.attribute.copy()
+
         self.name = name
         self.limit = limit
         self.number = number if number <= limit else limit
@@ -58,6 +62,8 @@ class CarrotMin(game_master.gameObject.GameObject):
 
     def __init__(self, name="carrot_min", limit=64, number=1):
         super().__init__()
+        self.attribute = self.attribute.copy()
+
         self.name = name
         self.limit = limit
         self.number = number if number <= limit else limit
@@ -81,6 +87,8 @@ class CarrotBig(game_master.gameObject.GameObject):
 
     def __init__(self, name="carrot_big", limit=64, number=1):
         super().__init__()
+        self.attribute = self.attribute.copy()
+
         self.name = name
         self.limit = limit
         self.number = number if number <= limit else limit
@@ -105,6 +113,8 @@ class Iron(game_master.gameObject.GameObject):
 
     def __init__(self, name="iron", limit=64, number=1):
         super().__init__()
+        self.attribute = self.attribute.copy()
+
         self.name = name
         self.limit = limit
         self.number = number if number <= limit else limit
@@ -129,6 +139,8 @@ class Gold(game_master.gameObject.GameObject):
 
     def __init__(self, name="gold", limit=64, number=1):
         super().__init__()
+        self.attribute = self.attribute.copy()
+
         self.name = name
         self.limit = limit
         self.number = number if number <= limit else limit
@@ -153,6 +165,8 @@ class Stone(game_master.gameObject.GameObject):
 
     def __init__(self, name="stone", limit=64, number=1):
         super().__init__()
+        self.attribute = self.attribute.copy()
+
         self.name = name
         self.limit = limit
         self.number = number if number <= limit else limit

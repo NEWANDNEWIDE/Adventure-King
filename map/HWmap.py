@@ -49,13 +49,16 @@ class Map:
 
         self.object.append(self.player)
 
-        self.setup()
-
         self.player.bag.put(items.className.GOODS[items.weapons.Sword.NAME]())
         self.player.bag.put(items.className.GOODS[items.armors.IronArmor.NAME]())
         self.player.bag.put(items.className.GOODS[items.armors.IronBoots.NAME]())
         self.player.bag.put(items.className.GOODS[items.armors.IronHelmet.NAME]())
-        self.add_obj(npc.monster.Goblin([350, 7630], self.collision, self.camera, self.attack_collision))
+        self.player.bag.put(items.className.GOODS[items.weapons.CrimsonBlade.NAME]())
+        self.player.bag.put(items.className.GOODS[items.armors.RubyArmor.NAME]())
+        self.player.bag.put(items.className.GOODS[items.armors.SapphireArmor.NAME]())
+        self.player.bag.put(items.className.GOODS[items.goods.Iron.NAME](number=4))
+        for i in range(10):
+            self.add_obj(npc.monster.Goblin([350 + i*20, 7630], self.collision, self.camera, self.attack_collision))
 
         self.load_boss_map()
 
@@ -130,12 +133,6 @@ class Map:
     def set_name(self, name: str):
         self.player.attribute.name = name
 
-    def setup(self):
-        game_master.synthesis.PLAYER_SYNTHESIS_LIST = game_master.synthesis.process(
-            game_master.synthesis.PLAYER_SYNTHESIS_LIST_NOT_PROCESSED)
-        game_master.synthesis.SYNTHESIS_LIST = game_master.synthesis.process(
-            game_master.synthesis.SYNTHESIS_LIST_NOT_PROCESSED, 3)
-
     def event_update(self, event: pygame.event.Event):
         if self.__stop:
             if event.type == pygame.KEYDOWN:
@@ -171,7 +168,7 @@ class Map:
                     self.player.shanbi_state = 1
                     self.player.shanbi = 0.1
                     self.player.dir = self.player.vec2.copy()
-                if not self.player.attacking:
+                if not self.player.attacking and not self.player.bag.state:
                     if event.key == pygame.K_w:
                         self.player.vec2 = [0, -1]
                     elif event.key == pygame.K_s:
@@ -233,11 +230,24 @@ class Map:
                     else:
                         self.player.use()
                 elif event.button == 4:
-                    self.player.bag.selection_box += 1
-                    self.player.bag.update_inventory()
+                    if not self.player.bag.state:
+                        self.player.bag.selection_box += 1
+                        self.player.bag.update_inventory()
+                    else:
+                        if self.player.bag.book_state:
+                            self.player.bag.selected(pos, 4)
                 elif event.button == 5:
-                    self.player.bag.selection_box -= 1
-                    self.player.bag.update_inventory()
+                    if not self.player.bag.state:
+                        self.player.bag.selection_box -= 1
+                        self.player.bag.update_inventory()
+                    else:
+                        if self.player.bag.book_state:
+                            self.player.bag.selected(pos, 5)
+            elif event.type == pygame.MOUSEBUTTONUP:
+                if self.player.bag.state and self.player.bag.book_state and self.player.bag.mouse:
+                    self.player.bag.mouse = 0
+                    self.player.bag.mouse_offset = 0
+                    self.player.bag.mouse_start = 0
 
     def update_losing(self, dt):
         if self.boss_map:

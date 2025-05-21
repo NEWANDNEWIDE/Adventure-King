@@ -14,7 +14,17 @@ PLAYER_SYNTHESIS_LIST_NOT_PROCESSED = [
     # (0, 0)为左上角第一个格子, 往右一格为(1, 0), 往下一格为(0, 1)
     # 偏移x为正代表在前一个物品的左边, 反之为右边
     # 偏移y为正代表在前一个物品的上面, 反之为下面
-
+    ((items.goods.Iron.NAME, 1), (items.goods.Iron.NAME, 1, (1, 0)), (items.armors.IronBoots.NAME, 1)),
+    ((items.goods.Iron.NAME, 1), (items.goods.Iron.NAME, 1, (0, -1)), (items.weapons.Blades.NAME, 1)),
+    ((items.goods.Iron.NAME, 1), (items.goods.Iron.NAME, 1, (1, 0)), (items.armors.IronBoots.NAME, 1)),
+    ((items.goods.Iron.NAME, 1), (items.goods.Iron.NAME, 1, (0, -1)), (items.weapons.Blades.NAME, 1)),
+    ((items.goods.Iron.NAME, 1), (items.goods.Iron.NAME, 1, (1, 0)), (items.armors.IronBoots.NAME, 1)),
+    ((items.goods.Iron.NAME, 1), (items.goods.Iron.NAME, 1, (0, -1)), (items.weapons.Blades.NAME, 1)),
+    ((items.goods.Iron.NAME, 1), (items.goods.Iron.NAME, 1, (1, 0)), (items.armors.IronBoots.NAME, 1)),
+    ((items.goods.Iron.NAME, 1), (items.goods.Iron.NAME, 1, (0, -1)), (items.weapons.Blades.NAME, 1)),
+    ((items.goods.Iron.NAME, 1), (items.goods.Iron.NAME, 1, (1, 0)), (items.armors.IronBoots.NAME, 1)),
+    ((items.goods.Iron.NAME, 1), (items.goods.Iron.NAME, 1, (0, -1)), (items.weapons.Blades.NAME, 1)),
+    ((items.goods.Iron.NAME, 1), (items.goods.Iron.NAME, 1, (1, 0)), (items.armors.IronBoots.NAME, 1))
 ]
 
 SYNTHESIS_LIST_NOT_PROCESSED = [

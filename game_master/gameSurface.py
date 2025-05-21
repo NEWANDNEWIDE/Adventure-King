@@ -61,7 +61,7 @@ class AttackingObj(pygame.sprite.Sprite):
     def __init__(self, damage, pos, who, time, *groups, **kwargs):
         super().__init__(*groups)
         self.who = who
-        self.damage = damage
+        self.damage = round(damage)
         self.pos = pos
         self.time = time
         if "image" in kwargs:

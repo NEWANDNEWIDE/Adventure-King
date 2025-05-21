@@ -1,6 +1,5 @@
 import sys
 import pygame
-import pytmx
 from pytmx import TiledMap
 
 pygame.init()
@@ -9,40 +8,115 @@ clock = pygame.time.Clock()
 
 
 class CameraGroup(pygame.sprite.Group):
-    def __init__(self):
+    def __init__(self, surface, tmx: TiledMap, *groups):
         super().__init__()
         self.__display = pygame.display.get_surface()
         self.offset = pygame.math.Vector2()
+        self.__surface = surface
+        self.__tmx_group = [[], []]
+        self.player_index = [0, -1]
+        self.obj = self.sprites()
 
-        self.h_w = self.__display.width // 2
-        self.h_h = self.__display.height // 2
+        self.h_w = settings.WIDTH // 2
+        self.h_h = settings.HEIGHT // 2
 
-        self.ground_rect = self.__display.get_rect(topleft=(0, 0))
+        self.ground_rect = self.__surface.get_rect(topleft=(0, 0))
 
-        self.tmx: TiledMap = pytmx.util_pygame.load_pygame(r"C:\Users\10962\Desktop\First_map\first_map.tmx")
-        self.surface = pygame.Surface((2000, 1500))
+        self.tmx: TiledMap = tmx
 
-    def draw_tmx(self):
-        for layer in self.tmx.visible_layers:
-            for x, y, gid in layer:
-                tile = self.tmx.get_tile_image_by_gid(gid)
-                if tile:
-                    self.surface.blit(tile, (x * self.tmx.tilewidth, y * self.tmx.tileheight))
+        self.setup(*groups)
+
+    def setup(self, *groups):
+        if self.tmx:
+            i = 0
+            temp = []
+            for layer in ["ground", "middle", "no_collision", "collision"]:
+                    for x, y, surf in self.tmx.get_layer_by_name(layer).tiles():
+                        if surf:
+                            if i <= 1:
+                                self.__surface.blit(surf, (self.tmx.tilewidth * x, self.tmx.tileheight * y))
+                                temp.append(MapSprite((self.tmx.tilewidth * x, self.tmx.tileheight * y), surf, 1))
+                            elif i == 2:
+                                temp.append(MapSprite((self.tmx.tilewidth * x, self.tmx.tileheight * y), surf, 2))
+                            else:
+                                temp.append(MapSprite((self.tmx.tilewidth * x, self.tmx.tileheight * y), surf, 2, *groups))
+                    i += 1
+            temp.sort(key=lambda r: r.layer_g)
+            m = sort_2(temp, 2)
+            t1 = temp[:m]
+            t2 = temp[m:]
+            self.__tmx_group = [t1, t2]
 
     def center_target_camera(self, target):
-        self.offset.x = target[0] - self.h_w
-        self.offset.y = target[1] - self.h_h
+        self.offset.x = target.centerx - self.h_w
+        self.offset.y = target.centery - self.h_h
 
-    def custom_draw(self, rect):
-        self.center_target_camera(rect)
+    def custom_draw(self, rect_other, dt):
+
+        self.center_target_camera(rect_other)
 
         ground_offset = self.ground_rect.topleft - self.offset
-        self.__display.blit(self.surface, ground_offset)
+        self.__display.blit(self.__surface, ground_offset)
 
         # active elements
-        for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
-            offset_pos = sprite.rect.topleft - self.offset
-            self.__display.blit(sprite.image, offset_pos)
+        i = 0
+        t = self.obj[self.player_index[0]]
+        for sprite in self.__tmx_group[1]:
+            if -620 <= rect_other.centerx - sprite.rect.centerx <= 620 and -470 <= rect_other.centery - sprite.rect.centery <= 470:
+                if self.player_index[0] + i <= self.player_index[1]:
+                    if sprite.rect.bottom > t.rect.bottom:
+                        offset_pos = t.rect.center - self.offset
+                        rect = t.image.get_rect(center=offset_pos)
+                        self.__display.blit(t.image, rect)
+                        if t.damage_a >= 0:
+                            t.damage_t -= dt
+                            font = game_master.game.Game.FONT.render(f"-{t.damage_a}" if t.damage_a else "0", True, (0, 0, 0))
+                            rect_font = font.get_rect(center=rect.center)
+                            rect_font.bottom = rect.top
+                            self.__display.blit(font, rect_font)
+                            if t.damage_t <= 0:
+                                t.damage_a = -1
+                                t.damage_t = 1
+                        i += 1
+                        if self.player_index[0] + i <= self.player_index[1]:
+                            t = self.obj[self.player_index[0] + i]
+                            while self.player_index[0] + i <= self.player_index[1] and (-620 > rect_other.centerx - t.rect.centerx or rect_other.centerx - t.rect.centerx > 620):
+                                i += 1
+                                if self.player_index[0] + i <= self.player_index[1]:
+                                    t = self.obj[self.player_index[0] + i]
+                        offset_pos = sprite.rect.center - self.offset
+                        rect = sprite.image.get_rect(center=offset_pos)
+                        self.__display.blit(sprite.image, rect)
+                    else:
+                        offset_pos = sprite.rect.center - self.offset
+                        rect = sprite.image.get_rect(center=offset_pos)
+                        self.__display.blit(sprite.image, rect)
+                else:
+                    offset_pos = sprite.rect.center - self.offset
+                    rect = sprite.image.get_rect(center=offset_pos)
+                    self.__display.blit(sprite.image, rect)
+        while self.player_index[0] + i <= self.player_index[1]:
+            offset_pos = t.rect.center - self.offset
+            rect = t.image.get_rect(center=offset_pos)
+            self.__display.blit(t.image, rect)
+            if t.damage_a >= 0:
+                t.damage_t -= dt
+                font = game_master.game.Game.FONT.render(f"-{t.damage_a}" if t.damage_a else "0", True, (0, 0, 0))
+                rect_font = font.get_rect(center=rect.center)
+                rect_font.bottom = rect.top
+                self.__display.blit(font, rect_font)
+                if t.damage_t <= 0:
+                    t.damage_a = -1
+                    t.damage_t = 1
+            i += 1
+            if self.player_index[0] + i <= self.player_index[1]:
+                t = self.obj[self.player_index[0] + i]
+
+    def update(self, bottom):
+        self.obj = self.sprites()
+        self.obj.sort(key=lambda sprite: sprite.rect.bottom)
+        self.player_index[0] = sort_1(self.obj, bottom - 470)
+        self.player_index[1] = self.player_index[0] + sort_1(self.obj[self.player_index[0]:], bottom + 470)
 
 
 class Player(pygame.sprite.Sprite):

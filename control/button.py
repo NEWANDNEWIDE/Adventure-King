@@ -98,7 +98,6 @@ class Button:
     def activate(self, pos, *args):
         if self.__action and self.callback:
             if self.rect[0] < pos[0] < self.rect[0] + self.size[0] and self.rect[1] < pos[1] < self.rect[1] + self.size[1]:
-                print(self.name)
                 self.callback(*args)
         return False
 

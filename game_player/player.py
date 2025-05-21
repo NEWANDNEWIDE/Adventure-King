@@ -13,17 +13,21 @@ from items import className
 
 def n_pow(x, n):
     if n < 1:
-        return 0
-    if n == 1:
-        return x
-    return n*n_pow(x, n-1)
+        return 1
+    ans = 0
+    while n >= 1:
+        ans += n * x
+        n -= 1
+    return ans
 
 
 def s_pow(x, n, index):
-    if x < n * index:
-        return 0
-    else:
-        return 1 + s_pow(x - n * index, n, index+1)
+    ans = 0
+    while x >= n * index:
+        x -= n * index
+        index += 1
+        ans += 1
+    return ans
 
 
 def sort_2(nums, target):
@@ -98,7 +102,8 @@ class CameraGroup(pygame.sprite.Group):
                                 self.__surface.blit(surf, (self.tmx.tilewidth * x, self.tmx.tileheight * y))
                                 temp.append(MapSprite((self.tmx.tilewidth * x, self.tmx.tileheight * y), surf, 1))
                             else:
-                                temp.append(MapSprite((self.tmx.tilewidth * x, self.tmx.tileheight * y), surf, 2, *groups))
+                                temp.append(
+                                    MapSprite((self.tmx.tilewidth * x, self.tmx.tileheight * y), surf, 2, *groups))
                     i += 1
             else:
                 for layer in ["ground", "middle", "no_collision", "collision"]:
@@ -110,7 +115,8 @@ class CameraGroup(pygame.sprite.Group):
                             elif i == 2:
                                 temp.append(MapSprite((self.tmx.tilewidth * x, self.tmx.tileheight * y), surf, 2))
                             else:
-                                temp.append(MapSprite((self.tmx.tilewidth * x, self.tmx.tileheight * y), surf, 2, *groups))
+                                temp.append(
+                                    MapSprite((self.tmx.tilewidth * x, self.tmx.tileheight * y), surf, 2, *groups))
                     i += 1
             temp.sort(key=lambda r: r.layer_g)
             m = sort_2(temp, 2)
@@ -136,22 +142,35 @@ class CameraGroup(pygame.sprite.Group):
             if -620 <= rect_other.centerx - sprite.rect.centerx <= 620 and -470 <= rect_other.centery - sprite.rect.centery <= 470:
                 if self.player_index[0] + i <= self.player_index[1]:
                     if sprite.rect.bottom > t.rect.bottom:
+                        if isinstance(t, Player):
+                            if t.bag.bag[t.bag.selection_box] and hasattr(t.bag.bag[t.bag.selection_box], "action"):
+                                if t.bag.bag[t.bag.selection_box].action and not t.dead:
+                                    if t.move_state.split('_')[1] == 'front' or t.move_state.split('_')[1] == 'left':
+                                        self.__display.blit(t.bag.bag[t.bag.selection_box].surf, (580, 430))
                         offset_pos = t.rect.center - self.offset
                         rect = t.image.get_rect(center=offset_pos)
                         self.__display.blit(t.image, rect)
-                        if t.damage_a >= 0:
-                            t.damage_t -= dt
-                            font = game_master.game.Game.FONT.render(f"-{t.damage_a}" if t.damage_a else "0", True, (0, 0, 0))
-                            rect_font = font.get_rect(center=rect.center)
-                            rect_font.bottom = rect.top
-                            self.__display.blit(font, rect_font)
-                            if t.damage_t <= 0:
-                                t.damage_a = -1
-                                t.damage_t = 1
+                        if isinstance(t, Player):
+                            if t.bag.bag[t.bag.selection_box] and hasattr(t.bag.bag[t.bag.selection_box], "action"):
+                                if t.bag.bag[t.bag.selection_box].action and not t.dead:
+                                    if t.move_state.split('_')[1] == 'back' or t.move_state.split('_')[1] == 'right':
+                                        self.__display.blit(t.bag.bag[t.bag.selection_box].surf, (580, 430))
+                        if hasattr(t, "damage_a"):
+                            if t.damage_a >= 0:
+                                t.damage_t -= dt
+                                font = game_master.game.Game.FONT.render(f"-{t.damage_a}" if t.damage_a else "0", True,
+                                                                         (0, 0, 0))
+                                rect_font = font.get_rect(center=rect.center)
+                                rect_font.bottom = rect.top
+                                self.__display.blit(font, rect_font)
+                                if t.damage_t <= 0:
+                                    t.damage_a = -1
+                                    t.damage_t = 1
                         i += 1
                         if self.player_index[0] + i <= self.player_index[1]:
                             t = self.obj[self.player_index[0] + i]
-                            while self.player_index[0] + i <= self.player_index[1] and (-620 > rect_other.centerx - t.rect.centerx or rect_other.centerx - t.rect.centerx > 620):
+                            while self.player_index[0] + i <= self.player_index[1] and (
+                                    -620 > rect_other.centerx - t.rect.centerx or rect_other.centerx - t.rect.centerx > 620):
                                 i += 1
                                 if self.player_index[0] + i <= self.player_index[1]:
                                     t = self.obj[self.player_index[0] + i]
@@ -265,7 +284,7 @@ class Player(pygame.sprite.Sprite):
 
         self.level = 1
 
-        self.level_exp = 20000
+        self.level_exp = 2000000000
 
         self.exp = 100
 
@@ -303,14 +322,16 @@ class Player(pygame.sprite.Sprite):
             pos = self.rect.centerx, self.rect.top
         else:
             pos = self.rect.centerx, self.rect.bottom
-        self.attack_box = AttackingObj(damage, pos, "player", -1, group, rect=self.image.get_rect(center=pos).copy().inflate(self.attribute_now.reach_distance, self.attribute_now.reach_distance))
+        self.attack_box = AttackingObj(damage, pos, "player", -1, group,
+                                       rect=self.image.get_rect(center=pos).copy().inflate(
+                                           self.attribute_now.reach_distance, self.attribute_now.reach_distance))
 
     def use(self):
         if self.bag.bag[self.bag.selection_box]:
             self.bag.bag[self.bag.selection_box].use()
 
     def input(self):
-        if not self.attacking:
+        if not self.attacking and not self.bag.state:
             keys = pygame.key.get_pressed()
             if keys[pygame.K_d] and not self.vec2[1]:
                 self.__vec2[0] = 1
@@ -330,8 +351,6 @@ class Player(pygame.sprite.Sprite):
                 self.__vec2[1] = 0
 
     def action_attack(self, dt):
-        if self.bag.bag[self.bag.selection_box]:
-            self.bag.bag[self.bag.selection_box].attack(dt)
         l = len(self.__surface[self.player_state][self.move_state])
         self.index += dt * l * self.attribute_now.attack_speed * 2
         if self.index >= l:
@@ -383,6 +402,8 @@ class Player(pygame.sprite.Sprite):
         self.hitbox.center = self.rect.center
         if not self.shanbi_state and self.shanbi < 0:
             self.shanbi += dt
+        if self.bag.bag[self.bag.selection_box]:
+            self.bag.bag[self.bag.selection_box].attack(dt, self.move_state, self.attribute_now.attack_speed)
 
     def dying(self, dt):
         l = len(self.__surface[self.player_state][self.move_state])
@@ -505,16 +526,18 @@ class Player(pygame.sprite.Sprite):
         if self.bag.dressed_state:
             self.bag.dressed_state = 0
             for a in self.armor:
-                self.attribute -= a
+                if a:
+                    self.attribute -= a.copy()
             for a in range(4):
-                self.attribute += self.bag.bag[a]
+                if self.bag.bag[a]:
+                    self.attribute += self.bag.bag[a].copy()
 
     def update(self, dt):
         self.update_attribute()
+        self.update_dressed()
         if not self.dead:
             self.move(dt)
-            self.bag.update(self.image, dt)
-            self.update_dressed()
+            self.armor = self.bag.update(self.image, dt)
             if self.sys_state:
                 self.sys_state.update()
             self.update_collision()
@@ -532,13 +555,17 @@ class State:
         self.life_bar_w = self.life_bar.width - 14 * 2
         self.life_bar_h = self.life_bar.height - 12
         self.health = pygame.image.load("res/item/health.png").convert_alpha()
-        self.health = pygame.transform.scale(self.health, (self.life_bar.height / self.health.height * self.health.width, self.life_bar.height))
+        self.health = pygame.transform.scale(self.health, (
+        self.life_bar.height / self.health.height * self.health.width, self.life_bar.height))
         self.shield = pygame.image.load("res/item/sheild.png").convert_alpha()
-        self.shield = pygame.transform.scale(self.shield, (self.life_bar.height / self.shield.height * self.shield.width, self.life_bar.height))
+        self.shield = pygame.transform.scale(self.shield, (
+        self.life_bar.height / self.shield.height * self.shield.width, self.life_bar.height))
         self.xp = pygame.image.load("res/item/xp.png").convert_alpha()
-        self.xp = pygame.transform.scale(self.xp, (self.life_bar.height / self.xp.height * self.xp.width, self.life_bar.height))
+        self.xp = pygame.transform.scale(self.xp,
+                                         (self.life_bar.height / self.xp.height * self.xp.width, self.life_bar.height))
         self.w = max(self.shield.width, self.health.width, self.xp.width)
-        self.display = pygame.transform.scale(self.display, (self.life_bar.width + self.w + 5, self.life_bar.height * 5 + 10))
+        self.display = pygame.transform.scale(self.display,
+                                              (self.life_bar.width + self.w + 5, self.life_bar.height * 5 + 10))
 
     def render(self, player: Player):
         level_t = f"Lv.{player.level}: {player.attribute.name}"
@@ -549,58 +576,79 @@ class State:
         self.display.blit(self.shield, (0, self.life_bar.height * 3))
         self.display.blit(self.xp, (0, self.life_bar.height * 4))
         p = player.h_n / player.attribute_now.health
-        font = game_master.game.Game.FONT.render(f"{int(player.h_n)}/{int(player.attribute_now.health)}", True, (0, 0, 0))
+        font = game_master.game.Game.FONT.render(f"{int(player.h_n)}/{int(player.attribute_now.health)}", True,
+                                                 (0, 0, 0))
         if self.life_bar_w * p >= 1:
             surface = pygame.Surface((self.life_bar_w * p, self.life_bar_h))
             surface.fill((255, 0, 0))
             self.display.blit(self.life_bar, (self.w, self.life_bar.height * 2))
             self.display.blit(surface, (self.w + 7 * 2, self.life_bar.height * 2 + 6))
-            self.display.blit(font, font.get_rect(center=(self.life_bar.width * 0.5 + self.w, self.life_bar.height * 2.5)))
+            self.display.blit(font,
+                              font.get_rect(center=(self.life_bar.width * 0.5 + self.w, self.life_bar.height * 2.5)))
         else:
             font = game_master.game.Game.FONT.render(f"{0}/{int(player.attribute_now.health)}", True,
                                                      (0, 0, 0))
             self.display.blit(self.life_bar, (self.w, self.life_bar.height * 2))
-            self.display.blit(font, font.get_rect(center=(self.life_bar.width * 0.5 + self.w, self.life_bar.height * 2.5)))
+            self.display.blit(font,
+                              font.get_rect(center=(self.life_bar.width * 0.5 + self.w, self.life_bar.height * 2.5)))
         if player.attribute_now.shield:
             p = player.s_n / player.attribute_now.shield
-            font = game_master.game.Game.FONT.render(f"{int(player.s_n)}/{int(player.attribute_now.shield)}", True, (0, 0, 0))
+            font = game_master.game.Game.FONT.render(f"{int(player.s_n)}/{int(player.attribute_now.shield)}", True,
+                                                     (0, 0, 0))
             if self.life_bar_w * p >= 1:
                 surface = pygame.Surface((self.life_bar_w * p, self.life_bar_h))
                 surface.fill((0, 0, 255))
                 self.display.blit(self.life_bar, (self.w, self.life_bar.height * 3))
                 self.display.blit(surface, (self.w + 7 * 2, self.life_bar.height * 3 + 6))
-                self.display.blit(font, font.get_rect(center=(self.life_bar.width * 0.5 + self.w, self.life_bar.height * 3.5)))
+                self.display.blit(font, font.get_rect(
+                    center=(self.life_bar.width * 0.5 + self.w, self.life_bar.height * 3.5)))
             else:
                 font = game_master.game.Game.FONT.render(f"{0}/{int(player.attribute_now.shield)}", True, (0, 0, 0))
                 self.display.blit(self.life_bar, (self.w, self.life_bar.height * 3))
-                self.display.blit(font, font.get_rect(center=(self.life_bar.width * 0.5 + self.w, self.life_bar.height * 3.5)))
+                self.display.blit(font, font.get_rect(
+                    center=(self.life_bar.width * 0.5 + self.w, self.life_bar.height * 3.5)))
         else:
             font = game_master.game.Game.FONT.render(f"{0}/{0}", True, (0, 0, 0))
             self.display.blit(self.life_bar, (self.w, self.life_bar.height * 3))
-            self.display.blit(font, font.get_rect(center=(self.life_bar.width * 0.5 + self.w, self.life_bar.height * 3.5)))
-        p = (player.level_exp - n_pow(player.exp, player.level-1)) / (player.exp * player.level)
-        font = game_master.game.Game.FONT.render(f"{player.level_exp - n_pow(player.exp, player.level-1)}/{player.exp * player.level}", True, (0, 0, 0))
+            self.display.blit(font,
+                              font.get_rect(center=(self.life_bar.width * 0.5 + self.w, self.life_bar.height * 3.5)))
+        p = (player.level_exp - n_pow(player.exp, player.level - 1)) / (player.exp * player.level)
+        font = game_master.game.Game.FONT.render(
+            f"{player.level_exp - n_pow(player.exp, player.level - 1)}/{player.exp * player.level}", True, (0, 0, 0))
         if self.life_bar_w * p >= 1:
             surface = pygame.Surface((self.life_bar_w * p, self.life_bar_h))
             surface.fill((0, 255, 0))
             self.display.blit(self.life_bar, (self.w, self.life_bar.height * 4))
             self.display.blit(surface, (self.w + 7 * 2, self.life_bar.height * 4 + 6))
-            self.display.blit(font, font.get_rect(center=(self.life_bar.width * 0.5 + self.w, self.life_bar.height * 4.5)))
+            self.display.blit(font,
+                              font.get_rect(center=(self.life_bar.width * 0.5 + self.w, self.life_bar.height * 4.5)))
         else:
             font = game_master.game.Game.FONT.render(f"{0}/{player.exp * player.level}", True, (0, 0, 0))
             self.display.blit(self.life_bar, (self.w, self.life_bar.height * 4))
-            self.display.blit(font, font.get_rect(center=(self.life_bar.width * 0.5 + self.w, self.life_bar.height * 4.5)))
+            self.display.blit(font,
+                              font.get_rect(center=(self.life_bar.width * 0.5 + self.w, self.life_bar.height * 4.5)))
         pygame.display.get_surface().blit(self.display)
 
 
 class Bag:
     def __init__(self):
+        self.setup_syn()
         # 背包是否打开
         self.__state = 0
         # 合成书是否打开
         self.__book_state = 0
+        self.__book_button = pygame.image.load("res/book.png").convert_alpha()
+        max_v = 40 / max(self.__book_button.width, self.__book_button.height)
+        self.__book_button = pygame.transform.scale(self.__book_button, (self.__book_button.width * max_v, self.__book_button.height * max_v))
+        self.book_offset = 0
+        l = len(game_master.synthesis.PLAYER_SYNTHESIS_LIST)
+        self.slide = pygame.Surface((4, round(400 * (8 / l) if l > 8 else 400)))
+        self.slide_offset = 8 / l if l > 8 else 0
+        self.mouse_offset = 0
+        self.mouse_start = 0
+        self.mouse = 0
         # 合成书界面
-        self.__book_ground = pygame.Surface((142, 410))
+        self.__book_ground = pygame.Surface((140, 400))
         # 盔甲变化
         self.__dressed_state = 1
         # 物品栏位置
@@ -608,7 +656,7 @@ class Bag:
         # 背包位置
         self.__rect = ((1200 - 458) / 2, (900 - 410) / 2)
         # 位置
-        self.__book_rect = (self.rect[0] - 142, self.rect[1])
+        self.__book_rect = (self.rect[0] - 156, self.rect[1])
         # 物品栏大小
         self.__inventory = pygame.Surface((422, 44))
         # 背包大小
@@ -724,11 +772,17 @@ class Bag:
     def frame(self, frame):
         self.__frame = frame
 
+    def setup_syn(self):
+        game_master.synthesis.PLAYER_SYNTHESIS_LIST = game_master.synthesis.process(
+            game_master.synthesis.PLAYER_SYNTHESIS_LIST_NOT_PROCESSED)
+        game_master.synthesis.SYNTHESIS_LIST = game_master.synthesis.process(
+            game_master.synthesis.SYNTHESIS_LIST_NOT_PROCESSED, 3)
+
     def setup(self, index=None):
         # 在index不为None的情况下为更新格子
         if not index:
+            self.update_book()
             self.__background.fill(self.bg)
-            self.__book_ground.fill(self.bg)
             self.__inventory.blit(self.__box, (42 * (self.__selection_box - 34), 0))
             for i in range(4):
                 self.__background.blit(self.__frame[i], (self.offset_rect, self.offset_rect + (self.offset + 40) * i))
@@ -738,6 +792,7 @@ class Bag:
             self.__background.blit(self.__role_box, (self.offset_rect * 2 + 40, self.offset_rect))
             self.__background.blit(self.arrowhead, (356, 83))
             self.__background.blit(self.__frame[-1], (398, 83))
+            self.__background.blit(self.__book_button, (398, 143))
             for i in range(30):
                 self.__background.blit(self.__frame[4 + i],
                                        (20 + (self.offset + 40) * (i % 10), 206 + (self.offset + 40) * (i // 10)))
@@ -771,6 +826,7 @@ class Bag:
 
     def close(self):
         self.__state = 0
+        self.__book_state = 0
         if self.selection_index != -1:
             if self.selection_index == 48:
                 t = self.selection
@@ -988,7 +1044,7 @@ class Bag:
                                 self.selection.number -= 1
                         self.selection_state = 1
                         self.__frame_state[i] = 1
-        elif pos[0] < 0 or pos[0] > 458 or pos[1] < 0 or pos[1] > 410:
+        elif not self.__book_state and (pos[0] < 0 or pos[0] > 458 or pos[1] < 0 or pos[1] > 410):
             if self.selection_index != -1:
                 t = self.out(obj=self.selection)
                 self.selection_index = -1
@@ -996,8 +1052,27 @@ class Bag:
                 self.selection_offset = [0, 0]
                 self.selection_state = 1
                 return t
+        elif self.__book_state and (pos[0] < -154 or pos[0] > 458 or pos[1] < 0 or pos[1] > 410):
+            if self.selection_index != -1:
+                t = self.out(obj=self.selection)
+                self.selection_index = -1
+                self.selection = 0
+                self.selection_offset = [0, 0]
+                self.selection_state = 1
+                return t
+        elif self.__book_state and (state == 4 or state == 5) and -154 <= pos[0] <= 0 <= pos[1] <= 410:
+            if state == 4:
+                self.update_offset(1)
+            else:
+                self.update_offset(-1)
+        elif self.__book_state and (state == 1 or state == 2) and -8 <= pos[0] <= 0 <= pos[1] + self.book_offset * self.slide_offset <= self.slide.height:
+            if not self.mouse:
+                self.mouse_offset = pos[1]
+                self.mouse_start = pos[1]
+                self.mouse = 1
+        elif self.__book_state and (state == 1 or state == 2) and -148 <= pos[0] <= -8 and 0 <= pos[1] - 5 <= 400:
+            pass
         elif 20 <= pos[0] <= 60 and 20 <= pos[1] <= 186:
-            print(222)
             pos[1] -= 20
             i = 0
             for i in range(4):
@@ -1032,7 +1107,6 @@ class Bag:
                     self.__frame_state[i] = 1
                     self.__dressed_state = 1
         elif 272 <= pos[0] <= 356 and 62 <= pos[1] <= 144:
-            print(333)
             pos[0] -= 272
             pos[1] -= 62
             i, j = 0, 0
@@ -1111,7 +1185,6 @@ class Bag:
                 self.__frame_state[i] = 1
                 self.remaining_quantity = self.synthesis()
         elif 398 <= pos[0] <= 438 and 83 <= pos[1] <= 123:
-            print(444)
             if self.__bag[48]:
                 if self.selection_index == -1:
                     self.selection_offset = [pos[0] - 398, pos[1] - 83]
@@ -1189,9 +1262,13 @@ class Bag:
                                 self.__synthesis[self.remaining_quantity[i][1] - 44] = 0
                             self.__frame_state[self.remaining_quantity[i][1]] = 1
                         self.remaining_quantity = self.synthesis()
+        elif 398 <= pos[0] <= 398 + self.__book_button.width and 143 <= pos[1] <= 143 + self.__book_button.height:
+            if self.__book_state:
+                self.__book_state = 0
+            else:
+                self.__book_state = 1
         elif 20 <= pos[0] <= 438:
             if 206 <= pos[1] <= 330:
-                print(1)
                 pos[0] -= 20
                 pos[1] -= 206
                 i, j = 0, 0
@@ -1264,7 +1341,6 @@ class Bag:
                     self.selection_state = 1
                     self.__frame_state[i] = 1
             elif 350 <= pos[1] <= 390:
-                print(2)
                 pos[0] -= 20
                 i = 0
                 for i in range(10):
@@ -1358,7 +1434,12 @@ class Bag:
                     if self.__bag[i]:
                         text = f"{self.__bag[i].name}"
                         for a in range(9):
-                            text += f"\n{game_master.gameObject.ATTRIBUTE[a]}:{self.__bag[i].attribute[a]}"
+                            if self.__bag[i].attribute[a]:
+                                text += f"\n{game_master.gameObject.ATTRIBUTE[a]} "
+                                if self.__bag[i].attribute[a] > 0:
+                                    text += f"+{self.__bag[i].attribute[a]}"
+                                else:
+                                    text += f"{self.__bag[i].attribute[a]}"
                         font = game_master.game.Game.FONT.render(text, True, (255, 255, 255)).convert_alpha()
                         surf = pygame.Surface((font.width + 10, font.height + 10)).convert_alpha()
                         surf.fill(self.sg)
@@ -1381,7 +1462,12 @@ class Bag:
                     if self.__bag[i]:
                         text = f"{self.__bag[i].name}"
                         for a in range(9):
-                            text += f"\n{game_master.gameObject.ATTRIBUTE[a]}:{self.__bag[i].attribute[a]}"
+                            if self.__bag[i].attribute[a]:
+                                text += f"\n{game_master.gameObject.ATTRIBUTE[a]} "
+                                if self.__bag[i].attribute[a] > 0:
+                                    text += f"+{self.__bag[i].attribute[a]}"
+                                else:
+                                    text += f"{self.__bag[i].attribute[a]}"
                         font = game_master.game.Game.FONT.render(text, True, (255, 255, 255)).convert_alpha()
                         surf = pygame.Surface((font.width + 10, font.height + 10)).convert_alpha()
                         surf.fill(self.sg)
@@ -1390,8 +1476,95 @@ class Bag:
                         font = game_master.game.Game.FONT.render(text, True, (83, 250, 250)).convert_alpha()
                         surf.blit(font, (5, 5))
                         pygame.display.get_surface().blit(surf, offset)
+        elif self.__book_state and -148 <= pos[0] <= -8 and 5 <= pos[1] <= 405:
+            pos[1] -= 5
+            if self.slide_offset and self.book_offset % 50:
+                start_index = int(self.book_offset // 50)
+                t = start_index * 50 - self.book_offset
+                for i in range(9):
+                    if max(0, i * 50 + t) < pos[1] < t + (i + 1) * 50:
+                        s = game_master.synthesis.PLAYER_SYNTHESIS_LIST[start_index + i]
+                        s_surf = pygame.Surface((176, 92))
+                        s_surf.fill(self.bg)
+                        for cnm in range(4):
+                            rect = 5 + (cnm % 2) * 42, 5 + (cnm // 2) * 42
+                            s_surf.fill(self.fg, (rect[0], rect[1], 40, 40))
+                        s_surf.blit(self.arrowhead, (89, 26))
+                        s_surf.fill(self.fg, (131, 26, 40, 40))
+                        t = items.className.GOODS[s[-1][0]]()
+                        s_surf.blit(t.surface, (131, 26))
+                        if s[0][-1] == -1:
+                            s_surf.blit(items.className.GOODS[s[0][0]]().surface, (5, 5))
+                            for cnm in range(len(s) - 2):
+                                rect = 5 + ((s[cnm + 1][-1] + 1) % 2) * 42, 5 + ((s[cnm + 1][-1] + 1) // 2) * 42
+                                s_surf.blit(items.className.GOODS[s[cnm + 1][0]]().surface, rect)
+                        else:
+                            s_surf.blit(items.className.GOODS[s[0][0]]().surface, (5 + (s[0][-1] % 2) * 42, 5 + (s[0][-1] // 2) * 42))
+                            for cnm in range(len(s) - 2):
+                                rect = 5 + (s[cnm + 1][-1] % 2) * 42, 5 + (s[cnm + 1][-1] // 2) * 42
+                                s_surf.blit(items.className.GOODS[s[cnm + 1][0]]().surface, rect)
+                        text = f"{t.name}"
+                        for a in range(9):
+                            if t.attribute[a]:
+                                text += f"\n{game_master.gameObject.ATTRIBUTE[a]} "
+                                if t.attribute[a] > 0:
+                                    text += f"+{t.attribute[a]}"
+                                else:
+                                    text += f"{t.attribute[a]}"
+                        font = game_master.game.Game.FONT.render(text, True, (255, 255, 255)).convert_alpha()
+                        surf = pygame.Surface((max(font.width, 176) + 10, font.height + 102)).convert_alpha()
+                        surf.fill(self.sg)
+                        surf.blit(s_surf, (5, 5))
+                        surf.blit(font, (5, 5 + s_surf.height))
+                        text = f"{t.name}"
+                        font = game_master.game.Game.FONT.render(text, True, (83, 250, 250)).convert_alpha()
+                        surf.blit(font, (5, 5 + s_surf.height))
+                        pygame.display.get_surface().blit(surf, offset)
+                        break
+            else:
+                start_index = int(self.book_offset // 50)
+                for i in range(min(len(game_master.synthesis.PLAYER_SYNTHESIS_LIST), 8)):
+                    if i * 50 < pos[1] < (i + 1) * 50:
+                        s = game_master.synthesis.PLAYER_SYNTHESIS_LIST[start_index + i]
+                        s_surf = pygame.Surface((176, 92))
+                        s_surf.fill(self.bg)
+                        for cnm in range(4):
+                            rect = 5 + (cnm%2)*42, 5 + (cnm//2)*42
+                            s_surf.fill(self.fg, (rect[0], rect[1], 40, 40))
+                        s_surf.blit(self.arrowhead, (89, 26))
+                        s_surf.fill(self.fg, (131, 26, 40, 40))
+                        t = items.className.GOODS[s[-1][0]]()
+                        s_surf.blit(t.surface, (131, 26))
+                        if s[0][-1] == -1:
+                            s_surf.blit(items.className.GOODS[s[0][0]]().surface, (5, 5))
+                            for cnm in range(len(s)-2):
+                                rect = 5 + ((s[cnm+1][-1]+1)%2)*42, 5 + ((s[cnm+1][-1]+1)//2)*42
+                                s_surf.blit(items.className.GOODS[s[cnm+1][0]]().surface, rect)
+                        else:
+                            s_surf.blit(items.className.GOODS[s[0][0]]().surface,
+                                        (5 + (s[0][-1] % 2) * 42, 5 + (s[0][-1] // 2) * 42))
+                            for cnm in range(len(s)-2):
+                                rect = 5 + (s[cnm+1][-1]%2)*42, 5 + (s[cnm+1][-1]//2)*42
+                                s_surf.blit(items.className.GOODS[s[cnm+1][0]]().surface, rect)
+                        text = f"{t.name}"
+                        for a in range(9):
+                            if t.attribute[a]:
+                                text += f"\n{game_master.gameObject.ATTRIBUTE[a]} "
+                                if t.attribute[a] > 0:
+                                    text += f"+{t.attribute[a]}"
+                                else:
+                                    text += f"{t.attribute[a]}"
+                        font = game_master.game.Game.FONT.render(text, True, (255, 255, 255)).convert_alpha()
+                        surf = pygame.Surface((max(font.width, 176) + 10, font.height + 102)).convert_alpha()
+                        surf.fill(self.sg)
+                        surf.blit(s_surf, (5, 5))
+                        surf.blit(font, (5, 5 + s_surf.height))
+                        text = f"{t.name}"
+                        font = game_master.game.Game.FONT.render(text, True, (83, 250, 250)).convert_alpha()
+                        surf.blit(font, (5, 5 + s_surf.height))
+                        pygame.display.get_surface().blit(surf, offset)
+                        break
         elif 20 <= pos[0] <= 60 and 20 <= pos[1] <= 186:
-            print(222)
             pos[1] -= 20
             i = 0
             for i in range(4):
@@ -1404,7 +1577,12 @@ class Bag:
             if self.__bag[i]:
                 text = f"{self.__bag[i].name}"
                 for a in range(9):
-                    text += f"\n{game_master.gameObject.ATTRIBUTE[a]}:{self.__bag[i].attribute[a]}"
+                    if self.__bag[i].attribute[a]:
+                        text += f"\n{game_master.gameObject.ATTRIBUTE[a]} "
+                        if self.__bag[i].attribute[a] > 0:
+                            text += f"+{self.__bag[i].attribute[a]}"
+                        else:
+                            text += f"{self.__bag[i].attribute[a]}"
                 font = game_master.game.Game.FONT.render(text, True, (255, 255, 255)).convert_alpha()
                 surf = pygame.Surface((font.width + 10, font.height + 10)).convert_alpha()
                 surf.fill(self.sg)
@@ -1414,7 +1592,6 @@ class Bag:
                 surf.blit(font, (5, 5))
                 pygame.display.get_surface().blit(surf, offset)
         elif 272 <= pos[0] <= 356 and 62 <= pos[1] <= 144:
-            print(333)
             pos[0] -= 272
             pos[1] -= 62
             i, j = 0, 0
@@ -1437,7 +1614,12 @@ class Bag:
             if self.__bag[i]:
                 text = f"{self.__bag[i].name}"
                 for a in range(9):
-                    text += f"\n{game_master.gameObject.ATTRIBUTE[a]}:{self.__bag[i].attribute[a]}"
+                    if self.__bag[i].attribute[a]:
+                        text += f"\n{game_master.gameObject.ATTRIBUTE[a]} "
+                        if self.__bag[i].attribute[a] > 0:
+                            text += f"+{self.__bag[i].attribute[a]}"
+                        else:
+                            text += f"{self.__bag[i].attribute[a]}"
                 font = game_master.game.Game.FONT.render(text, True, (255, 255, 255)).convert_alpha()
                 surf = pygame.Surface((font.width + 10, font.height + 10)).convert_alpha()
                 surf.fill(self.sg)
@@ -1450,12 +1632,17 @@ class Bag:
             if self.__bag[48]:
                 text = f"{self.__bag[48].name}"
                 for a in range(9):
-                    text += f"\n{game_master.gameObject.ATTRIBUTE[a]}:{self.__bag[48].attribute[a]}"
+                    if self.__bag[48].attribute[a]:
+                        text += f"\n{game_master.gameObject.ATTRIBUTE[a]} "
+                        if self.__bag[48].attribute[a] > 0:
+                            text += f"+{self.__bag[48].attribute[a]}"
+                        else:
+                            text += f"{self.__bag[48].attribute[a]}"
                 font = game_master.game.Game.FONT.render(text, True, (255, 255, 255)).convert_alpha()
                 surf = pygame.Surface((font.width + 10, font.height + 10)).convert_alpha()
                 surf.fill(self.sg)
                 surf.blit(font, (5, 5))
-                text = f"{self.__bag[i].name}"
+                text = f"{self.__bag[48].name}"
                 font = game_master.game.Game.FONT.render(text, True, (83, 250, 250)).convert_alpha()
                 surf.blit(font, (5, 5))
                 pygame.display.get_surface().blit(surf, offset)
@@ -1483,7 +1670,12 @@ class Bag:
                 if self.__bag[i]:
                     text = f"{self.__bag[i].name}"
                     for a in range(9):
-                        text += f"\n{game_master.gameObject.ATTRIBUTE[a]}:{self.__bag[i].attribute[a]}"
+                        if self.__bag[i].attribute[a]:
+                            text += f"\n{game_master.gameObject.ATTRIBUTE[a]} "
+                            if self.__bag[i].attribute[a] > 0:
+                                text += f"+{self.__bag[i].attribute[a]}"
+                            else:
+                                text += f"{self.__bag[i].attribute[a]}"
                     font = game_master.game.Game.FONT.render(text, True, (255, 255, 255)).convert_alpha()
                     surf = pygame.Surface((font.width + 10, font.height + 10)).convert_alpha()
                     surf.fill(self.sg)
@@ -1506,7 +1698,12 @@ class Bag:
                 if self.__bag[i]:
                     text = f"{self.__bag[i].name}"
                     for a in range(9):
-                        text += f"\n{game_master.gameObject.ATTRIBUTE[a]}:{self.__bag[i].attribute[a]}"
+                        if self.__bag[i].attribute[a]:
+                            text += f"\n{game_master.gameObject.ATTRIBUTE[a]} "
+                            if self.__bag[i].attribute[a] > 0:
+                                text += f"+{self.__bag[i].attribute[a]}"
+                            else:
+                                text += f"{self.__bag[i].attribute[a]}"
                     font = game_master.game.Game.FONT.render(text, True, (255, 255, 255)).convert_alpha()
                     surf = pygame.Surface((font.width + 10, font.height + 10)).convert_alpha()
                     surf.fill(self.sg)
@@ -1593,9 +1790,71 @@ class Bag:
         if obj:
             self.__bag[-1] = items.className.GOODS[obj[-1][0]](number=obj[-1][1])
             self.__frame_state[-1] = 1
-            print(temp)
             return temp
         return 0
+
+    def update_mouse(self):
+        if self.mouse:
+            n = pygame.mouse.get_pos()[1] - self.__rect[1]
+            self.mouse_offset = n - self.mouse_start
+            self.mouse_start = n
+            self.update_offset(-round(self.mouse_offset / self.slide_offset) / 20)
+
+    def update_offset(self, number):
+        if self.slide_offset:
+            self.book_offset -= number * 20
+            t = max(len(game_master.synthesis.PLAYER_SYNTHESIS_LIST) * 50 - 400, 0)
+            if self.book_offset < 0:
+                self.book_offset = 0
+            elif self.book_offset > t:
+                self.book_offset = t
+            self.update_book()
+
+    def update_book(self):
+        self.__book_ground.fill(self.bg)
+        l = len(game_master.synthesis.PLAYER_SYNTHESIS_LIST)
+        surf = pygame.Surface((140, 50))
+        surf.fill((0, 0, 0))
+        s = pygame.Surface((140, 46))
+        s.fill(self.fg)
+        if self.slide_offset:
+            for i in range(l):
+                t = i * 50 - self.book_offset
+                if -1 < t / 50 <= 0:
+                    if self.slide_offset and t / 50 < 0:
+                        for j in range(9):
+                            t = (i + j) * 50 - self.book_offset
+                            self.__book_ground.blit(surf, (0, t))
+                            self.__book_ground.blit(s, (0, t + 2))
+                            k = items.className.GOODS[game_master.synthesis.PLAYER_SYNTHESIS_LIST[i + j][-1][0]]()
+                            self.__book_ground.blit(k.surface, (2, t + 5))
+                            font = game_master.game.Game.FONT.render(f"{k.name}", True, (255, 255, 255)).convert_alpha()
+                            rect = font.get_rect(topleft=(45, t + 5))
+                            rect.centery = t + 25
+                            self.__book_ground.blit(font, rect)
+                        break
+                    else:
+                        for j in range(min(len(game_master.synthesis.PLAYER_SYNTHESIS_LIST), 8)):
+                            t = (i + j) * 50 - self.book_offset
+                            self.__book_ground.blit(surf, (0, t))
+                            self.__book_ground.blit(s, (0, t + 2))
+                            k = items.className.GOODS[game_master.synthesis.PLAYER_SYNTHESIS_LIST[i+j][-1][0]]()
+                            self.__book_ground.blit(k.surface,(2, t + 5))
+                            font = game_master.game.Game.FONT.render(f"{k.name}", True, (255, 255, 255)).convert_alpha()
+                            rect = font.get_rect(topleft=(45, t + 5))
+                            rect.centery = t + 25
+                            self.__book_ground.blit(font, rect)
+                        break
+        else:
+            for i in range(l):
+                self.__book_ground.blit(surf, (0, i * 50))
+                self.__book_ground.blit(s, (0, i * 50 + 2))
+                k = items.className.GOODS[game_master.synthesis.PLAYER_SYNTHESIS_LIST[i][-1][0]]()
+                self.__book_ground.blit(k.surface, (2, i * 50 + 5))
+                font = game_master.game.Game.FONT.render(f"{k.name}", True, (255, 255, 255)).convert_alpha()
+                rect = font.get_rect(topleft=(45, i * 50 + 5))
+                rect.centery = i * 50 + 25
+                self.__book_ground.blit(font, rect)
 
     def update_inventory(self):
         if self.selection_box < 34:
@@ -1609,6 +1868,8 @@ class Bag:
         self.time = 3
 
     def update(self, image, dt):
+        if self.book_state:
+            self.update_mouse()
         self.__role_box.fill((0, 0, 0))
         max_v = min(self.__role_box.width / image.width, self.__role_box.height / image.height)
         image = pygame.transform.scale(image, (image.width * max_v, image.height * max_v))
@@ -1625,6 +1886,9 @@ class Bag:
             if self.__bag[i]:
                 if not self.__bag[i]:
                     self.__bag[i] = 0
+                    self.__frame_state[i] = 1
+                elif hasattr(self.__bag[i], "update"):
+                    self.__bag[i].update(dt)
                     self.__frame_state[i] = 1
             if self.__frame_state[i]:
                 self.__frame[i].fill(self.fg)
@@ -1661,8 +1925,9 @@ class Bag:
     def render_inventory(self):
         pygame.display.get_surface().blit(self.__inventory, self.__inventory_rect)
         if self.time > 0 and self.__bag[self.__selection_box]:
-            font = game_master.game.Game.FONT.render(f"{self.__bag[self.__selection_box].name}", True, (83, 250, 250)).convert_alpha()
-            surf = pygame.Surface((font.width+10, font.height+10)).convert_alpha()
+            font = game_master.game.Game.FONT.render(f"{self.__bag[self.__selection_box].name}", True,
+                                                     (83, 250, 250)).convert_alpha()
+            surf = pygame.Surface((font.width + 10, font.height + 10)).convert_alpha()
             if self.time < 2.55:
                 surf.set_alpha(round(self.time * 100))
             surf.fill(self.sg)
@@ -1675,6 +1940,10 @@ class Bag:
         if self.__state:
             pygame.display.get_surface().blit(self.__background, self.__rect)
             if self.__book_state:
-                pygame.display.get_surface().blit(self.__book_ground, self.__book_rect)
+                surf = pygame.Surface((156, 410)).convert_alpha()
+                surf.fill((253, 253, 253))
+                surf.blit(self.slide, (150, 5 + self.slide_offset * self.book_offset))
+                surf.blit(self.__book_ground, (8, 5))
+                pygame.display.get_surface().blit(surf, self.__book_rect)
             self.get_message(list(pygame.mouse.get_pos()))
             self.render_selection()

@@ -15,15 +15,15 @@ class Boss(game_master.gameObject.GameNpc):
 class Crazy(Boss):
     def __init__(self, pos, collision, *groups):
         super().__init__(pos, "crazy", collision, *groups)
-        self.attribute.health = 20000
-        self.h_n = 20000
-        self.attribute.attacked = 200
-        self.attribute.attack_speed = 2
-        self.attribute.move_speed = 500
-        self.attribute.defense = 50
-        self.attribute.critical_strike_damage = 1.5
-        self.attribute.critical_strike_chance = 0.05
+        self.attribute.health = 1000000
+        self.attribute.attacked = 2000
+        self.attribute.attack_speed = 1
+        self.attribute.move_speed = 400
+        self.attribute.defense = 1000
+        self.attribute.critical_strike_damage = 5
+        self.attribute.critical_strike_chance = 1
         self.attribute_now = self.attribute.copy()
+        self.h_n = self.attribute_now.health
         self.chouhengjuli = 2000
 
     def setup(self, name: str, pos):
@@ -62,7 +62,7 @@ class Crazy(Boss):
     def action(self, rect, group):
         if self.attacking:
             return
-        if -self.image.width - 20 <= rect.centerx - self.rect.centerx <= self.image.width + 20 and -self.image.height - 20 <= rect.centery - self.rect.centery <= self.image.height + 20:
+        if -self.image.width - 50 <= rect.centerx - self.rect.centerx <= self.image.width + 50 and -self.image.height - 50 <= rect.centery - self.rect.centery <= self.image.height + 50:
             if not self.attacking:
                 r = f"{random.randint(1, 2)}_"
                 self.attacking = 1
@@ -96,4 +96,4 @@ class Crazy(Boss):
             pos = self.rect.right, self.rect.centery
         else:
             pos = self.rect.left, self.rect.centery
-        self.attack_box = AttackingObj(damage, pos, "monster", -1, group, rect=self.image.get_rect(center=pos).copy().inflate(20, 50))
+        self.attack_box = AttackingObj(damage, pos, "monster", -1, group, rect=self.image.get_rect(center=pos).copy().inflate(60, 60))
